@@ -3,6 +3,7 @@
 class Login extends Controller {
     function __construct(){
         parent::__construct();
+        Session::init();
         // echo "We are in index </br>";
 
         // $this->view->render('login/index');
@@ -16,6 +17,12 @@ class Login extends Controller {
 
     function login() {
         $this->model->login();
+    }
+
+    function logout() {
+        Session::destroy();
+        header('location: ../login');
+        exit;
     }
 
 }

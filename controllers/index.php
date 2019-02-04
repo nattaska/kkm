@@ -5,6 +5,7 @@ class Index extends Controller {
         parent::__construct();
         Session::init();
         $logged = Session::get('UserData');
+        // echo "logged = ".$logged."</br>";
         if ($logged == false) {
             Session::destroy();
             header('location: login');
@@ -21,6 +22,12 @@ class Index extends Controller {
 
     function details() {
         $this->view->render('index/index');
+    }
+
+    function logout() {
+        Session::destroy();
+        header('location: ../login');
+        exit;
     }
 
 }

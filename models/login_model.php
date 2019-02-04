@@ -7,7 +7,7 @@ class Login_Model extends Model {
     }
 
     public function login() {
-        $sth = $this->db->prepare("select empcd code, emppwd password, empfnm firstname, emplnm lastname, empnnm nickname, prmdesc profile 
+        $sth = $this->db->prepare("select empcd code, empfnm firstname, emplnm lastname, empnnm nickname, empprof pfcode, prmdesc profile 
                 from employee, parameters 
                 where empcd=:code
                 and emppwd = MD5(:password)
@@ -17,15 +17,13 @@ class Login_Model extends Model {
             ':code'=>$_POST['usercode'],
             ':password'=>$_POST['password']
         ));
-        echo $_POST['usercode'].'</br>';
-        echo $_POST['password'].'</br>';
-        echo $sth->rowCount().'</br>';
+        
         if ($sth->rowCount() > 0) {
             // login
             $users=$sth->fetch(PDO::FETCH_ASSOC);
             Session::init();
             Session::set('UserData',$users);
-            header('location: ../worksheet');
+            header('location: ../timesheet');
         } else {
             // Show an error
             header('location: ../login');
