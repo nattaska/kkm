@@ -34,6 +34,11 @@
                                     <div class="col col-md-3"><label for="text-input" class=" form-control-label">Nick Name</label></div>
                                     <div class="col-12 col-md-9"><input type="text" id="nname" name="text-input" value="<?php echo $user['nickname']; ?>" placeholder="Text" class="form-control"></div>
                                 </div>
+                                <?php print_r($this->depts); 
+                                foreach ($arr as &$this->depts) {
+                                    $value = $value * 2;
+                                }
+                                ?>
                                 <div class="row form-group">
                                     <div class="col col-md-3"><label class=" form-control-label">Department</label></div>
                                     <div class="col col-md-9">
