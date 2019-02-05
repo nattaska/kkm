@@ -21,7 +21,7 @@ class Timesheet extends Controller {
                                     , "sdate" => date_format($date,"Y-m-01")
                                     , "edate" => date_format($date,"Y-m-t"));
 
-        $this->view->js = array('timesheet/js/default.js');
+        $this->view->js = array('timesheet/default.js');
     }
 
     function index() {

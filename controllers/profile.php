@@ -18,10 +18,13 @@ class Profile extends Controller {
         $paramObj->getParameter(3);
 
         $this->view->depts  =$paramObj->param;
-        // echo "We are in index </br>";
-        print_r($this->view->depts);
 
-        // $this->view->render('index/index');
+        $paramObj->getParameter(4);
+        $this->view->profiles  =$paramObj->param;
+
+        // echo "We are in index </br>";
+        $this->view->js = array('profile/default.js');
+        
     }
 
     function index() {

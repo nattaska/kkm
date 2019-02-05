@@ -59,4 +59,4 @@
     </div>
 </div>
 <div>
-<a href="<?php echo URL; ?>index/logout">Logout</a>
+<!-- <a href="<?php echo URL; ?>index/logout">Logout</a> -->
