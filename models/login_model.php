@@ -12,7 +12,7 @@ class Login_Model extends Model {
                 from employee, parameters, payment     
                 where empcd=:code
                 and emppwd = MD5(:password)
-                AND prmid=5 
+                AND prmid=4 
                 AND empprof=prmcd 
                 and payempcd=empcd 
                 and current_date between paysdate and payedate ");

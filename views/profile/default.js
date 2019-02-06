@@ -15,6 +15,7 @@
             // alert ( $(this).val() );
             $('#account').val($('#acchide').val());
             $('#account').removeAttr('disabled');
+            $('#account').focus();
         });
     });
   
