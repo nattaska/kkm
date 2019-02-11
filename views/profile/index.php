@@ -2,6 +2,7 @@
 
 // $user =  $_SESSION['UserData'];
 // echo "User : ".$user['nickname'];
+$user=$this->user;
 
 ?>
 
@@ -10,17 +11,18 @@
         <div class="row">
             <div class="col-md-1"></div>
             <div class="col-lg-10">
-                <form action="#" method="post" enctype="multipart/form-data" class="form-horizontal">
+                <form action="profile/update" method="post" enctype="multipart/form-data" class="form-horizontal">
                     <div class="card border border-primary">
                         <div class="card-header bg-primary">
                             <strong class="card-title text-light">Profile</strong>
-                            <div class="pull-right"><button type="button" class="btn btn-success">Update</button></div>
+                            <div class="pull-right"><button type="submit" class="btn btn-success">Update</button></div>
                         </div>
                         <div class="card-body">
                             <div class="row form-group">
                                 <div class="col col-md-3"><label class=" form-control-label">Employee Code</label></div>
                                     <div class="col-12 col-md-9">
                                         <p class="form-control-static"><?php echo $user['code']; ?></p>
+                                        <input type="hidden" id="code" name="code" value="<?php echo $user['code']; ?>" class="form-control">
                                     </div>
                                 </div>
                                 <div class="row form-group">
@@ -34,6 +36,10 @@
                                 <div class="row form-group">
                                     <div class="col col-md-3"><label for="text-input" class=" form-control-label">Nick Name</label></div>
                                     <div class="col-12 col-md-3"><input type="text" id="nname" name="nname" value="<?php echo $user['nickname']; ?>" placeholder="Nick Name" class="form-control"></div>
+                                </div>
+                                <div class="row form-group">
+                                    <div class="col col-md-3"><label for="text-input" class=" form-control-label">Phone</label></div>
+                                    <div class="col-12 col-md-3"><input type="text" id="phone" name="phone" value="<?php echo $user['phone']; ?>" placeholder="Phone" class="form-control"></div>
                                 </div>
                                 <div class="row form-group">
                                     <div class="col col-md-3"><label class=" form-control-label">Department</label></div>
@@ -65,7 +71,7 @@
                                 </div>
                                 <div class="row form-group">
                                     <div class="col col-md-3"><label for="number-input" class=" form-control-label">Payroll cycle</label></div>
-                                    <div class="col-12 col-md-2"><input type="number" id="paymethd" name="number-input" value="<?php echo $user['paymethd']; ?>" class="form-control"></div>
+                                    <div class="col-12 col-md-2"><input type="number" id="paymethd" name="paymethd" value="<?php echo $user['paymethd']; ?>" class="form-control"></div>
                                 </div>
                                 <div class="row form-group">
                                     <div class="col col-md-3"><label class=" form-control-label">Payment Type</label></div>
@@ -91,24 +97,10 @@
                                 </div>
                             </div>
                         </div>
-                    <!-- <?php  echo print_r($user); ?> -->
+                    <!-- <?php // echo print_r($user); ?> -->
                     </div>
                 </form>
             </div>
         </div>
-        <!-- <div class="row form-group">
-            <div class="col col-md-9"></div>
-            <div class="col col-md-2 float-right">
-            <div class="pull-right"><button type="button" class="btn btn-primary">Update</button></div> 
-            </div>
-        </div> -->
-        <!-- <div class="row">
-                    <div class="col-md-1"></div>
-                     <div class="col-lg-10">
-            <div class="card">
-                <div class="card-body">
-                </div>
-            </div>
-        </div> -->
     </div>
 </div>

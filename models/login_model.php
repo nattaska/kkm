@@ -7,15 +7,15 @@ class Login_Model extends Model {
     }
 
     public function login() {
-        $sth = $this->db->prepare("select empcd code, empfnm firstname, emplnm lastname, empnnm nickname, empprof pfcode, prmdesc profile 
-                , paydeptid deptid, paytype, paymethd, payaccount account, paysso 
-                from employee, parameters, payment     
-                where empcd=:code
-                and emppwd = MD5(:password)
-                AND prmid=4 
-                AND empprof=prmcd 
-                and payempcd=empcd 
-                and current_date between paysdate and payedate ");
+
+        $sql = "select usrcd code, usrprof pfcode, prmdesc profdesc, ifnull(empnnm,'-') nickname
+                FROM users
+                LEFT JOIN employee ON usrcd=empcd
+                JOIN parameters ON usrprof=prmcd AND prmid=4 
+                WHERE usrcd = :code
+                AND usrpwd = MD5(:password) ";
+
+        $sth = $this->db->prepare($sql);
         $sth->execute(array(
             ':code'=>$_POST['usercode'],
             ':password'=>$_POST['password']
@@ -23,9 +23,9 @@ class Login_Model extends Model {
         
         if ($sth->rowCount() > 0) {
             // login
-            $users=$sth->fetch(PDO::FETCH_ASSOC);
+            $login=$sth->fetch(PDO::FETCH_ASSOC);
             Session::init();
-            Session::set('UserData',$users);
+            Session::set('LoginData',$login);
             header('location: ../profile');
         } else {
             // Show an error

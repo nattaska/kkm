@@ -3,7 +3,7 @@
 // if (!isset($_SESSION['UserData'])) {
 //     exit(header("location:login.php"));
 // }
-$user =  $_SESSION['UserData'];
+$loginData =  $_SESSION['LoginData'];
 ?>
 <!doctype html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
@@ -167,7 +167,7 @@ $user =  $_SESSION['UserData'];
                     </div>
 
                     <div class="user-area dropdown float-right">
-                        <a href="#" class="dropdown-toggle active" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <?php echo "Hi!&nbsp;".$user['nickname']."&nbsp;|&nbsp;&nbsp;".$user['profile']; ?> &nbsp;&nbsp; 
+                        <a href="#" class="dropdown-toggle active" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <?php echo $loginData['code'].'['.$loginData['nickname']."]&nbsp;|&nbsp;&nbsp;".$loginData['profdesc']; ?> &nbsp;&nbsp; 
                             <img class="user-avatar rounded-circle" src="images/admin.jpg" alt="User Avatar">
                         </a>
 

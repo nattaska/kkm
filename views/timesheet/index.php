@@ -1,4 +1,6 @@
-
+<?php 
+        $loginData = Session::get('LoginData');
+?>
 <div class="content">
     <div class="animated fadeIn">
         <div class="row">
@@ -17,7 +19,7 @@
                                         <div class="col-md-4">
                                             <div class="input-group">                                            
                                                 <div class="col col-md-4">
-                                                <input type="text" id="code" name="code" class="form-control" value="<?php echo $this->criteria['code']; ?>" <?php $retVal = ($user['pfcode']==1)?"":"disabled"; echo $retVal; ?>></div>
+                                                <input type="text" id="code" name="code" class="form-control" value="<?php echo $this->criteria['code']; ?>" <?php $retVal = ($loginData['pfcode']==1)?"":"disabled"; echo $retVal; ?>></div>
                                                 <div class="input-group-addon"><i class="fa fa-user"></i></div>
                                                 <div class="col col-md-6"><input type="text" id="name" name="name" placeholder="<?php echo $this->criteria['nickname']; ?>" class="form-control" disabled></div>
                                             </div>

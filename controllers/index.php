@@ -4,7 +4,7 @@ class Index extends Controller {
     function __construct(){
         parent::__construct();
         Session::init();
-        $logged = Session::get('UserData');
+        $logged = Session::get('LoginData');
         // echo "logged = ".$logged."</br>";
         if ($logged == false) {
             Session::destroy();

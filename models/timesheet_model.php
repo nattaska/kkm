@@ -5,33 +5,15 @@ class Timesheet_Model extends Model {
         parent::__construct();
     }
 
-    // function xhrInsert() {
-    //     $text = $_POST['text'];
-    //     $sth = $this->db->prepare('INSERT INTO data(text) values (:text)');
-    //     $sth->execute(array(':text' => $text));
-        
-    //     $data = array('text' => $text, 'id' => $this->db->lastInsertId());
-    //     echo json_encode($data);
-    // }
-
     function xhrGetUserLov() {
         // $keyword = $_GET['keyword'];
 
         $sql = "SELECT empcd value, concat(empcd,' - ',empnnm) label FROM employee";
 
         $sth = $this->db->prepare($sql);
-        // $sth->bindParam(':keyword', $keyword, PDO::PARAM_INT);
         $sth->setFetchMode(PDO::FETCH_ASSOC);
         $sth->execute();
         $data = $sth->fetchAll();
-
-        // $resultData = array();
-
-        // while($res=$sth->fetch(PDO::FETCH_ASSOC)) {
-        //     $resultData[]=$res;
-        // }
-
-        // // $data = $sth->fetchAll();
 
         echo json_encode($data);
     }
@@ -51,7 +33,7 @@ class Timesheet_Model extends Model {
     // xhrGetTimesheet($param)
     function xhrGetTimesheet() {
         // echo "post code = ".$_POST['code'];
-        $user = Session::get('UserData');
+        $user = Session::get('LoginData');
         $date = new DateTime();
 
         $code = (isset($_POST['code']))?$_POST['code']:$user['code'];
