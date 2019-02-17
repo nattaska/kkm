@@ -1,5 +1,7 @@
 <?php
 
+require 'profile_model.php';
+
 class Login_Model extends Model {
 
     public function __construct() {
@@ -26,6 +28,10 @@ class Login_Model extends Model {
             $login=$sth->fetch(PDO::FETCH_ASSOC);
             Session::init();
             Session::set('LoginData',$login);
+
+            $profObj = new Profile_Model();
+            $profObj->getProfile($_POST['usercode']);
+            // Session::set('UserProfile',$profObj->userProfile);
             header('location: ../profile');
         } else {
             // Show an error

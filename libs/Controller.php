@@ -12,6 +12,9 @@ class Controller {
             require 'models/'.$name.'_model.php';
             $modelName = $name.'_Model';
             $this->model = new $modelName;
+
+            require 'models/parameter_model.php';
+            $this->paramModel = new Parameter_Model();
         }
     }
 }

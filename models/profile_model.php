@@ -2,7 +2,7 @@
 
 class Profile_Model extends Model {
     // public $param = array();
-    public $userProfile = array();
+    // public $userProfile = array();
 
     public function __construct() {
         parent::__construct();
@@ -24,7 +24,10 @@ class Profile_Model extends Model {
             ':code'=>$code
         ));
 
-        $this->userProfile=$sth->fetch(PDO::FETCH_ASSOC);
+        // $this->userProfile=$sth->fetch(PDO::FETCH_ASSOC);
+        $user=$sth->fetch(PDO::FETCH_ASSOC);
+
+        Session::set('UserProfile',$user);
 
     }
 
@@ -64,6 +67,7 @@ class Profile_Model extends Model {
                 ));
 
             $this->db->commit();
+            $this->getProfile($_POST['code']);
 
         } catch (Exception $e) {
             echo $e->getMessage();

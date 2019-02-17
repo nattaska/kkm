@@ -1,6 +1,6 @@
 <?php
 
-require 'models/parameter_model.php';
+// require 'models/parameter_model.php';
 // require 'models/profile_model.php';
 
 class Profile extends Controller {
@@ -27,24 +27,26 @@ class Profile extends Controller {
 
     function index() {
 
-        $logged = Session::get('LoginData');
-        $this->model->getProfile($logged['code']);
-        $this->view->user = $this->model->userProfile;
+        // $logged = Session::get('UserProfile');
+        // $this->model->getProfile($logged['code']);
+        $this->view->user = Session::get('UserProfile');
 
-        $paramObj = new Parameter_Model();
-        $paramObj->getParameter(3);
+        // $paramObj = new Parameter_Model();
+        $this->paramModel->getParameter(3);
 
-        $this->view->depts = $paramObj->param;
+        $this->view->depts = $this->paramModel->paramList;
 
-        $paramObj->getParameter(4);
-        $this->view->profiles = $paramObj->param;
+        $this->paramModel->getParameter(4);
+        $this->view->profiles = $this->paramModel->paramList;
 
         $this->view->render('profile/index');
     }
 
     function update() {
         $this->model->update();
-        $this->view->msg = "Update successful";
+        $this->view->user = $this->model->userProfile;
+        $this->view->msg='Update successful';
+
         $this->view->render('profile/index');
     }
 

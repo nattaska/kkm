@@ -27,20 +27,17 @@ $loginData =  $_SESSION['LoginData'];
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pixeden-stroke-7-icon@1.2.3/pe-icon-7-stroke/dist/pe-icon-7-stroke.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.2.0/css/flag-icon.min.css">
     <link rel="stylesheet" href="assets/css/cs-skin-elastic.css">
+    <!-- <link rel="stylesheet" href="assets/css/lib/datatable/dataTables.bootstrap.min.css"> -->
     <link rel="stylesheet" href="assets/css/style.css">
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    
-    <!-- Scripts -->
-    <script src="https://cdn.jsdelivr.net/npm/jquery@2.2.4/dist/jquery.min.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.4/dist/umd/popper.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/jquery-match-height@0.7.2/dist/jquery.matchHeight.min.js"></script>
-    <script src="assets/js/main.js"></script>
+    <!-- <link rel="stylesheet" href="public/css/style.css"> -->
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
+
     <?php 
-        if (isset($this->js)) {
-            foreach ($this->js as $js) {
-                echo '<script type="text/javascript" src="'.URL.'views/'.$js.'"></script>';
+        if (isset($this->css)) {
+            foreach ($this->css as $css) {
+                echo '<link rel="stylesheet" href="'.$css.'">
+    ';
             }
         }
     ?>
@@ -60,8 +57,8 @@ $loginData =  $_SESSION['LoginData'];
                     <li><a href="timesheet"> <i class="menu-icon fa fa-table"></i>Working Time </a></li>
                     <li><a href="advance"> <i class="menu-icon fa fa-money"></i>Advance </a></li>
                     <li class="menu-title">Food</li><!-- /.menu-title -->
-                    <li><a href="buffet.php"> <i class="menu-icon fa fa-users"></i>Buffet </a></li>
-                    <li><a href="npfood.php"> <i class="menu-icon fa fa-cutlery"></i>NP Food </a></li>
+                    <li><a href="buffet"> <i class="menu-icon fa fa-users"></i>Buffet </a></li>
+                    <li><a href="npfood"> <i class="menu-icon fa fa-cutlery"></i>NP Food </a></li>
                     <li class="menu-title">Resturant</li><!-- /.menu-title -->
                     <li><a href="accessories.php"> <i class="menu-icon fa fa-glass"></i>Accessories </a></li>
                     <li><a href="stock.php"> <i class="menu-icon fa fa-list-alt"></i>Stock </a></li>
