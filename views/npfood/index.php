@@ -45,14 +45,15 @@
                                 
                                     <div class="card-body">
                                         <!-- <table id="bootstrap-data-table" class="table table-striped table-bordered"> -->
-                                        <!-- <table id="table-npfood" class="table table-striped table-bordered"> -->
-                                        <table id="example" class="display" width="100%"></table>
+                                        <table id="table-npfood" class="table table-striped table-bordered dataTale" role="grid">
                                             <thead>
                                                 <tr>
                                                     <th>Order ID</th>
-                                                    <th>Ordere Date</th>
+                                                    <th>Order    Date</th>
                                                     <th>Room</th>
                                                     <th>Total</th>
+                                                    <th></th>
+                                                    <th></th>
                                                 </tr>
                                             </thead>
                                             <tfoot>
@@ -61,6 +62,8 @@
                                                     <th>Ordere Date</th>
                                                     <th>Room</th>
                                                     <th>Total</th>
+                                                    <th></th>   
+                                                    <th></th>
                                                 </tr>
                                             </tfoot>
                                             <!-- <tbody id="listNPFood">
@@ -94,8 +97,3 @@
                 </div>
             </div><!-- .animated -->
         </div><!-- .content -->
-        <!-- <script type="text/javascript">
-        $(document).ready(function() {
-          $('#bootstrap-data-table-export').DataTable();
-      } ); -->
-  <!-- </script> -->
