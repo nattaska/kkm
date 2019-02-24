@@ -49,10 +49,9 @@
                                             <thead>
                                                 <tr>
                                                     <th>Order ID</th>
-                                                    <th>Order    Date</th>
+                                                    <th>Order Date</th>
                                                     <th>Room</th>
                                                     <th>Total</th>
-                                                    <th></th>
                                                     <th></th>
                                                 </tr>
                                             </thead>
@@ -62,7 +61,6 @@
                                                     <th>Ordere Date</th>
                                                     <th>Room</th>
                                                     <th>Total</th>
-                                                    <th></th>   
                                                     <th></th>
                                                 </tr>
                                             </tfoot>
