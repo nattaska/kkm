@@ -9,10 +9,10 @@
             dom: 'Bfrtip',
             buttons: [
                 {
-                    text: '<button type="button" class="btn btn-primary btn-sm"><i class="fa fa-plus"></i>&nbsp;Add</button>',
-                    action: function ( e, dt, node, config ) {
-                        alert( 'Button activated' );
-                    }
+                    text: '<button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#addDataModel"><i class="fa fa-plus"></i>&nbsp;Add</button>',
+                    // action: function ( e, dt, node, config ) {
+                    //     alert( 'Button activated' );
+                    // }
                 }
             ],
             columns: [
@@ -31,35 +31,56 @@
                     // {"className": "dt-right", "targets": [2]}
             ]
             });
- 
-        // $('#table-npfood tbody').on( 'click', 'tr', function () {
-        //     if ( $(this).hasClass('selected') ) {
-        //         $(this).removeClass('selected');
-        //     }
-        //     else {
-        //         table.$('tr.selected').removeClass('selected');
-        //         $(this).addClass('selected');
-        //     }
-            // console.log( table.row( this ).data() );
-            // var data = table.row( this ).data();
-            // alert(data.ordid);
-        // } );
- 
-        // $('#table-npfood tbody').on( 'click', 'button', function () {
-        //     var data = table.row( $(this).parents('tr') ).data();
-        //     alert( data[0] +"'s total is: "+ data[ 3 ] );
-        // } );
             
         $("#search").submit(function() {
             var url = $(this).attr('action');
             var data = $(this).serialize();
-    
+
             $.post(url, data, function(o) {
                 table.clear().draw();
                 data = JSON.parse(o);
                 // console.log(data);
                 table.rows.add(data).draw();
             });
+    
+            return false;
+        });
+            
+        $("#addData").submit(function() {
+            var url = $(this).attr('action');
+            var data = $(this).serialize();
+
+            var ordid  = $('#ordid').val();
+            var orddate = $('#orddate').val();
+            var room   = $('#room').val();
+            var total = $('#total').val();
+
+            // if(!ordid || !orddate || !room || !total){
+                // alert("All fields are required.");
+                
+                // $('#ordid').notify({
+                //     message: 'This fields are required',
+                //     type: 'danger'
+                // });
+             
+                // $('.error').show(3000).html("All fields are required.").delay(3200).fadeOut(3000);
+            // } else {
+    
+                $.post(url, data, function(o) {
+                    // alert(o);
+                    var loadingModal = $("#addDataModel");
+                    if (o.res > 0) {
+                        loadingModal.modal("hide");
+                        $('body').removeClass('modal-open');
+                        $('.modal-backdrop').remove();
+                        $(".alert").hide().show('medium');
+                        // alert("Success");
+                    } else {
+                        alert(o.error);
+                    }
+                }, 'json');
+
+            // }
     
             return false;
         });

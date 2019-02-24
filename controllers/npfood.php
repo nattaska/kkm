@@ -41,6 +41,10 @@ class NPFood extends Controller {
         $this->model->xhrGetNPFoodList();
     }
 
+    function xhrInsertNPFood() {
+        $this->model->xhrInsertNPFood();
+    }
+
     // function update() {
     //     $this->model->update();
     //     $this->view->msg = "Update successful";

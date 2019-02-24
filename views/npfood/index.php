@@ -22,19 +22,17 @@
                                                 </div>
                                                 <div class="col-md-1"></div>
                                                 <div class="col-md-3">
-                                                    <label for="sdate" class="control-label mb-1">End Date</label>
+                                                    <label for="edate" class="control-label mb-1">End Date</label>
                                                     <div class="input-group">
                                                         <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
                                                         <input type="date" name="edate" class="form-control" value="<?php echo $this->criteria['edate']; ?>">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-2">
-                                                    <label for="sdate" class="control-label mb-1"></label>
+                                                    <label for="search" class="control-label mb-1"></label>
                                                     <div class="input-group">
                                                         <!-- <div class="input-group-btn"> -->
-                                                            <button class="btn btn-primary"> 
-                                                                <i class="ti ti-search"></i> Search
-                                                            </button>
+                                                            <button class="btn btn-primary"> <i class="ti ti-search"></i> Search</button>
                                                         <!-- </div> -->
                                                         <!-- <input class="btn btn-outline-primary" type="submit" value="Search"> -->
                                                     </div>
@@ -64,29 +62,57 @@
                                                     <th></th>
                                                 </tr>
                                             </tfoot>
-                                            <!-- <tbody id="listNPFood">
-                                            </tbody> -->
-                                            <!-- <tbody>
-                                                <tr>
-                                                    <td>Tiger Nixon</td>
-                                                    <td>System Architect</td>
-                                                    <td>Edinburgh</td>
-                                                    <td>$320,800</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Garrett Winters</td>
-                                                    <td>Accountant</td>
-                                                    <td>Tokyo</td>
-                                                    <td>$170,750</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Ashton Cox</td>
-                                                    <td>Junior Technical Author</td>
-                                                    <td>San Francisco</td>
-                                                    <td>$86,000</td>
-                                                </tr>
-                                            </tbody> -->
                                         </table>
+                                    </div>
+
+                                    <div class="modal fade" id="addDataModel" tabindex="-1" role="dialog" aria-labelledby="staticModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog modal-md" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="staticModalLabel">Add Order</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <form id="addData" action="<?php echo URL; ?>npfood/xhrInsertNPFood" method="post" class="form-horizontal">
+                                                <!-- <div class="row form-group"> -->
+                                                    <div class="modal-body">                                                    
+                                                            <div class="row form-group">
+                                                                <div class="col col-md-3"><label for="text-input" class=" form-control-label">Order Id</label></div>
+                                                                <div class="col-12 col-md-5"><input type="text" id="ordid" name="ordid" placeholder="Order Id" class="form-control"></div>
+                                                            </div>
+                                                            <?php                                                            
+                                                                $date = new DateTime();                                                            
+                                                            ?>
+                                                            <div class="row form-group">
+                                                                <div class="col col-md-3"><label for="text-input" class=" form-control-label">Order Date</label></div>
+                                                                <div class="col-12 col-md-5"><input type="date" id="orddate" name="orddate" value="<?php echo date_format($date,"Y-m-d"); ?>" class="form-control"></div>
+                                                            </div>                                                
+                                                            <div class="row form-group">
+                                                                <div class="col col-md-3"><label for="text-input" class=" form-control-label">Room</label></div>
+                                                                <div class="col-12 col-md-5"><input type="text" id="room" name="room" placeholder="Room" class="form-control"></div>
+                                                            </div>                                                                                                 
+                                                            <div class="row form-group">
+                                                                <div class="col col-md-3"><label for="text-input" class=" form-control-label">Total</label></div>
+                                                                <div class="col-12 col-md-5"><input type="number" id="total" name="total" placeholder="Total" class="form-control"></div>
+                                                            </div> 
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                    <!-- <div class="input-group"> -->
+                                                        <button id="confirmBtn" class="btn btn-primary" >Confirm</button>
+                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                                        <!-- <button class="btn btn-primary"> <i class="ti ti-search"></i> Search</button> -->
+                                                    <!-- </div>   -->
+                                                    </div>  
+                                                    <!-- </div>                                            -->
+                                                </form>
+                                            </div>
+                                            
+                                            <div class="alert alert-success alert-dismissable">
+                                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                                Success! message sent successfully.
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
