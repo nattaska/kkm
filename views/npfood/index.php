@@ -106,18 +106,21 @@
                                                     </div>  
                                                     <!-- </div>                                            -->
                                                 </form>
-                                            </div>
-                                            
-                                            <div class="alert alert-success alert-dismissable">
-                                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                                                Success! message sent successfully.
+                                                <div id="msgModel" ></div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+                                <!-- <div class="alert alert-success alert-dismissable">
+                                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                    Success! message sent successfully.
+                                </div> -->
+                                <div id="msgMain" ></div>
                             </div>
                         </div>
                     </div>
                 </div>
+                                            
+                                            
             </div><!-- .animated -->
         </div><!-- .content -->
