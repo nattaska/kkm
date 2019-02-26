@@ -45,8 +45,29 @@ class NPFood extends Controller {
         $this->model->xhrInsertNPFood();
     }
 
+    function xhrUpdateNPFood() {
+        $this->model->xhrUpdateNPFood();
+    }
+
     function xhrDeleteNPFood() {
         $this->model->xhrDeleteNPFood();
+    }
+
+    function xhrGetRoomLov() {
+        $arr = [];
+        $i = 0;
+        $this->paramModel->getParameter(5);
+        foreach ($this->paramModel->paramList as $row) {
+            $arr[$i]=(array('value' => $row["code"]
+                          , 'label' => $row["code"].' - T'.$row["val1"]));
+            $i++;
+        }
+
+        echo json_encode($arr);
+    }
+
+    function xhrGetTable() {
+        $this->model->xhrGetTable();
     }
 
     // function update() {

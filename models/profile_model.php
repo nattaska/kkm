@@ -26,7 +26,7 @@ class Profile_Model extends Model {
 
         // $this->userProfile=$sth->fetch(PDO::FETCH_ASSOC);
         $user=$sth->fetch(PDO::FETCH_ASSOC);
-
+        Session::init();
         Session::set('UserProfile',$user);
 
     }

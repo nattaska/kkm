@@ -29,6 +29,18 @@ class NPFood_Model extends Model {
         echo json_encode($data);
     }
 
+    function xhrGetTable() {
+        $code = $_POST['room'];
+
+        $sth = $this->db->prepare('SELECT prmval1 tabno FROM parameters WHERE prmid=5 AND prmcd=:code');
+        $sth->bindParam(':code', $code, PDO::PARAM_INT);
+        $sth->setFetchMode(PDO::FETCH_ASSOC);
+        $sth->execute();
+        $data = $sth->fetchAll();
+
+        echo json_encode($data);
+    }
+
     public function xhrInsertNPFood() {
 
         // echo print_r($_POST);
@@ -37,11 +49,47 @@ class NPFood_Model extends Model {
         try {
             $this->db->beginTransaction();
 
-            $sql = "INSERT INTO npfood VALUE(:ordid, :date, null, :room, :total);";
+            $sql = "INSERT INTO npfood VALUE(:ordid, :date, :tabno, :room, :total);";
             $stmt = $this->db->prepare($sql);
             $stmt->execute(array(
                 ':ordid'=>$_POST['ordid'],
                 ':date'=>$_POST['orddate'],
+                ':tabno'=>$_POST['tabno'],
+                ':room'=>$_POST['room'],
+                ':total'=>$_POST['total']
+                ));
+
+            $this->db->commit();
+
+        } catch (Exception $e) {
+            $result = "0";
+            $error = $e->getMessage();
+            $this->db->rollBack();
+        }
+        
+        $data = array('res' => $result, 'error' => $error);
+        echo json_encode($data);
+    }
+
+    function xhrUpdateNPFood() {
+        $result = "1";
+        $error = "";
+
+        try {
+            $this->db->beginTransaction();
+
+            $sql = "UPDATE  npfood
+                    SET  npfdate  = :date
+                        , npftable  = :tabno
+                        , npfroom  = :room
+                        , npftotal = :total
+                    WHERE npfordid = :ordid ";
+
+            $stmt = $this->db->prepare($sql);
+            $stmt->execute(array(
+                ':ordid'=>$_POST['ordid'],
+                ':date'=>$_POST['orddate'],
+                ':tabno'=>$_POST['tabno'],
                 ':room'=>$_POST['room'],
                 ':total'=>$_POST['total']
                 ));
@@ -65,8 +113,8 @@ class NPFood_Model extends Model {
         try {
             $this->db->beginTransaction();
             $id = $_POST['ordid'];
-            $sth = $this->db->prepare('DELETE FROM npfood WHERE npfordid = "'.$id.'"');
-            $sth->execute();
+            $stmt = $this->db->prepare('DELETE FROM npfood WHERE npfordid = "'.$id.'"');
+            $stmt->execute();
 
             $this->db->commit();
 

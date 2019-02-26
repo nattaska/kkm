@@ -40,6 +40,7 @@
                                             </div>
                                         </form>
                                     </div>
+                                    <div id="msgMain" ></div>
                                 
                                     <div class="card-body">
                                         <!-- <table id="bootstrap-data-table" class="table table-striped table-bordered"> -->
@@ -65,7 +66,7 @@
                                         </table>
                                     </div>
 
-                                    <div class="modal fade" id="addDataModel" tabindex="-1" role="dialog" aria-labelledby="staticModalLabel" aria-hidden="true">
+                                    <div class="modal fade" id="modifyDataModel" tabindex="-1" role="dialog" aria-labelledby="staticModalLabel" aria-hidden="true">
                                         <div class="modal-dialog modal-md" role="document">
                                             <div class="modal-content">
                                                 <div class="modal-header">
@@ -74,9 +75,9 @@
                                                         <span aria-hidden="true">&times;</span>
                                                     </button>
                                                 </div>
-                                                <form id="addData" action="<?php echo URL; ?>npfood/xhrInsertNPFood" method="post" class="form-horizontal">
-                                                <!-- <div class="row form-group"> -->
-                                                    <div class="modal-body">                                                    
+                                                <form id="modify-data-form" action="" method="post" class="form-horizontal">
+                                                    <div class="modal-body">
+                                                            <input type="hidden" id="url" name="url" value="<?php echo URL; ?>" class="form-control">
                                                             <div class="row form-group">
                                                                 <div class="col col-md-3"><label for="text-input" class=" form-control-label">Order Id</label></div>
                                                                 <div class="col-12 col-md-5"><input type="text" id="ordid" name="ordid" placeholder="Order Id" class="form-control"></div>
@@ -87,35 +88,30 @@
                                                             <div class="row form-group">
                                                                 <div class="col col-md-3"><label for="text-input" class=" form-control-label">Order Date</label></div>
                                                                 <div class="col-12 col-md-5"><input type="date" id="orddate" name="orddate" value="<?php echo date_format($date,"Y-m-d"); ?>" class="form-control"></div>
-                                                            </div>                                                
+                                                            </div>
                                                             <div class="row form-group">
                                                                 <div class="col col-md-3"><label for="text-input" class=" form-control-label">Room</label></div>
-                                                                <div class="col-12 col-md-5"><input type="text" id="room" name="room" placeholder="Room" class="form-control"></div>
-                                                            </div>                                                                                                 
+                                                                <div class="col-12 col-md-3"><input type="text" id="room" name="room" placeholder="Room" class="form-control"></div>
+                                                            </div>
+                                                            <div class="row form-group">
+                                                                <div class="col col-md-3"><label for="text-input" class=" form-control-label">Table&nbsp;</label></div>
+                                                                <div class="col-12 col-md-3"><input type="text" id="tabno" name="tabno" placeholder="Table" class="form-control" readonly="readonly"></div>
+                                                            </div>
                                                             <div class="row form-group">
                                                                 <div class="col col-md-3"><label for="text-input" class=" form-control-label">Total</label></div>
                                                                 <div class="col-12 col-md-5"><input type="number" id="total" name="total" placeholder="Total" class="form-control"></div>
                                                             </div> 
                                                     </div>
                                                     <div class="modal-footer">
-                                                    <!-- <div class="input-group"> -->
                                                         <button id="confirmBtn" class="btn btn-primary" >Confirm</button>
                                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                                                        <!-- <button class="btn btn-primary"> <i class="ti ti-search"></i> Search</button> -->
-                                                    <!-- </div>   -->
-                                                    </div>  
-                                                    <!-- </div>                                            -->
+                                                    </div>
                                                 </form>
                                                 <div id="msgModel" ></div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <!-- <div class="alert alert-success alert-dismissable">
-                                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                                    Success! message sent successfully.
-                                </div> -->
-                                <div id="msgMain" ></div>
                             </div>
                         </div>
                     </div>
