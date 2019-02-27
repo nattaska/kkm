@@ -13,20 +13,15 @@ class Buffet extends Controller {
             exit;
         }
         
-        $this->view->js = array('buffet/default.js',
-                                "../assets/js/lib/data-table/datatables.min.js",
-                                "../assets/js/lib/data-table/dataTables.bootstrap.min.js",
-                                "../assets/js/lib/data-table/dataTables.buttons.min.js",
-                                "../assets/js/lib/data-table/buttons.bootstrap.min.js",
-                                "../assets/js/lib/data-table/jszip.min.js",
-                                "../assets/js/lib/data-table/vfs_fonts.js",
-                                "../assets/js/lib/data-table/buttons.html5.min.js",
-                                "../assets/js/lib/data-table/buttons.print.min.js",
-                                "../assets/js/lib/data-table/buttons.colVis.min.js",
-                                "../assets/js/init/datatables-init.js");
+        $this->view->js = array(URL."views/buffet/default.js"
+                                ,URL."assets/js/lib/chosen/chosen.jquery.min.js"
+                            );
 
         // $this->view->css = array(URL.'assets/css/lib/datatable/dataTables.bootstrap.min.css');
-        $this->view->css = array('//cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css');
+        $this->view->css = array('https://cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css'
+                                ,URL."assets/css/lib/chosen/chosen.min.css"
+                                ,URL."public/css/default.css"
+                            );
         
     }
 
@@ -44,12 +39,6 @@ class Buffet extends Controller {
     function xhrGetBuffetList() {
         $this->model->xhrGetBuffetList();
     }
-
-    // function update() {
-    //     $this->model->update();
-    //     $this->view->msg = "Update successful";
-    //     $this->view->render('profile/index');
-    // }
 
 }
 

@@ -1,18 +1,8 @@
-body {
-    background: silver;
+.ui-autocomplete{
+	z-index:1050;
 }
-
-#header {
-    padding: 20px;
-    background: gold;
-}
-
-#content {
-    padding: 20px;
-    background: #fff;
-}
-
-#footer {
-    padding: 20px;
-    background: green;
+.chosen-container{
+	width: auto !important;
+	/* padding: .375rem .75rem; */
+    font-size: 14px;
 }

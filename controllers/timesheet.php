@@ -13,7 +13,7 @@ class Timesheet extends Controller {
             exit;
         }
 
-        $this->view->js = array('timesheet/default.js');
+        $this->view->js = array(URL.'views/timesheet/default.js');
     }
 
     function index() {
@@ -42,20 +42,6 @@ class Timesheet extends Controller {
     function xhrGetTimesheet() {
         $this->model->xhrGetTimesheet();
     }
-
-    // function logout() {
-    //     Session::destroy();
-    //     header('location: ../login');
-    //     exit;
-    // }
-
-    // function xhrInsert() {
-    //     $this->model->xhrInsert();
-    // }
-
-    // function xhrDeleteListing() {
-    //     $this->model->xhrDeleteListing();
-    // }
 
 }
 

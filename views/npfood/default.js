@@ -22,7 +22,7 @@
                 { targets: [0, 1, 2, 4], "width": "15%", className: 'dt-center' },
                 { targets: [3], "width": "10%", className: 'dt-right' }
             ]
-            });
+        });
         
         var tableRow = table.row($(this).parents('tr'));
             
@@ -38,6 +38,28 @@
             });
     
             return false;
+        });
+
+        $("#room").chosen();
+    
+        // $.post("npfood/xhrGetRoomLov", function(o) {
+        //     console.log(o);
+        //     $( "#modifyDataModel #room" ).autocomplete({
+        //       source: o
+        //     });
+        // }, 'json');
+
+        $("#room").change(function(){
+            var data = $(this).serialize();
+    
+            $.post("npfood/xhrGetTable", data, function(o) {
+                
+                if (o.length == 0) {
+                    alert("Don't have Room No. "+$("#room").val()+" in the system");
+                } else {
+                    $("#tabno").val(o[0].tabno);
+                }
+            }, 'json');
         });
             
         $("#modify-data-form").submit(function() {
@@ -168,27 +190,6 @@
                 $(this).parent().fadeTo(500, 0).slideUp(500);
             });
         });
-    
-        $.post("npfood/xhrGetRoomLov", function(o) {
-            $("#room").autocomplete({
-              source: o
-            });
-        });
-
-        $("#room").change(function(){
-            // alert("The text has been changed.");
-            // var url = $(this).attr('action');
-            var data = $(this).serialize();
-    
-            $.post("npfood/xhrGetTable", data, function(o) {
-                
-                if (o.length == 0) {
-                    alert("Don't have Room No. "+$("#room").val()+" in the system");
-                } else {
-                    $("#tabno").val(o[0].tabno);
-                }
-            }, 'json');
-          });
     });
   
   }(jQuery));

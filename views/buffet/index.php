@@ -14,17 +14,16 @@
                             <div class="card-header">
                                 <form id="search" action="<?php echo URL; ?>buffet/xhrGetBuffetList" method="post" class="form-horizontal">
                                     <div class="row form-group">
-                                        <div class="col-md-4">
+                                        <div class="col-md-3">
                                             <div class="input-group">
-                                                <!-- <input type="hidden" id="prmid" name="prmid" class="form-control" value="2" > -->
                                                 <div class="col-12 col-md-11">
-                                                    <select name="bufftype" id="bufftype" class="form-control">
-                                                        <option value="-1">All Buffet Type</option>
+                                                    <!-- <select name="bufftype" id="bufftype" class="chosen" tabindex="1"> -->
+                                                    <select name="bufftype" id="bufftype" class="form-control" tabindex="1">
+                                                        <option value="-1">----&nbsp;All Buffet Type&nbsp;----</option>
                                                         <?php 
                                                         foreach ($this->buffType as $type) {
                                                             echo '<option value="'.$type['code'].'">'.$type['code'].' - '.$type['descp'].'</option>';
                                                         }
-                                                        
                                                         ?>
                                                     </select>
                                                 </div>
@@ -42,7 +41,7 @@
                                                 <input type="date" name="edate" class="form-control" value="<?php echo $this->criteria['edate']; ?>">
                                             </div>
                                         </div>
-                                        <div class="col-md-2">
+                                        <div class="col-md-3">
                                             <div class="input-group">
                                                 <!-- <div class="input-group-btn"> -->
                                                     <button class="btn btn-primary"> 

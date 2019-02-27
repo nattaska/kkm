@@ -91,11 +91,22 @@
                                                             </div>
                                                             <div class="row form-group">
                                                                 <div class="col col-md-3"><label for="text-input" class=" form-control-label">Room</label></div>
-                                                                <div class="col-12 col-md-3"><input type="text" id="room" name="room" placeholder="Room" class="form-control"></div>
+                                                                <div class="col-12 col-md-3">
+                                                                    <!-- <input type="text" id="room" name="room" placeholder="Room" class="form-control"> -->
+                                                                    <select name="room" id="room" class="form-control" data-placeholder="Choose a Room..." >
+                                                                        <option value="" label="default"></option>
+                                                                        <?php 
+                                                                        foreach ($this->rooms as $room) {
+                                                                            echo '<option value="'.$room['code'].'">'.$room['code'].' - '.$room['val1'].'</option>
+                                                                            ';
+                                                                        }
+                                                                        ?>
+                                                                    </select>
+                                                                </div>
                                                             </div>
                                                             <div class="row form-group">
                                                                 <div class="col col-md-3"><label for="text-input" class=" form-control-label">Table&nbsp;</label></div>
-                                                                <div class="col-12 col-md-3"><input type="text" id="tabno" name="tabno" placeholder="Table" class="form-control" readonly="readonly"></div>
+                                                                <div class="col-12 col-md-3"><input type="text" id="tabno" name="tabno" placeholder="Table" class="form-control" readonly="readonly" tabindex="1"></div>
                                                             </div>
                                                             <div class="row form-group">
                                                                 <div class="col col-md-3"><label for="text-input" class=" form-control-label">Total</label></div>

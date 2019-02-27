@@ -22,6 +22,7 @@
         }, 'json');
     
         $.post("timesheet/xhrGetUserLov", function(o) {
+            console.log(o);
             $( "#code" ).autocomplete({
               source: o
             });
