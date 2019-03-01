@@ -24,9 +24,14 @@
         
         var tableRow = table.row($(this).parents('tr'));
 
-//  ------------    Action on field  ---------------------   //
-
         $("#room").chosen();
+    
+        // $.post("npfood/xhrGetRoomLov", function(o) {
+        //     console.log(o);
+        //     $( "#modifyDataModel #room" ).autocomplete({
+        //       source: o
+        //     });
+        // }, 'json');
 
         $("#room").change(function(){
             var data = $(this).serialize();
