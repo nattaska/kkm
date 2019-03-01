@@ -21,15 +21,13 @@ class NPFood extends Controller {
                                 ,URL."assets/js/lib/data-table/buttons.print.min.js"
                                 ,URL."assets/js/lib/data-table/buttons.colVis.min.js"
                                 ,URL."assets/js/init/datatables-init.js"
-                                ,URL."views/npfood/default.js"
-                                ,"https://code.jquery.com/ui/1.12.1/jquery-ui.js"
+                                ,URL."views/npfood/js/default.js"
                                 ,URL."assets/js/lib/chosen/chosen.jquery.min.js"
                                 );
 
-        $this->view->css = array(URL.'assets/css/lib/datatable/dataTables.bootstrap.min.css',
-                                 "https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css"
-                                 ,URL."assets/css/lib/chosen/chosen.min.css"
-                                 ,URL."public/css/default.css"
+        $this->view->css = array(URL.'assets/css/lib/datatable/dataTables.bootstrap.min.css'
+                                ,"https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css"
+                                ,URL."assets/css/lib/chosen/chosen.min.css"
                                 );
         
     }

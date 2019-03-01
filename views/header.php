@@ -29,6 +29,7 @@ $loginData =  $_SESSION['LoginData'];
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <link rel="stylesheet" href="assets/css/cs-skin-elastic.css">
     <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="public/css/style.css">
 
     <?php 
         if (isset($this->css)) {

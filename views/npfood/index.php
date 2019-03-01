@@ -71,18 +71,16 @@
                                             <div class="modal-content">
                                                 <div class="modal-header">
                                                     <h5 class="modal-title" id="staticModalLabel">Add Order</h5>
-                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                        <span aria-hidden="true">&times;</span>
-                                                    </button>
                                                 </div>
+                                                <!-- class="form-horizontal" -->
                                                 <form id="modify-data-form" action="" method="post" class="form-horizontal">
                                                     <div class="modal-body">
                                                             <input type="hidden" id="url" name="url" value="<?php echo URL; ?>" class="form-control">
                                                             <div class="row form-group">
-                                                                <div class="col col-md-3"><label for="text-input" class=" form-control-label">Order Id</label></div>
-                                                                <div class="col-12 col-md-5"><input type="text" id="ordid" name="ordid" placeholder="Order Id" class="form-control"></div>
+                                                                <div class="col-12 col-md-3"><label for="text-input" class=" form-control-label">Order Id</label></div>
+                                                                <div class="col-12 col-md-5"><input class="form-control" type="text" id="ordid" name="ordid" placeholder="Order Id"></div>
                                                             </div>
-                                                            <?php                                                            
+                                                            <?php                                       
                                                                 $date = new DateTime();                                                            
                                                             ?>
                                                             <div class="row form-group">
@@ -91,9 +89,9 @@
                                                             </div>
                                                             <div class="row form-group">
                                                                 <div class="col col-md-3"><label for="text-input" class=" form-control-label">Room</label></div>
-                                                                <div class="col-12 col-md-3">
+                                                                <div class="col-12 col-md-5">
                                                                     <!-- <input type="text" id="room" name="room" placeholder="Room" class="form-control"> -->
-                                                                    <select name="room" id="room" class="form-control" data-placeholder="Choose a Room..." >
+                                                                    <select name="room" id="room" class="form-control" data-placeholder="Choose a Room..." style="width: 150px">
                                                                         <option value="" label="default"></option>
                                                                         <?php 
                                                                         foreach ($this->rooms as $room) {
@@ -106,7 +104,7 @@
                                                             </div>
                                                             <div class="row form-group">
                                                                 <div class="col col-md-3"><label for="text-input" class=" form-control-label">Table&nbsp;</label></div>
-                                                                <div class="col-12 col-md-3"><input type="text" id="tabno" name="tabno" placeholder="Table" class="form-control" readonly="readonly" tabindex="1"></div>
+                                                                <div class="col-12 col-md-2"><input type="text" id="tabno" name="tabno" placeholder="-" class="form-control" readonly="readonly" tabindex="1"></div>
                                                             </div>
                                                             <div class="row form-group">
                                                                 <div class="col col-md-3"><label for="text-input" class=" form-control-label">Total</label></div>
