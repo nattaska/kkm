@@ -11,32 +11,78 @@ class Advance extends Controller {
             exit;
         }
         
-        $this->view->js = array('advance/default.js',
-                                "../assets/js/lib/data-table/datatables.min.js",
-                                "../assets/js/lib/data-table/dataTables.bootstrap.min.js",
-                                "../assets/js/lib/data-table/dataTables.buttons.min.js",
-                                "../assets/js/lib/data-table/buttons.bootstrap.min.js",
-                                "../assets/js/lib/data-table/jszip.min.js",
-                                "../assets/js/lib/data-table/vfs_fonts.js",
-                                "../assets/js/lib/data-table/buttons.html5.min.js",
-                                "../assets/js/lib/data-table/buttons.print.min.js",
-                                "../assets/js/lib/data-table/buttons.colVis.min.js",
-                                "../assets/js/init/datatables-init.js");
+        $this->view->js = array(URL."assets/js/lib/data-table/datatables.min.js"
+                                ,URL."assets/js/lib/data-table/dataTables.bootstrap.min.js"
+                                ,URL."assets/js/lib/data-table/dataTables.buttons.min.js"
+                                ,URL."assets/js/lib/data-table/buttons.bootstrap.min.js"
+                                ,URL."assets/js/lib/data-table/jszip.min.js"
+                                ,URL."assets/js/lib/data-table/vfs_fonts.js"
+                                ,URL."assets/js/lib/data-table/buttons.html5.min.js"
+                                ,URL."assets/js/lib/data-table/buttons.print.min.js"
+                                ,URL."assets/js/lib/data-table/buttons.colVis.min.js"
+                                ,URL."assets/js/init/datatables-init.js"
+                                ,URL."assets/js/lib/chosen/chosen.jquery.min.js"
+                                ,URL."views/advance/js/default.js"
+                                );
 
-        $this->view->css = array(URL.'assets/css/lib/datatable/dataTables.bootstrap.min.css');
-        // $this->view->css = array('//cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css');
+        $this->view->css = array(URL.'assets/css/lib/datatable/dataTables.bootstrap.min.css'
+                                ,"https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css"
+                                ,URL."assets/css/lib/chosen/chosen.min.css"
+                                );
+        
     }
 
     function index() {
-        // $date = new DateTime();
+        $date = new DateTime();
 
-        // $this->view->criteria = array("sdate" => date_format($date,"Y-m-01")
-        //                             , "edate" => date_format($date,"Y-m-t"));
+        $this->view->criteria = array("sdate" => date_format($date,"Y-m-01")
+                                    , "edate" => date_format($date,"Y-m-t"));
 
-        // $this->paramModel->getParameter(2);
-        // $this->view->buffType = $this->paramModel->paramList;
+        // $this->paramModel->getParameter(5);
+        // $this->view->rooms = $this->paramModel->paramList;
+
         $this->view->render('advance/index');
     }
+
+    function xhrSearch() {
+        $this->model->xhrSearch();
+    }
+
+    function xhrInsert() {
+        $this->model->xhrInsert();
+    }
+
+    function xhrUpdate() {
+        $this->model->xhrUpdate();
+    }
+
+    function xhrDelete() {
+        $this->model->xhrDelete();
+    }
+
+    // function xhrGetRoomLov() {
+    //     $arr = [];
+    //     $i = 0;
+    //     $this->paramModel->getParameter(5);
+    //     foreach ($this->paramModel->paramList as $row) {
+    //         $arr[$i]=(array('value' => $row["code"]
+    //                       , 'label' => $row["code"].' - T'.$row["val1"]));
+    //         $i++;
+    //     }
+
+    //     echo json_encode($arr);
+    // }
+
+    // function xhrGetTable() {
+    //     $this->model->xhrGetTable();
+    // }
+
+    // function update() {
+    //     $this->model->update();
+    //     $this->view->msg = "Update successful";
+    //     $this->view->render('profile/index');
+    // }
+
 }
 
 ?>

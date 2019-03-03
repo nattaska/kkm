@@ -29,16 +29,8 @@
         $("#room").chosen();
 
         $("#room").change(function(){
-            var data = $(this).serialize();
-    
-            $.post("npfood/xhrGetTable", data, function(o) {
-                
-                if (o.length == 0) {
-                    alert("Don't have Room No. "+$("#room").val()+" in the system");
-                } else {
-                    $("#tabno").val(o[0].tabno);
-                }
-            }, 'json');
+            var arr = $("#room option:selected").text().split('-');
+            $("#tabno").val($.trim(arr[1]));
         });
 
 //  ------------    Action Search, Add, Update, Delete  ---------------------   //
