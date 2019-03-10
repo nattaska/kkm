@@ -139,13 +139,6 @@
               $(element)
                 .closest('.form-control')
                 .removeClass('is-invalid');
-            },
-            errorPlacement: function (error, element) {
-              if (element.prop('type') === 'checkbox') {
-                error.insertAfter(element.parent());
-              } else {
-                error.insertAfter(element);
-              }
             }
         });
         

@@ -42,6 +42,10 @@ class Profile extends Controller {
         $this->view->render('profile/index');
     }
 
+    function xhrGetUserLov() {
+        $this->model->xhrGetUserLov();
+    }
+
     function update() {
         $this->model->update();
         $this->view->user = $this->model->userProfile;

@@ -2,7 +2,7 @@
     "use strict";
   
     $(function() {
-        var module = "advance";
+        var module = "buffet";
 
         var table = $('#table-data').DataTable({
             dom: 'Bfrtip',
@@ -10,43 +10,48 @@
                 { text: '<a id="add" href="#" class="add"><button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modifyDataModel"><i class="fa fa-plus"></i>&nbsp;Add</button></a>' }
             ],
             columns: [
-                { data: 'empcd' },
-                { data: 'name' },
-                { data: 'advdate' },
-                { data: 'pay' }, 
+                { data: 'bfdate' },
+                { data: 'bftype' },
+                { data: 'typename' },
+                { data: 'qty' },
+                { data: 'grp' },
+                { data: 'amount' },
+                { data: 'comm' },
                 { sortable: false,
                   defaultContent: '<a id="edit" href="#" class="edit"><button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#modifyDataModel"><i class="fa fa-edit"></i></button></a>&nbsp;'+
                                   '<a id="delete" href="#" class="delete"><button type="button" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i></button></a>' }
             ],
             columnDefs: [
-                { targets: [0, 2, 4], "width": "15%", className: 'dt-center' },
-                { targets: [1], "width": "15%", className: 'dt-left' },
-                { targets: [3], "width": "10%", className: 'dt-right' }
+                { targets: [0, 2, 4, 7], "width": "15%", className: 'dt-center' },
+                { targets: [3], "width": "10%", className: 'dt-center' },
+                // { targets: [4], "width": "5%", className: 'dt-center' },
+                { targets: [5, 6], "width": "10%", className: 'dt-right' },
+                { targets: [1], "visible": false }
             ]
         });
         
         var tableRow = table.row($(this).parents('tr'));
-    
-        $.post("profile/xhrGetUserLov", function(o) {
-            // console.log(o);
-            $( "#empcd" ).autocomplete({
-                minLength: 0,
-                source: o,
-                focus: function( event, ui ) {
-                    $( "#empcd" ).val( ui.item.value );
-                    $( "#empname" ).val( $.trim(ui.item.label.split('-')[1]) );
-                    return false;
-                },
-                select: function( event, ui ) {
-                    $( "#empcd" ).val( ui.item.value );
-                    $( "#empname" ).val( $.trim(ui.item.label.split('-')[1]) );
-                    return false;
-                } 
-            });
-        }, 'json');
 
-//  ------------    Action Search, Add, Update, Delete  ---------------------   //
+        $("#bufftype").chosen();
+
+        $("#bftype").chosen();
+        $("#bftype2").chosen();
+
+        $("#bftype").change(function(){
+            var arr = $("#bftype option:selected").text().split('-');
+            $("#typename").val($.trim(arr[1]));
+
+            if ($.trim(arr[0]) >= 3) {
+                $("#grp").removeAttr('readonly');
+            } else {
+                $("#grp").val('-');
+                $("#grp").attr('readonly', 'readonly');
+            }
             
+        });
+
+        //  ------------    Action Search, Add, Update, Delete  ---------------------   //
+                    
         $("#search").submit(function() {
             var url = $(this).attr('action');
             var data = $(this).serialize();
@@ -70,26 +75,32 @@
 
             $("#modify-data-form").attr("action", $('#url').val()+module+'/xhrInsert');
             $("#modifyDataModel #staticModalLabel").html("Add Data");
-            $('#empcd').val('');
-            $('#empname').val('');
-            $('#advdate').val(today);
-            $('#pay').val('');
+            $('#bfdate').val(today);
+            $("#bftype").val('').trigger("chosen:updated");
+            $('#typename').val('');
+            $('#qty').val('');
+            $('#grp').val('');
         });
  
         $('#table-data tbody').on( 'click', '.edit', function () {
             tableRow = table.row($(this).parents('tr'));
             var data = tableRow.data();
-            // console.log(data.ordid);
+            var bftype = data.bftype+' - '+data.typename;
 
             $("#modify-data-form").attr("action", $('#url').val()+module+'/xhrUpdate');
             $("#modifyDataModel #staticModalLabel").html("Edit Data");
-            $('#empcd').val(data.empcd);
-            $('#empname').val(data.name);
-            $('#advdate').val(data.advdate);
-            $('#pay').val(data.pay);
+            $('#bfdate').val(data.bfdate);
+            $("#bftype option:contains(" + bftype + ")").attr('selected', 'selected').trigger("chosen:updated");
+            $('#typename').val(data.typename);
+            $('#qty').val(data.qty);
+            $('#grp').val(data.grp);
 
-            $("#empcd").prop("readonly",true);
-            $("#advdate").prop("readonly",true);
+            $("#bfdate").prop("readonly",true);
+            // $("#bftype").prop("readonly",true).trigger("chosen:updated");
+            // $("#bftype").chosen().chosenReadonly(true).trigger("chosen:updated");
+            // $("#bftype").prop('readonly',true).trigger("chosen:updated");
+            $('input[name=bftype]').val($("#bftype").val());   
+            $('#bftype').attr("disabled", true).trigger("chosen:updated");
     
         });
  
@@ -98,7 +109,7 @@
             var data = row.data();
             // console.log(data);
 
-            $.post(module+'/xhrDelete', {'empcd': data.empcd, 'advdate': data.advdate}, function(o) {
+            $.post(module+'/xhrDelete', {'bfdate': data.bfdate, 'bftype': data.bftype, 'grp': data.grp}, function(o) {
                 
                 if (o.res > 0) {
                     row.remove().draw();
@@ -123,22 +134,23 @@
 
         $('#modifyDataModel').on('hidden.bs.modal', function() {
             $('#modify-data-form').validate().resetForm();
-            $("#empcd").removeClass("is-invalid");
-            $("#pay").removeClass("is-invalid");
+            $("#grp").removeClass("is-invalid");
+            $("#qty").removeClass("is-invalid");
+            $('#bftype').attr("disabled", false).trigger("chosen:updated");
         });
 
-//  ------------    Validation and submit from  ---------------------   //
-        
+    //  ------------    Validation and submit from  ---------------------   //
+                
         $.validator.setDefaults({
             errorClass: 'text-danger',
             ignore: ":hidden:not(select)",
             highlight: function(element) {
-              $(element)
+                $(element)
                 .closest('.form-control')
                 .addClass('is-invalid');
             },
             unhighlight: function(element) {
-              $(element)
+                $(element)
                 .closest('.form-control')
                 .removeClass('is-invalid');
             }
@@ -148,25 +160,19 @@
             e.preventDefault();
         }).validate({
             rules: {
-                empcd: {
-                    required: true,
-                    minlength: 5
-                },
-                advdate: "required",
-                pay:  {
+                bfdate: "required",
+                bftype: "required",
+                qty:  {
                     required: true,
                     number: true
                 }
             },
             // Specify validation error messages
             messages: {
-                empcd: {
-                    required: "Please enter your Order Id",
-                    minlength: "Your order must be at least 5 characters long"
-                },
-                advdate: "Please enter your Advance Date",
-                total: {
-                    required: "Please enter your patd",
+                bfdate: "Please enter your buffet date",
+                bftype: "Please choose buffet type",
+                qty: {
+                    required: "Please enter your pax",
                     number: "Please enter a valid number."
                 }
             },
@@ -174,18 +180,24 @@
                 var url = $(form).attr('action');
                 var data = $(form).serialize();
     
-                var empcd  = $('#empcd').val();
-                var empname   = $('#empname').val();
-                var advdate = $('#advdate').val();
-                var pay = $('#pay').val();
+                var bfdate = $('#bfdate').val();
+                var bftype   = $('#bftype').val();
+                var typename   = $('#typename').val();
+                var grp   = $('#grp').val();
+                var qty = $('#qty').val();
                 var msg = "";
+                console.log(data);
                 
+                var jtype = JSON.parse(bftype);
+                var amount = (qty * jtype.val1);
+                var comm = (amount * jtype.val2)/100;
+
                 $.post(url, data, function(o) {
                     // alert(o);
                     var loadingModal = $("#modifyDataModel");
                     if (o.res > 0) {
                         var newdata_arr = [];
-                        var newdata = {"empcd":empcd, "name":empname, "advdate":advdate, "pay":pay};
+                        var newdata = {"bfdate":bfdate, "bftype":jtype.code, "typename":typename, "grp":grp, "qty":qty, "amount":amount, "comm":comm};
                         newdata_arr.push(newdata);
 
                         if(url.indexOf('Insert') >= 0) {

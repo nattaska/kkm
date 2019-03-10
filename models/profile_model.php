@@ -31,6 +31,19 @@ class Profile_Model extends Model {
 
     }
 
+    function xhrGetUserLov() {
+        // $keyword = $_GET['keyword'];
+
+        $sql = "SELECT empcd value, concat(empcd,' - ',empnnm) label FROM employee";
+
+        $sth = $this->db->prepare($sql);
+        $sth->setFetchMode(PDO::FETCH_ASSOC);
+        $sth->execute();
+        $data = $sth->fetchAll();
+
+        echo json_encode($data);
+    }
+
     public function update() {
 
         // echo print_r($_POST);

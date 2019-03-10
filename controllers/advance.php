@@ -60,29 +60,6 @@ class Advance extends Controller {
         $this->model->xhrDelete();
     }
 
-    // function xhrGetRoomLov() {
-    //     $arr = [];
-    //     $i = 0;
-    //     $this->paramModel->getParameter(5);
-    //     foreach ($this->paramModel->paramList as $row) {
-    //         $arr[$i]=(array('value' => $row["code"]
-    //                       , 'label' => $row["code"].' - T'.$row["val1"]));
-    //         $i++;
-    //     }
-
-    //     echo json_encode($arr);
-    // }
-
-    // function xhrGetTable() {
-    //     $this->model->xhrGetTable();
-    // }
-
-    // function update() {
-    //     $this->model->update();
-    //     $this->view->msg = "Update successful";
-    //     $this->view->render('profile/index');
-    // }
-
 }
 
 ?>

@@ -78,38 +78,19 @@
                                                             <input type="hidden" id="url" name="url" value="<?php echo URL; ?>" class="form-control">
                                                             <div class="row form-group">
                                                                 <div class="col-12 col-md-3"><label for="text-input" class=" form-control-label">Employee</label></div>                                          
-                                                                <div class="col col-md-3"><input type="text" id="code" name="code" class="form-control"></div>
-                                                                <div class="col col-md-5"><input type="text" id="name" name="name" class="form-control" disabled></div>
+                                                                <div class="col col-md-3"><input type="text" id="empcd" name="empcd" class="form-control"></div>
+                                                                <div class="col col-md-5"><input type="text" id="empname" name="empname" class="form-control" disabled></div>
                                                             </div>
                                                             <?php
                                                                 $date = new DateTime();                                                            
                                                             ?>
                                                             <div class="row form-group">
-                                                                <div class="col col-md-3"><label for="text-input" class="form-control-label">Order Date</label></div>
-                                                                <div class="col-12 col-md-5"><input type="date" id="orddate" name="orddate" value="<?php echo date_format($date,"Y-m-d"); ?>" class="form-control"></div>
+                                                                <div class="col col-md-3"><label for="text-input" class="form-control-label">Advance Date</label></div>
+                                                                <div class="col-12 col-md-5"><input type="date" id="advdate" name="advdate" value="<?php echo date_format($date,"Y-m-d"); ?>" class="form-control"></div>
                                                             </div>
                                                             <div class="row form-group">
-                                                                <div class="col col-md-3"><label for="text-input" class="form-control-label">Room</label></div>
-                                                                <div class="col-12 col-md-5">
-                                                                    <!-- <input type="text" id="room" name="room" placeholder="Room" class="form-control"> -->
-                                                                    <select name="room" id="room" class="form-control" data-placeholder="Choose a Room..." style="width: 150px">
-                                                                        <option value="" label="default"></option>
-                                                                        <?php 
-                                                                        foreach ($this->rooms as $room) {
-                                                                            echo '<option value="'.$room['code'].'">'.$room['code'].' - '.$room['val1'].'</option>
-                                                                            ';
-                                                                        }
-                                                                        ?>
-                                                                    </select>
-                                                                </div>
-                                                            </div>
-                                                            <div class="row form-group">
-                                                                <div class="col col-md-3"><label for="text-input" class=" form-control-label">Table&nbsp;</label></div>
-                                                                <div class="col-12 col-md-2"><input type="text" id="tabno" name="tabno" placeholder="-" class="form-control" readonly="readonly" tabindex="1"></div>
-                                                            </div>
-                                                            <div class="row form-group">
-                                                                <div class="col col-md-3"><label for="text-input" class=" form-control-label">Total</label></div>
-                                                                <div class="col-12 col-md-5"><input type="number" id="total" name="total" placeholder="Total" class="form-control"></div>
+                                                                <div class="col col-md-3"><label for="text-input" class=" form-control-label">Advance Paid</label></div>    
+                                                                <div class="col-12 col-md-5"><input type="number" id="pay" name="pay" class="form-control"></div>
                                                             </div> 
                                                     </div>
                                                     <div class="modal-footer">

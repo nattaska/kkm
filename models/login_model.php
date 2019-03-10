@@ -32,7 +32,7 @@ class Login_Model extends Model {
             $profObj = new Profile_Model();
             $profObj->getProfile($_POST['usercode']);
             // Session::set('UserProfile',$profObj->userProfile);
-            header('location: ../profile');
+            header('location: ../timesheet');
         } else {
             // Show an error
             header('location: ../login');

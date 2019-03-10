@@ -95,7 +95,6 @@ class Advance_Model extends Model {
 
         try {
             $this->db->beginTransaction();
-            $id = $_POST['ordid'];
             $stmt = $this->db->prepare("DELETE FROM advance 
                                         WHERE advempcd = :empcd 
                                         AND advdate = :pdate");
@@ -115,18 +114,6 @@ class Advance_Model extends Model {
         $data = array('res' => $result, 'error' => $error);
         echo json_encode($data);
     }
-
-    // function xhrGetTable() {
-    //     $code = $_POST['room'];
-
-    //     $sth = $this->db->prepare('SELECT prmval1 tabno FROM parameters WHERE prmid=5 AND prmcd=:code');
-    //     $sth->bindParam(':code', $code, PDO::PARAM_INT);
-    //     $sth->setFetchMode(PDO::FETCH_ASSOC);
-    //     $sth->execute();
-    //     $data = $sth->fetchAll();
-
-    //     echo json_encode($data);
-    // }
 }
 
 ?>
