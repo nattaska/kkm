@@ -186,7 +186,7 @@
                 var grp   = $('#grp').val();
                 var qty = $('#qty').val();
                 var msg = "";
-                console.log(data);
+                // console.log(data);
                 
                 var jtype = JSON.parse(bftype);
                 var amount = (qty * jtype.val1);

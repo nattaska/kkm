@@ -14,11 +14,11 @@
                             <div class="card-header">
                                 <form id="search" action="<?php echo URL; ?>buffet/xhrSearch" method="post" class="form-horizontal">
                                     <div class="row form-group">
-                                        <div class="col-md-3">
+                                        <div class="col-md-4">
                                             <div class="input-group">
                                                 <div class="col-12 col-md-11">
                                                     <!-- <select name="bufftype" id="bufftype" class="chosen" tabindex="1"> -->
-                                                    <select name="bufftype" id="bufftype" class="form-control">
+                                                    <select name="bufftype" id="bufftype" class="chosen-select" style="width: 150px">
                                                         <option value="-1">----&nbsp;All Buffet Type&nbsp;----</option>
                                                         <?php 
                                                         foreach ($this->buffType as $type) {
@@ -41,7 +41,7 @@
                                                 <input type="date" name="edate" class="form-control" value="<?php echo $this->criteria['edate']; ?>">
                                             </div>
                                         </div>
-                                        <div class="col-md-3">
+                                        <div class="col-md-2">
                                             <div class="input-group">
                                                 <!-- <div class="input-group-btn"> -->
                                                     <button class="btn btn-primary"> 
@@ -105,7 +105,7 @@
                                                     <div class="row form-group">
                                                         <div class="col col-md-3"><label for="text-input" class=" form-control-label">Type</label></div>
                                                         <input type="hidden" name="bftype" value="selected_option_value_goes_here" />
-                                                        <div class="col-12 col-md-5">
+                                                        <div class="col-12 col-md-6">
                                                             <!-- <input type="text" id="room" name="room" placeholder="Room" class="form-control"> -->
                                                             <select name="bftype" id="bftype" class="chosen-select" data-placeholder="Choose a Type..." style="width: 150px">
                                                                 <option value="" label="default"></option>

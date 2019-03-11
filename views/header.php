@@ -60,6 +60,7 @@ $loginData =  $_SESSION['LoginData'];
                     <li class="menu-title">Resturant</li><!-- /.menu-title -->
                     <li><a href="accessories"> <i class="menu-icon fa fa-glass"></i>Accessories </a></li>
                     <li><a href="stock"> <i class="menu-icon fa fa-list-alt"></i>Stock </a></li>
+                    <li><a href="expenses"> <i class="menu-icon fa fa-list-alt"></i>Expenses </a></li>
                     <li class="menu-title">Ohters</li><!-- /.menu-title -->
                     <li> <a href="widgets.html"> <i class="menu-icon ti-email"></i>Widgets </a></li>
                     <li class="menu-item-has-children dropdown">
