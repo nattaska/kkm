@@ -10,10 +10,10 @@ class Login_Model extends Model {
 
     public function login() {
 
-        $sql = "select usrcd code, usrprof pfcode, prmdesc profdesc, ifnull(empnnm,'-') nickname
+        $sql = "select usrcd code, usrprof pfcode, pmddesc profdesc, ifnull(empnnm,'-') nickname
                 FROM users
                 LEFT JOIN employee ON usrcd=empcd
-                JOIN parameters ON usrprof=prmcd AND prmid=4 
+                JOIN prmdtl ON usrprof=pmdcd AND pmdtbno=4 
                 WHERE usrcd = :code
                 AND usrpwd = MD5(:password) ";
 
@@ -41,11 +41,11 @@ class Login_Model extends Model {
     }
 
     public function getUser($code) {
-        $sql="SELECT empcd code, emppwd password, empfnm firstname, emplnm lastname, empnnm nickname, prmdesc profile "
-            ."FROM employee, parameters "
+        $sql="SELECT empcd code, emppwd password, empfnm firstname, emplnm lastname, empnnm nickname, pmddesc profile "
+            ."FROM employee, prmdtl "
             ."WHERE empcd=:code "
-            ."AND prmid=5 "
-            ."AND empprof=prmcd ";
+            ."AND pmdtbno=5 "
+            ."AND empprof=pmdcd ";
         $sth=$this->conn->prepare($sql);
         $sth->bindParam(':code', $code, PDO::PARAM_INT);
         $sth->execute();

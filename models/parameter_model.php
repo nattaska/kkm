@@ -7,13 +7,13 @@ class Parameter_Model extends Model {
         parent::__construct();
     }
 
-    function getParameter($id) {    
+    function getParameter($p_tbno) {    
         // $keyword = $_GET['keyword'];
 
-        $sql = "select prmcd code, prmdesc descp, prmval1 val1, prmval2 val2
-                        , prmval3 val3, prmval4 val4, prmval5 val5
-                from parameters 
-                where prmid=".$id;
+        $sql = "select pmdcd code, pmddesc descp, pmdval1 val1, pmdval2 val2
+                        , pmdval3 val3, pmdval4 val4, pmdval5 val5
+                from prmdtl 
+                where pmdtbno=".$p_tbno;
 
         $sth = $this->db->prepare($sql);
         // $sth->bindParam(':keyword', $keyword, PDO::PARAM_INT);
@@ -25,9 +25,9 @@ class Parameter_Model extends Model {
     function xhrGetParameterLov() {
         // $keyword = $_GET['keyword'];
 
-        $id = $_POST['paramId'];
+        $p_tbno = $_POST['p_tbno'];
 
-        $sql = "SELECT prmcd value, concat(prmcd,' - ',prmdesc) label FROM parameters WHERE prmid=".$id;
+        $sql = "SELECT pmdcd value, concat(pmdcd,' - ',pmddesc) label FROM prmdtl WHERE pmdtbno=".$p_tbno;
 
         $sth = $this->db->prepare($sql);
         $sth->setFetchMode(PDO::FETCH_ASSOC);
@@ -39,12 +39,12 @@ class Parameter_Model extends Model {
 
     function xhrGetParameter() {
 
-        $id = $_POST['paramId'];
+        $p_tbno = $_POST['p_tbno'];
 
-        $sql = "select prmcd code, prmdesc descp, prmval1 val1, prmval2 val2
-                        , prmval3 val3, prmval4 val4, prmval5 val5
-                from parameters 
-                where prmid=".$id;
+        $sql = "select pmdcd code, pmddesc descp, pmdval1 val1, pmdval2 val2
+                        , pmdval3 val3, pmdval4 val4, pmdval5 val5
+                from prmdtl 
+                where pmdtbno=".$p_tbno;
                 
         $sth=$this->db->prepare($sql);
         

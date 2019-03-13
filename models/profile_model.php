@@ -10,12 +10,12 @@ class Profile_Model extends Model {
 
     public function getProfile($code) {
         $sql = "select empcd code, empfnm firstname, emplnm lastname, empnnm nickname
-                , empphone phone, empprof pfcode, prmdesc profile 
+                , empphone phone, empprof pfcode, pmddesc profile 
                 , paydeptid deptid, paytype, paymethd, payaccount account, paysso 
-                from employee, parameters, payment     
+                from employee, prmdtl, payment     
                 where empcd=:code
-                AND prmid=4 
-                AND empprof=prmcd 
+                AND pmdtbno=4 
+                AND empprof=pmdcd 
                 and payempcd=empcd 
                 and current_date between paysdate and payedate ";
 // echo $code;

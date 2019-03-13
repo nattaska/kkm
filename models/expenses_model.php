@@ -1,6 +1,6 @@
 <?php
 
-class NPFood_Model extends Model {
+class Expenses_Model extends Model {
     // public $param = array();
     // public $userProfile = array();
 
@@ -8,15 +8,16 @@ class NPFood_Model extends Model {
         parent::__construct();
     }
 
-    function xhrGetNPFoodList() {
+    function xhrSearch() {
         // echo "post code = ".$_POST['code'];
         $date = new DateTime();
         $sdate = (isset($_POST['sdate']))?$_POST['sdate']:date_format($date,"Y-m-01");
         $edate = (isset($_POST['edate']))?$_POST['edate']:date_format($date,"Y-m-t");
 
-        $sql="SELECT npfordid ordid, npfdate orddate, npfroom room, npftotal total
-              FROM npfood
-              WHERE npfdate BETWEEN :sdate AND :edate ";
+        $sql="SELECT advempcd empcd, empnnm name, advdate, advpay pay
+              FROM advance, employee
+              WHERE advempcd = empcd
+              AND advdate BETWEEN :sdate AND :edate ";
             // echo $sql."<br>";
         $sth=$this->db->prepare($sql);
 
@@ -29,19 +30,7 @@ class NPFood_Model extends Model {
         echo json_encode($data);
     }
 
-    function xhrGetTable() {
-        $code = $_POST['room'];
-
-        $sth = $this->db->prepare('SELECT pmdval1 tabno FROM prmdtl WHERE pmdtbno=5 AND pmdcd=:code');
-        $sth->bindParam(':code', $code, PDO::PARAM_INT);
-        $sth->setFetchMode(PDO::FETCH_ASSOC);
-        $sth->execute();
-        $data = $sth->fetchAll();
-
-        echo json_encode($data);
-    }
-
-    public function xhrInsertNPFood() {
+    public function xhrInsert() {
 
         // echo print_r($_POST);
             $result = "1";
@@ -49,14 +38,12 @@ class NPFood_Model extends Model {
         try {
             $this->db->beginTransaction();
 
-            $sql = "INSERT INTO npfood VALUE(:ordid, :date, :tabno, :room, :total);";
+            $sql = "INSERT INTO advance VALUE(:empcd, :pdate, :pay);";
             $stmt = $this->db->prepare($sql);
             $stmt->execute(array(
-                ':ordid'=>$_POST['ordid'],
-                ':date'=>$_POST['orddate'],
-                ':tabno'=>$_POST['tabno'],
-                ':room'=>$_POST['room'],
-                ':total'=>$_POST['total']
+                ':empcd'=>$_POST['empcd'],
+                ':pdate'=>$_POST['advdate'],
+                ':pay'=>$_POST['pay']
                 ));
 
             $this->db->commit();
@@ -71,27 +58,23 @@ class NPFood_Model extends Model {
         echo json_encode($data);
     }
 
-    function xhrUpdateNPFood() {
+    function xhrUpdate() {
         $result = "1";
         $error = "";
 
         try {
             $this->db->beginTransaction();
 
-            $sql = "UPDATE  npfood
-                    SET  npfdate  = :date
-                        , npftable  = :tabno
-                        , npfroom  = :room
-                        , npftotal = :total
-                    WHERE npfordid = :ordid ";
+            $sql = "UPDATE  advance
+                    SET  advpay  = :pay
+                    WHERE advempcd = :empcd 
+                    AND advdate = :pdate";
 
             $stmt = $this->db->prepare($sql);
             $stmt->execute(array(
-                ':ordid'=>$_POST['ordid'],
-                ':date'=>$_POST['orddate'],
-                ':tabno'=>$_POST['tabno'],
-                ':room'=>$_POST['room'],
-                ':total'=>$_POST['total']
+                ':empcd'=>$_POST['empcd'],
+                ':pdate'=>$_POST['advdate'],
+                ':pay'=>$_POST['pay']
                 ));
 
             $this->db->commit();
@@ -106,15 +89,19 @@ class NPFood_Model extends Model {
         echo json_encode($data);
     }
 
-    function xhrDeleteNPFood() {
+    function xhrDelete() {
         $result = "1";
         $error = "";
 
         try {
             $this->db->beginTransaction();
-            $id = $_POST['ordid'];
-            $stmt = $this->db->prepare('DELETE FROM npfood WHERE npfordid = "'.$id.'"');
-            $stmt->execute();
+            $stmt = $this->db->prepare("DELETE FROM advance 
+                                        WHERE advempcd = :empcd 
+                                        AND advdate = :pdate");
+            $stmt->execute(array(
+                ':empcd'=>$_POST['empcd'],
+                ':pdate'=>$_POST['advdate']
+                ));
 
             $this->db->commit();
 
