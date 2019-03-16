@@ -17,11 +17,11 @@ class Buffet_Model extends Model {
 
         // echo $bufftype."<br>";
 
-        $sql="SELECT bfdate, bftype, prmdesc typename, bfqty qty, ifnull(bfgrp,'-') grp
-                    ,(bfqty*prmval1) amount, ROUND((bfqty*prmval1*prmval2/100),2) comm
-                FROM buffet, parameters
-                WHERE prmid = 2
-                AND bftype = prmcd
+        $sql="SELECT bfdate, bftype, pmddesc typename, bfqty qty, ifnull(bfgrp,'-') grp
+                    ,(bfqty*pmdval1) amount, ROUND((bfqty*pmdval1*pmdval2/100),2) comm
+                FROM buffet, prmdtl
+                WHERE pmdtbno = 2
+                AND bftype = pmdcd
                 AND ('".$bufftype."' = '-1' or bftype = '".$bufftype."')
                 AND bfdate BETWEEN :sdate AND :edate
                 ORDER BY bfdate, bftype, bfgrp ";

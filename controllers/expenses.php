@@ -38,8 +38,8 @@ class Expenses extends Controller {
         $this->view->criteria = array("sdate" => date_format($date,"Y-m-01")
                                     , "edate" => date_format($date,"Y-m-t"));
 
-        // $this->paramModel->getParameter(5);
-        // $this->view->rooms = $this->paramModel->paramList;
+        $this->view->expgrps = $this->paramModel->getParameter(10);
+        $this->view->titles = $this->paramModel->getParameterGroup(10, 9);
 
         $this->view->render('expenses/index');
     }

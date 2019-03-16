@@ -2,7 +2,7 @@
     "use strict";
   
     $(function() {
-        var module = "buffet";
+        var module = "expenses";
 
         var table = $('#table-data').DataTable({
             dom: 'Bfrtip',
@@ -10,42 +10,37 @@
                 { text: '<a id="add" href="#" class="add"><button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modifyDataModel"><i class="fa fa-plus"></i>&nbsp;Add</button></a>' }
             ],
             columns: [
-                { data: 'bfdate' },
-                { data: 'bftype' },
-                { data: 'typename' },
-                { data: 'qty' },
-                { data: 'grp' },
-                { data: 'amount' },
-                { data: 'comm' },
+                { data: 'expdate' },
+                { data: 'expgrpnm' },
+                { data: 'exptitle' },
+                { data: 'expamt' },
+                { data: 'expcmnt' },
+                { data: 'expgrpcd' },
+                { data: 'expcd' },
                 { sortable: false,
                   defaultContent: '<a id="edit" href="#" class="edit"><button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#modifyDataModel"><i class="fa fa-edit"></i></button></a>&nbsp;'+
                                   '<a id="delete" href="#" class="delete"><button type="button" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i></button></a>' }
             ],
             columnDefs: [
-                { targets: [0, 2, 4, 7], "width": "15%", className: 'dt-center' },
-                { targets: [3], "width": "10%", className: 'dt-center' },
-                // { targets: [4], "width": "5%", className: 'dt-center' },
-                { targets: [5, 6], "width": "10%", className: 'dt-right' },
-                { targets: [1], "visible": false }
+                { targets: [1, 2], "width": "15%", className: 'dt-left' },
+                { targets: [4], "width": "25%", className: 'dt-left' },
+                { targets: [0, 7], "width": "10%", className: 'dt-center' },
+                { targets: [3], "width": "10%", className: 'dt-right' },
+                { targets: [5, 6], "visible": false }
             ]
         });
         
         var tableRow = table.row($(this).parents('tr'));
 
-        $("#bufftype").chosen();
-        $("#bftype").chosen();
+        $(".chosen-select").chosen();
 
-        $("#bftype").change(function(){
-            var arr = $("#bftype option:selected").text().split('-');
-            $("#typename").val($.trim(arr[1]));
+        $("#code").change(function(){
+            var arr = $("#code option:selected").text().split('-');
+            var code = $("#code").val();
 
-            if ($.trim(arr[0]) >= 3) {
-                $("#grp").removeAttr('readonly');
-            } else {
-                $("#grp").val('-');
-                $("#grp").attr('readonly', 'readonly');
-            }
-            
+            $("#grpcd").val(code.substring(0,1));
+            $("#grpnm").val($.trim(arr[0]));
+            $("#title").val($.trim(arr[1]));
         });
 
         //  ------------    Action Search, Add, Update, Delete  ---------------------   //
@@ -73,10 +68,11 @@
 
             $("#modify-data-form").attr("action", $('#url').val()+module+'/xhrInsert');
             $("#modifyDataModel #staticModalLabel").html("Add Data");
-            $('#bfdate').val(today);
-            $("#bftype").val('').trigger("chosen:updated");
-            $('#typename').val('');
-            $('#qty').val('');
+            $('#pdate').val(today);
+            $("#code").val('').trigger("chosen:updated");
+            $("#grpcd").val('');
+            $('#amount').val(0);
+            $('#comment').val('');
             $('#grp').val('');
         });
  
@@ -87,19 +83,15 @@
 
             $("#modify-data-form").attr("action", $('#url').val()+module+'/xhrUpdate');
             $("#modifyDataModel #staticModalLabel").html("Edit Data");
-            $('#bfdate').val(data.bfdate);
-            $("#bftype option:contains(" + bftype + ")").attr('selected', 'selected').trigger("chosen:updated");
-            $('#typename').val(data.typename);
-            $('#qty').val(data.qty);
-            $('#grp').val(data.grp);
+            $('#pdate').val(data.expdate);
+            $("#code").val(data.expcd).trigger("chosen:updated");
+            $('#grpcd').val(data.expgrpcd);
+            $('#amount').val(data.expamt);
+            $('#comment').val(data.expcmnt);
 
-            $("#bfdate").prop("readonly",true);
-            // $("#bftype").prop("readonly",true).trigger("chosen:updated");
-            // $("#bftype").chosen().chosenReadonly(true).trigger("chosen:updated");
-            // $("#bftype").prop('readonly',true).trigger("chosen:updated");
-            $('input[name=bftype]').val($("#bftype").val());   
-            $('#bftype').attr("disabled", true).trigger("chosen:updated");
-    
+            $("#pdate").prop("readonly",true);
+            $('input[name=code]').val($("#code").val());   
+            $('#code').attr("disabled", true).trigger("chosen:updated");
         });
  
         $('#table-data tbody').on( 'click', '.delete', function () {
@@ -107,7 +99,7 @@
             var data = row.data();
             // console.log(data);
 
-            $.post(module+'/xhrDelete', {'bfdate': data.bfdate, 'bftype': data.bftype, 'grp': data.grp}, function(o) {
+            $.post(module+'/xhrDelete', {'pdate': data.expdate, 'code': data.expcd}, function(o) {
                 
                 if (o.res > 0) {
                     row.remove().draw();
@@ -132,9 +124,9 @@
 
         $('#modifyDataModel').on('hidden.bs.modal', function() {
             $('#modify-data-form').validate().resetForm();
-            $("#grp").removeClass("is-invalid");
-            $("#qty").removeClass("is-invalid");
-            $('#bftype').attr("disabled", false).trigger("chosen:updated");
+            $("#amount").removeClass("is-invalid");
+            $("#comment").removeClass("is-invalid");
+            $('#code').attr("disabled", false).trigger("chosen:updated");
         });
 
     //  ------------    Validation and submit from  ---------------------   //
@@ -158,19 +150,15 @@
             e.preventDefault();
         }).validate({
             rules: {
-                bfdate: "required",
-                bftype: "required",
-                qty:  {
-                    required: true,
-                    number: true
-                }
+                pdate: "required",
+                code: "required",
+                amount: { number: true }
             },
             // Specify validation error messages
             messages: {
-                bfdate: "Please enter your buffet date",
-                bftype: "Please choose buffet type",
+                bfdate: "Please enter your date",
+                bftype: "Please choose expense type",
                 qty: {
-                    required: "Please enter your pax",
                     number: "Please enter a valid number."
                 }
             },
@@ -178,24 +166,22 @@
                 var url = $(form).attr('action');
                 var data = $(form).serialize();
     
-                var bfdate = $('#bfdate').val();
-                var bftype   = $('#bftype').val();
-                var typename   = $('#typename').val();
-                var grp   = $('#grp').val();
-                var qty = $('#qty').val();
+                var pdate   = $('#pdate').val();
+                var code    = $('#code').val();
+                var title   = $('#title').val();
+                var grpcd   = $('#grpcd').val();
+                var grpnm   = $('#grpnm').val();
+                var amount  = parseFloat($('#amount').val()).toFixed(2);
+                var comment = $('#comment').val();
                 var msg = "";
-                // console.log(data);
-                
-                var jtype = JSON.parse(bftype);
-                var amount = (qty * jtype.val1);
-                var comm = (amount * jtype.val2)/100;
+                // console.log(grpcd+' - '+grpnm);
 
                 $.post(url, data, function(o) {
                     // alert(o);
                     var loadingModal = $("#modifyDataModel");
                     if (o.res > 0) {
                         var newdata_arr = [];
-                        var newdata = {"bfdate":bfdate, "bftype":jtype.code, "typename":typename, "grp":grp, "qty":qty, "amount":amount, "comm":comm};
+                        var newdata = {"expdate":pdate, "expgrpnm":grpnm, "exptitle":title, "expamt":amount, "expcmnt":comment, "expgrpcd":grpcd, "expcd":code};
                         newdata_arr.push(newdata);
 
                         if(url.indexOf('Insert') >= 0) {

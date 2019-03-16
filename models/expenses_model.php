@@ -13,11 +13,16 @@ class Expenses_Model extends Model {
         $date = new DateTime();
         $sdate = (isset($_POST['sdate']))?$_POST['sdate']:date_format($date,"Y-m-01");
         $edate = (isset($_POST['edate']))?$_POST['edate']:date_format($date,"Y-m-t");
+        $grp = (isset($_POST['grp']))?$_POST['grp']:"-1";
 
-        $sql="SELECT advempcd empcd, empnnm name, advdate, advpay pay
-              FROM advance, employee
-              WHERE advempcd = empcd
-              AND advdate BETWEEN :sdate AND :edate ";
+        $sql="SELECT expdate, tb10.pmddesc expgrpnm, tb9.pmddesc exptitle, FORMAT(expamt, 2) expamt, expcmnt, expgrp expgrpcd, expcd
+                FROM expenses e, prmdtl tb9, prmdtl tb10
+                WHERE tb9.pmdtbno = 9
+                AND tb10.pmdtbno = 10
+                AND expcd = tb9.pmdcd
+                AND expgrp = tb10.pmdcd
+                AND expdate BETWEEN :sdate AND :edate 
+                AND ('".$grp."' = '-1' OR expgrp = '".$grp."') ";
             // echo $sql."<br>";
         $sth=$this->db->prepare($sql);
 
@@ -38,12 +43,14 @@ class Expenses_Model extends Model {
         try {
             $this->db->beginTransaction();
 
-            $sql = "INSERT INTO advance VALUE(:empcd, :pdate, :pay);";
+            $sql = "INSERT INTO expenses VALUE( :expdate, :expcd, :expgrp, :expamt, :expcmnt )";
             $stmt = $this->db->prepare($sql);
             $stmt->execute(array(
-                ':empcd'=>$_POST['empcd'],
-                ':pdate'=>$_POST['advdate'],
-                ':pay'=>$_POST['pay']
+                ':expdate'=>$_POST['pdate'],
+                ':expcd'=>$_POST['code'],
+                ':expgrp'=>$_POST['grpcd'],
+                ':expamt'=>$_POST['amount'],
+                ':expcmnt'=>$_POST['comment']
                 ));
 
             $this->db->commit();
@@ -65,16 +72,18 @@ class Expenses_Model extends Model {
         try {
             $this->db->beginTransaction();
 
-            $sql = "UPDATE  advance
-                    SET  advpay  = :pay
-                    WHERE advempcd = :empcd 
-                    AND advdate = :pdate";
+            $sql = "UPDATE  expenses
+                    SET  expamt  = :amount
+                        ,expcmnt = :comment
+                    WHERE expdate = :pdate 
+                    AND expcd = :code";
 
             $stmt = $this->db->prepare($sql);
             $stmt->execute(array(
-                ':empcd'=>$_POST['empcd'],
-                ':pdate'=>$_POST['advdate'],
-                ':pay'=>$_POST['pay']
+                ':code'=>$_POST['code'],
+                ':pdate'=>$_POST['pdate'],
+                ':amount'=>$_POST['amount'],
+                ':comment'=>$_POST['comment']
                 ));
 
             $this->db->commit();
@@ -95,12 +104,12 @@ class Expenses_Model extends Model {
 
         try {
             $this->db->beginTransaction();
-            $stmt = $this->db->prepare("DELETE FROM advance 
-                                        WHERE advempcd = :empcd 
-                                        AND advdate = :pdate");
+            $stmt = $this->db->prepare("DELETE FROM expenses 
+                                        WHERE expdate = :pdate 
+                                        AND expcd = :code ");
             $stmt->execute(array(
-                ':empcd'=>$_POST['empcd'],
-                ':pdate'=>$_POST['advdate']
+                ':pdate'=>$_POST['pdate'],
+                ':code'=>$_POST['code']
                 ));
 
             $this->db->commit();

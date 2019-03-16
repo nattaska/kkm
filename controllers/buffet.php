@@ -40,8 +40,10 @@ class Buffet extends Controller {
         $this->view->criteria = array("sdate" => date_format($date,"Y-m-01")
                                     , "edate" => date_format($date,"Y-m-t"));
 
-        $this->paramModel->getParameter(2);
-        $this->view->buffType = $this->paramModel->paramList;
+        // $this->paramModel->getParameter(2);
+        // $this->view->buffType = $this->paramModel->paramList;
+        $this->view->buffType = $this->paramModel->getParameter(2);
+
         $this->view->render('buffet/index');
     }
 

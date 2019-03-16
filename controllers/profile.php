@@ -32,12 +32,12 @@ class Profile extends Controller {
         $this->view->user = Session::get('UserProfile');
 
         // $paramObj = new Parameter_Model();
-        $this->paramModel->getParameter(3);
+        // $this->paramModel->getParameter(3);
 
-        $this->view->depts = $this->paramModel->paramList;
+        $this->view->depts = $this->paramModel->getParameter(3);
 
-        $this->paramModel->getParameter(4);
-        $this->view->profiles = $this->paramModel->paramList;
+        // $this->paramModel->getParameter(4);
+        $this->view->profiles = $this->paramModel->getParameter(4);
 
         $this->view->render('profile/index');
     }

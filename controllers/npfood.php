@@ -38,8 +38,7 @@ class NPFood extends Controller {
         $this->view->criteria = array("sdate" => date_format($date,"Y-m-01")
                                     , "edate" => date_format($date,"Y-m-t"));
 
-        $this->paramModel->getParameter(5);
-        $this->view->rooms = $this->paramModel->paramList;
+        $this->view->rooms = $this->paramModel->getParameter(5);
 
         $this->view->render('npfood/index');
     }
@@ -63,8 +62,8 @@ class NPFood extends Controller {
     function xhrGetRoomLov() {
         $arr = [];
         $i = 0;
-        $this->paramModel->getParameter(5);
-        foreach ($this->paramModel->paramList as $row) {
+        $rooms = $this->paramModel->getParameter(5);
+        foreach ($rooms as $row) {
             $arr[$i]=(array('value' => $row["code"]
                           , 'label' => $row["code"].' - T'.$row["val1"]));
             $i++;

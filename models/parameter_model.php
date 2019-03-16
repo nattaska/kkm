@@ -1,7 +1,7 @@
 <?php
 
 class Parameter_Model extends Model {
-    public $paramList = array();
+    // public $paramList = array();
 
     public function __construct() {
         parent::__construct();
@@ -19,7 +19,9 @@ class Parameter_Model extends Model {
         // $sth->bindParam(':keyword', $keyword, PDO::PARAM_INT);
         $sth->setFetchMode(PDO::FETCH_ASSOC);
         $sth->execute();
-        $this->paramList = $sth->fetchAll();
+        // $this->paramList = $sth->fetchAll();
+
+        return $sth->fetchAll();
     }
 
     function xhrGetParameterLov() {
@@ -53,6 +55,25 @@ class Parameter_Model extends Model {
         $data = $sth->fetchAll();
 
         echo json_encode($data);
+    }
+
+    function getParameterGroup($p_grptb, $p_tbno) {    
+        // $keyword = $_GET['keyword'];
+
+        $sql = "select t1.pmdcd 'code', t1.pmddesc 'desc', t2.pmdcd 'group', t2.pmddesc 'grpdesc'
+                FROM prmdtl t1, prmdtl t2
+                WHERE t1.pmdtbno = ".$p_tbno."
+                AND t2.pmdtbno = ".$p_grptb."
+                AND t1.pmdval1 = t2.pmdcd
+                ORDER BY t1.pmdcd";
+
+        $sth = $this->db->prepare($sql);
+        // $sth->bindParam(':keyword', $keyword, PDO::PARAM_INT);
+        $sth->setFetchMode(PDO::FETCH_ASSOC);
+        $sth->execute();
+        // $this->paramList = $sth->fetchAll();
+
+        return $sth->fetchAll();
     }
 
 
