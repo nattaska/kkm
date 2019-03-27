@@ -1,6 +1,6 @@
 <?php
 
-class Expenses_Model extends Model {
+class Revenue_Model extends Model {
     // public $param = array();
     // public $userProfile = array();
 
@@ -13,16 +13,14 @@ class Expenses_Model extends Model {
         $date = new DateTime();
         $sdate = (isset($_POST['sdate']))?$_POST['sdate']:date_format($date,"Y-m-01");
         $edate = (isset($_POST['edate']))?$_POST['edate']:date_format($date,"Y-m-t");
-        $grp = (isset($_POST['grp']))?$_POST['grp']:"-1";
+        $code = (isset($_POST['code']))?$_POST['code']:"-1";
 
-        $sql="SELECT expdate, tb10.pmddesc expgrpnm, tb9.pmddesc exptitle, FORMAT(expamt, 2) expamt, expcmt, expgrp expgrpcd, expcd
-                FROM expenses e, prmdtl tb9, prmdtl tb10
-                WHERE tb9.pmdtbno = 9
-                AND tb10.pmdtbno = 10
-                AND expcd = tb9.pmdcd
-                AND expgrp = tb10.pmdcd
-                AND expdate BETWEEN :sdate AND :edate 
-                AND ('".$grp."' = '-1' OR expgrp = '".$grp."') ";
+        $sql="SELECT rvndate, tb8.pmddesc rvntitle, FORMAT(rvnamt, 2) rvnamt, rvncmt, rvncd
+                FROM revenue e, prmdtl tb8
+                WHERE tb8.pmdtbno = 8
+                AND rvncd = tb8.pmdcd
+                AND rvndate BETWEEN :sdate AND :edate 
+                AND ('".$code."' = '-1' OR rvncd = '".$code."') ";
             // echo $sql."<br>";
         $sth=$this->db->prepare($sql);
 
@@ -43,14 +41,13 @@ class Expenses_Model extends Model {
         try {
             $this->db->beginTransaction();
 
-            $sql = "INSERT INTO expenses VALUE( :expdate, :expcd, :expgrp, :expamt, :expcmt )";
+            $sql = "INSERT INTO revenue VALUE( :rvndate, :rvncd, :rvnamt, :rvncmt )";
             $stmt = $this->db->prepare($sql);
             $stmt->execute(array(
-                ':expdate'=>$_POST['pdate'],
-                ':expcd'=>$_POST['code'],
-                ':expgrp'=>$_POST['grpcd'],
-                ':expamt'=>$_POST['amount'],
-                ':expcmt'=>$_POST['comment']
+                ':rvndate'=>$_POST['pdate'],
+                ':rvncd'=>$_POST['code'],
+                ':rvnamt'=>$_POST['amount'],
+                ':rvncmt'=>$_POST['comment']
                 ));
 
             $this->db->commit();
@@ -72,16 +69,16 @@ class Expenses_Model extends Model {
         try {
             $this->db->beginTransaction();
 
-            $sql = "UPDATE  expenses
-                    SET  expamt  = :amount
-                        ,expcmt = :comment
-                    WHERE expdate = :pdate 
-                    AND expcd = :code";
+            $sql = "UPDATE  revenue
+                    SET  rvnamt  = :amount
+                        ,rvncmt = :comment
+                    WHERE rvndate = :pdate 
+                    AND rvncd = :code";
 
             $stmt = $this->db->prepare($sql);
             $stmt->execute(array(
-                ':code'=>$_POST['code'],
                 ':pdate'=>$_POST['pdate'],
+                ':code'=>$_POST['code'],
                 ':amount'=>$_POST['amount'],
                 ':comment'=>$_POST['comment']
                 ));
@@ -104,9 +101,9 @@ class Expenses_Model extends Model {
 
         try {
             $this->db->beginTransaction();
-            $stmt = $this->db->prepare("DELETE FROM expenses 
-                                        WHERE expdate = :pdate 
-                                        AND expcd = :code ");
+            $stmt = $this->db->prepare("DELETE FROM revenue 
+                                        WHERE rvndate = :pdate 
+                                        AND rvncd = :code ");
             $stmt->execute(array(
                 ':pdate'=>$_POST['pdate'],
                 ':code'=>$_POST['code']

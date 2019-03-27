@@ -30,11 +30,8 @@
                                                 </div>
                                                 <div class="col-md-2">
                                                     <label for="search" class="control-label mb-1"></label>
-                                                    <div class="input-group">
-                                                        <!-- <div class="input-group-btn"> -->
-                                                            <button class="btn btn-primary"> <i class="ti ti-search"></i> Search</button>
-                                                        <!-- </div> -->
-                                                        <!-- <input class="btn btn-outline-primary" type="submit" value="Search"> -->
+                                                    <div class="input-group"> 
+                                                        <button class="btn btn-primary"> <i class="ti ti-search"></i> Search</button> 
                                                     </div>
                                                 </div>
                                             </div>

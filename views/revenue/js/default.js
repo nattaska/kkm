@@ -2,31 +2,32 @@
     "use strict";
   
     $(function() {
-        var module = "expenses";
+        var module = "revenue";
 
         var table = $('#table-data').DataTable({
             dom: 'Bfrtip',
             buttons: [
-                { text: '<a id="add" href="#" class="add"><button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modifyDataModel"><i class="fa fa-plus"></i>&nbsp;Add</button></a>' }
+                { text: '<a id="add" href="#" class="add"><button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modifyDataModel"><i class="fa fa-plus"></i>&nbsp;Add</button></a>' },
+                { extend: 'excel',
+                  exportOptions: { columns: [0, 1, 2, 3] }
+                }
             ],
             columns: [
-                { data: 'expdate' },
-                { data: 'expgrpnm' },
-                { data: 'exptitle' },
-                { data: 'expamt' },
-                { data: 'expcmt' },
-                { data: 'expgrpcd' },
-                { data: 'expcd' },
+                { data: 'rvndate' },
+                { data: 'rvntitle' },
+                { data: 'rvnamt' },
+                { data: 'rvncmt' },
+                { data: 'rvncd' },
                 { sortable: false,
                   defaultContent: '<a id="edit" href="#" class="edit"><button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#modifyDataModel"><i class="fa fa-edit"></i></button></a>&nbsp;'+
                                   '<a id="delete" href="#" class="delete"><button type="button" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i></button></a>' }
             ],
             columnDefs: [
-                { targets: [1, 2], "width": "15%", className: 'dt-left' },
-                { targets: [4], "width": "25%", className: 'dt-left' },
-                { targets: [0, 7], "width": "10%", className: 'dt-center' },
-                { targets: [3], "width": "10%", className: 'dt-right' },
-                { targets: [5, 6], "visible": false }
+                { targets: [1], "width": "15%", className: 'dt-left' },
+                { targets: [3], "width": "25%", className: 'dt-left' },
+                { targets: [0, 5], "width": "10%", className: 'dt-center' },
+                { targets: [2], "width": "10%", className: 'dt-right' },
+                { targets: [4], "visible": false }
             ]
         });
         
@@ -36,10 +37,6 @@
 
         $("#code").change(function(){
             var arr = $("#code option:selected").text().split('-');
-            var code = $("#code").val();
-
-            $("#grpcd").val(code.substring(0,1));
-            $("#grpnm").val($.trim(arr[0]));
             $("#title").val($.trim(arr[1]));
         });
 
@@ -70,23 +67,21 @@
             $("#modifyDataModel #staticModalLabel").html("Add Data");
             $('#pdate').val(today);
             $("#code").val('').trigger("chosen:updated");
-            $("#grpcd").val('');
             $('#amount').val('');
             $('#comment').val('');
-            $('#grp').val('');
         });
  
         $('#table-data tbody').on( 'click', '.edit', function () {
             tableRow = table.row($(this).parents('tr'));
             var data = tableRow.data();
+            // console.log(data);
 
             $("#modify-data-form").attr("action", $('#url').val()+module+'/xhrUpdate');
             $("#modifyDataModel #staticModalLabel").html("Edit Data");
-            $('#pdate').val(data.expdate);
-            $("#code").val(data.expcd).trigger("chosen:updated");
-            $('#grpcd').val(data.expgrpcd);
-            $('#amount').val(data.expamt.replace(',',''));
-            $('#comment').val(data.expcmt);
+            $('#pdate').val(data.rvndate);
+            $("#code").val(data.rvncd).trigger("chosen:updated");
+            $('#amount').val(data.rvnamt.replace(',',''));
+            $('#comment').val(data.rvncmt);
 
             $("#pdate").prop("readonly",true);
             $('input[name=code]').val($("#code").val());   
@@ -98,7 +93,7 @@
             var data = row.data();
             // console.log(data);
 
-            $.post(module+'/xhrDelete', {'pdate': data.expdate, 'code': data.expcd}, function(o) {
+            $.post(module+'/xhrDelete', {'pdate': data.rvndate, 'code': data.rvncd}, function(o) {
                 
                 if (o.res > 0) {
                     row.remove().draw();
@@ -156,8 +151,8 @@
             },
             // Specify validation error messages
             messages: {
-                pdate: "Please enter your date",
-                code: "Please choose expense type",
+                bfdate: "Please enter your date",
+                bftype: "Please choose revenue type",
                 amount: {
                     number: "Please enter a valid number."
                 }
@@ -169,8 +164,6 @@
                 var pdate   = $('#pdate').val();
                 var code    = $('#code').val();
                 var title   = $('#title').val();
-                var grpcd   = $('#grpcd').val();
-                var grpnm   = $('#grpnm').val();
                 var amount  = parseFloat($('#amount').val()).toFixed(2);
                 var comment = $('#comment').val();
                 var msg = "";
@@ -181,7 +174,7 @@
                     var loadingModal = $("#modifyDataModel");
                     if (o.res > 0) {
                         var newdata_arr = [];
-                        var newdata = {"expdate":pdate, "expgrpnm":grpnm, "exptitle":title, "expamt":amount, "expcmt":comment, "expgrpcd":grpcd, "expcd":code};
+                        var newdata = {"rvndate":pdate, "rvntitle":title, "rvnamt":amount, "rvncmt":comment, "rvncd":code};
                         newdata_arr.push(newdata);
 
                         if(url.indexOf('Insert') >= 0) {
