@@ -14,7 +14,7 @@
                                         <div class="col-md-3">
                                             <div class="input-group">
                                                 <div class="col-12 col-md-11">
-                                                    <select name="expgrp" id="expgrp" class="chosen-select" style="width: 150px">
+                                                    <select name="grp" id="grp" class="chosen-select" style="width: 150px">
                                                         <option value="-1">----&nbsp;All Expense Group&nbsp;----</option>
                                                         <?php 
                                                         foreach ($this->expgrps as $expgrp) {
