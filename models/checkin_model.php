@@ -26,14 +26,14 @@ class Checkin_Model extends Model {
         $result = "1";
         $error = "";
 
-        echo $_POST['phone']."</br>";
-        echo $_POST['code']."</br>";        
-        echo $_POST['clocktype']."</br>";
+        // echo $_POST['phone']."</br>";
+        // echo $_POST['code']."</br>";
+        // echo $_POST['clocktype']."</br>";
 
         $clockType = $_POST['clocktype'];
         $sql = "";
 
-        if (strcmp('$clockType', 'in') == 0) {
+        if (strcmp($clockType, 'in') == 0) {
             $sql = "INSERT INTO timesheet(timempcd, timdate, timin) VALUE(:empcd, CURRENT_DATE, CURRENT_TIMESTAMP);";
         } else {
             $sql = "UPDATE  timesheet
@@ -41,7 +41,7 @@ class Checkin_Model extends Model {
                     WHERE timempcd = :empcd 
                     AND timdate = CURRENT_DATE";
         }
-        
+        // echo $sql;
         try {
             $this->db->beginTransaction();
             $stmt = $this->db->prepare($sql);

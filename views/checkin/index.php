@@ -82,6 +82,7 @@
                             <input type="hidden" id="clocktype" name="clocktype" class="form-control"  ></div>
                         </div>
                     </form>
+                        <div id="msgMain" ></div>
                         <table class="table table-striped">
                             <thead>
                                 <tr>

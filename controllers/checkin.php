@@ -12,8 +12,8 @@ class Checkin extends Controller {
         
         // if (ISSET($ipObj["org"])) {}
         if (ISSET($ipObj["org"]) &&
-            (!(strlen(strstr($ipObj["org"],"AS17552 True Internet"))>0 &&
-             strlen(strstr($ipObj["hostname"],"revip2.asianet.co.th"))>0))) {
+            (!(strlen(strstr($ipObj["org"], NT_ORG))>0 &&
+             strlen(strstr($ipObj["hostname"], NT_HOST))>0))) {
                 header('location: login');
                 exit;
         }
