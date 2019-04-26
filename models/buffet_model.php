@@ -17,8 +17,10 @@ class Buffet_Model extends Model {
 
         // echo $bufftype."<br>";
 
-        $sql="SELECT bfdate, bftype, pmddesc typename, bfqty qty, ifnull(bfgrp,'-') grp
-                    ,(bfqty*pmdval1) amount, ROUND((bfqty*pmdval1*pmdval2/100),2) comm
+        $sql="SELECT bfdate, bftype, bfgrp grp, pmddesc typename
+                    , if((pmdval1 = 1),'-',bfqty) qty,FORMAT((bfqty*pmdval1),2) amount
+                    , FORMAT(ROUND((bfqty)*IFNULL(pmdval1*pmdval2/100, IFNULL(pmdval3,0)),2),2) comm
+                    , ifnull(bfnote,'-') note
                 FROM buffet, prmdtl
                 WHERE pmdtbno = 2
                 AND bftype = pmdcd
@@ -48,12 +50,26 @@ class Buffet_Model extends Model {
         try {
             $this->db->beginTransaction();
 
-            $sql = "INSERT INTO buffet VALUE(:bfdate, :bftype, :bfgrp, :bfqty);";
+            $sql = "SELECT IFNULL(MAX(bfgrp),0)+1 grp
+                        FROM buffet 
+                        WHERE bfdate=:bfdate 
+                        AND bftype=:bftype";
+
+            $sth=$this->db->prepare($sql);
+
+            $sth->bindParam(':bfdate', $_POST['bfdate'], PDO::PARAM_STR);
+            $sth->bindParam(':bftype', $arrType['code'], PDO::PARAM_STR);
+            $sth->setFetchMode(PDO::FETCH_ASSOC);
+            $sth->execute();
+            $data = $sth->fetchAll();
+
+            $sql = "INSERT INTO buffet VALUE(:bfdate, :bfgrp, :bftype, :bfqty, :bfnote)";
             $stmt = $this->db->prepare($sql);
             $stmt->execute(array(
                 ':bfdate'=>$_POST['bfdate'],
+                ':bfgrp' => $data[0]["grp"],
                 ':bftype'=>$arrType['code'],
-                ':bfgrp'=>$_POST['grp'],
+                ':bfnote'=>$_POST['note'],
                 ':bfqty'=>$_POST['qty']
                 ));
 
@@ -65,7 +81,7 @@ class Buffet_Model extends Model {
             $this->db->rollBack();
         }
         
-        $data = array('res' => $result, 'error' => $error);
+        $data = array('res' => $result,'grp' => $data[0]["grp"], 'error' => $error);
         echo json_encode($data);
     }
 
@@ -79,7 +95,8 @@ class Buffet_Model extends Model {
             $this->db->beginTransaction();
 
             $sql = "UPDATE  buffet
-                    SET bfqty  = :bfqty
+                    SET bfqty  = :bfqty,
+                        bfnote = :bfnote
                     WHERE bfdate = :bfdate 
                     AND bftype = :bftype
                     AND bfgrp = :bfgrp";
@@ -89,7 +106,8 @@ class Buffet_Model extends Model {
                 ':bfdate'=>$_POST['bfdate'],
                 ':bftype'=>$arrType['code'],
                 ':bfgrp'=>$_POST['grp'],
-                ':bfqty'=>$_POST['qty']
+                ':bfqty'=>$_POST['qty'],
+                ':bfnote'=>$_POST['note']
                 ));
 
             $this->db->commit();

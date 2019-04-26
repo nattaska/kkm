@@ -63,11 +63,12 @@
                                         <tr>
                                             <th>Date</th>
                                             <th>Type Code</th>
+                                            <th>Group</th>
                                             <th>Type</th>
                                             <th>PAX</th>
-                                            <th>Group Name</th>
                                             <th>Amount</th>
                                             <th>Commission</th>
+                                            <th>Note</th>
                                             <th></th>
                                         </tr>
                                     </thead>
@@ -75,11 +76,12 @@
                                         <tr>
                                             <th>Date</th>
                                             <th>Type Code</th>
+                                            <th>Group</th>
                                             <th>Type</th>
                                             <th>PAX</th>
-                                            <th>Group Name</th>
                                             <th>Amount</th>
                                             <th>Commission</th>
+                                            <th>Note</th>
                                             <th></th>
                                         </tr>
                                     </tfoot>
@@ -120,17 +122,18 @@
                                                         </div>
                                                     </div>
                                                     <div class="row form-group">
+                                                        <input type="hidden" id="grp" name="grp" class="form-control">
                                                         <div class="col col-md-3"><label for="text-input" class=" form-control-label">Type name&nbsp;</label></div>
                                                         <div class="col-12 col-md-5"><input type="text" id="typename" name="typename" placeholder="" class="form-control" readonly="readonly" tabindex="1"></div>
                                                     </div>
                                                     <div class="row form-group">
-                                                        <div class="col col-md-3"><label for="text-input" class=" form-control-label">Group Name</label></div>    
-                                                        <div class="col-12 col-md-5"><input type="text" id="grp" name="grp" class="form-control" value="-" readonly="readonly"></div>
-                                                    </div> 
-                                                    <div class="row form-group">
-                                                        <div class="col-12 col-md-3"><label for="text-input" class=" form-control-label">PAX</label></div>                                          
+                                                        <div class="col-12 col-md-3"><label for="text-input" class=" form-control-label">PAX / Amount</label></div>                                          
                                                         <div class="col col-md-3"><input type="number" id="qty" name="qty" class="form-control"></div>
                                                     </div>
+                                                    <div class="row form-group">
+                                                        <div class="col col-md-3"><label for="text-input" class=" form-control-label">Note</label></div>    
+                                                        <div class="col-12 col-md-5"><input type="text" id="note" name="note" class="form-control" value=""></div>
+                                                    </div> 
                                             </div>
                                             <div class="modal-footer">
                                                 <button id="confirmBtn" class="btn btn-primary" >Confirm</button>

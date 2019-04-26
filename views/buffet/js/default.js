@@ -12,21 +12,23 @@
             columns: [
                 { data: 'bfdate' },
                 { data: 'bftype' },
+                { data: 'grp' },
                 { data: 'typename' },
                 { data: 'qty' },
-                { data: 'grp' },
                 { data: 'amount' },
                 { data: 'comm' },
+                { data: 'note' },
                 { sortable: false,
                   defaultContent: '<a id="edit" href="#" class="edit"><button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#modifyDataModel"><i class="fa fa-edit"></i></button></a>&nbsp;'+
                                   '<a id="delete" href="#" class="delete"><button type="button" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i></button></a>' }
             ],
             columnDefs: [
-                { targets: [0, 2, 4, 7], "width": "15%", className: 'dt-center' },
-                { targets: [3], "width": "10%", className: 'dt-center' },
+                { targets: [0, 3], "width": "15%", className: 'dt-center' },
+                { targets: [7], "width": "20%", className: 'dt-left' },
+                { targets: [8], "width": "10%", className: 'dt-center' },
                 // { targets: [4], "width": "5%", className: 'dt-center' },
-                { targets: [5, 6], "width": "10%", className: 'dt-right' },
-                { targets: [1], "visible": false }
+                { targets: [4, 5, 6], "width": "10%", className: 'dt-right' },
+                { targets: [1, 2], "visible": false }
             ]
         });
         
@@ -39,12 +41,12 @@
             var arr = $("#bftype option:selected").text().split('-');
             $("#typename").val($.trim(arr[1]));
 
-            if ($.trim(arr[0]) >= 3) {
-                $("#grp").removeAttr('readonly');
-            } else {
-                $("#grp").val('-');
-                $("#grp").attr('readonly', 'readonly');
-            }
+            // if ($.trim(arr[0]) >= 3) {
+            //     $("#grp").removeAttr('readonly');
+            // } else {
+            //     $("#grp").val('-');
+            //     $("#grp").attr('readonly', 'readonly');
+            // }
             
         });
 
@@ -78,6 +80,7 @@
             $('#typename').val('');
             $('#qty').val('');
             $('#grp').val('');
+            $('#note').val('');
         });
  
         $('#table-data tbody').on( 'click', '.edit', function () {
@@ -92,6 +95,7 @@
             $('#typename').val(data.typename);
             $('#qty').val(data.qty);
             $('#grp').val(data.grp);
+            $('#note').val(data.note);
 
             $("#bfdate").prop("readonly",true);
             // $("#bftype").prop("readonly",true).trigger("chosen:updated");
@@ -132,7 +136,7 @@
 
         $('#modifyDataModel').on('hidden.bs.modal', function() {
             $('#modify-data-form').validate().resetForm();
-            $("#grp").removeClass("is-invalid");
+            // $("#grp").removeClass("is-invalid");
             $("#qty").removeClass("is-invalid");
             $('#bftype').attr("disabled", false).trigger("chosen:updated");
         });
@@ -181,7 +185,8 @@
                 var bfdate = $('#bfdate').val();
                 var bftype   = $('#bftype').val();
                 var typename   = $('#typename').val();
-                var grp   = $('#grp').val();
+                var grp = $('#grp').val();
+                var note   = $('#note').val();
                 var qty = $('#qty').val();
                 var msg = "";
                 // console.log(data);
@@ -195,10 +200,11 @@
                     var loadingModal = $("#modifyDataModel");
                     if (o.res > 0) {
                         var newdata_arr = [];
-                        var newdata = {"bfdate":bfdate, "bftype":jtype.code, "typename":typename, "grp":grp, "qty":qty, "amount":amount, "comm":comm};
+                        var newdata = {"bfdate":bfdate, "bftype":jtype.code, "grp":grp, "typename":typename, "qty":qty, "amount":amount, "comm":comm, "note":note};
                         newdata_arr.push(newdata);
 
                         if(url.indexOf('Insert') >= 0) {
+                            newdata_arr[0]["grp"] = o.grp;
                             table.rows.add(newdata_arr).draw();         // Insert
                         } else if(url.indexOf('Update') >= 0) {
                             table.row(tableRow).data(newdata).draw();   // Update
