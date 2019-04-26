@@ -23,6 +23,7 @@ class Revenue extends Controller {
                                 ,URL."assets/js/init/datatables-init.js"
                                 ,URL."assets/js/lib/chosen/chosen.jquery.min.js"
                                 ,URL."views/revenue/js/default.js"
+                                ,URL."public/js/jquery.number.min.js"
                                 );
 
         $this->view->css = array(URL.'assets/css/lib/datatable/dataTables.bootstrap.min.css'

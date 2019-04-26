@@ -14,7 +14,7 @@ class NPFood_Model extends Model {
         $sdate = (isset($_POST['sdate']))?$_POST['sdate']:date_format($date,"Y-m-01");
         $edate = (isset($_POST['edate']))?$_POST['edate']:date_format($date,"Y-m-t");
 
-        $sql="SELECT npfordid ordid, npfdate orddate, npfroom room, npftotal total
+        $sql="SELECT npfordid ordid, npfdate orddate, npfroom room, FORMAT(npftotal, 2) total
               FROM npfood
               WHERE npfdate BETWEEN :sdate AND :edate ";
             // echo $sql."<br>";

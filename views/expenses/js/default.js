@@ -25,9 +25,35 @@
                 { targets: [1, 2], "width": "15%", className: 'dt-left' },
                 { targets: [4], "width": "25%", className: 'dt-left' },
                 { targets: [0, 7], "width": "10%", className: 'dt-center' },
-                { targets: [3], "width": "10%", className: 'dt-right' },
+                { targets: [3], "width": "20%", className: 'dt-right' },
                 { targets: [5, 6], "visible": false }
-            ]
+            ],            
+            footerCallback: function ( row, data, start, end, display ) {
+                var api = this.api(), data;
+    
+                // Remove the formatting to get integer data for summation
+                var intVal = function ( i ) {
+                    return typeof i === 'string' ?
+                        i.replace(/[\$,]/g, '')*1 :
+                        typeof i === 'number' ?
+                            i : 0;
+                };
+    
+                // Total over all pages
+                var amtTotal = api.column(3).data().reduce( function (a, b) {
+                        return intVal(a) + intVal(b);
+                    }, 0 );
+    
+                // Total over this page
+                var amtPageSumm = api.column( 3, { page: 'current'} ).data().reduce( function (a, b) {
+                        return intVal(a) + intVal(b);
+                    }, 0 );
+    
+                // Update footer
+                $( api.column(3).footer() ).html(
+                    $.number( amtPageSumm, 2 ) +' </br>Total : '+ $.number( amtTotal, 2 )
+                );
+            }
         });
         
         var tableRow = table.row($(this).parents('tr'));
@@ -85,6 +111,8 @@
             $('#pdate').val(data.expdate);
             $("#code").val(data.expcd).trigger("chosen:updated");
             $('#grpcd').val(data.expgrpcd);
+            $('#title').val(data.exptitle);
+            $('#grpnm').val(data.expgrpnm);
             $('#amount').val(data.expamt.replace(',',''));
             $('#comment').val(data.expcmt);
 

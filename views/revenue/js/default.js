@@ -26,9 +26,35 @@
                 { targets: [1], "width": "15%", className: 'dt-left' },
                 { targets: [3], "width": "25%", className: 'dt-left' },
                 { targets: [0, 5], "width": "10%", className: 'dt-center' },
-                { targets: [2], "width": "10%", className: 'dt-right' },
+                { targets: [2], "width": "20%", className: 'dt-right' },
                 { targets: [4], "visible": false }
-            ]
+            ],            
+            footerCallback: function ( row, data, start, end, display ) {
+                var api = this.api(), data;
+    
+                // Remove the formatting to get integer data for summation
+                var intVal = function ( i ) {
+                    return typeof i === 'string' ?
+                        i.replace(/[\$,]/g, '')*1 :
+                        typeof i === 'number' ?
+                            i : 0;
+                };
+    
+                // Total over all pages
+                var amtTotal = api.column(2).data().reduce( function (a, b) {
+                        return intVal(a) + intVal(b);
+                    }, 0 );
+    
+                // Total over this page
+                var amtPageSumm = api.column( 2, { page: 'current'} ).data().reduce( function (a, b) {
+                        return intVal(a) + intVal(b);
+                    }, 0 );
+    
+                // Update footer
+                $( api.column(2).footer() ).html(
+                    $.number( amtPageSumm, 2 ) +' </br>Total : '+ $.number( amtTotal, 2 )
+                );
+            }
         });
         
         var tableRow = table.row($(this).parents('tr'));

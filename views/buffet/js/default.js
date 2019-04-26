@@ -23,13 +23,54 @@
                                   '<a id="delete" href="#" class="delete"><button type="button" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i></button></a>' }
             ],
             columnDefs: [
-                { targets: [0, 3], "width": "15%", className: 'dt-center' },
+                // { targets: [0, "width": "15%", className: 'dt-center' },
+                { targets: [3], "width": "15%", className: 'dt-left' },
                 { targets: [7], "width": "20%", className: 'dt-left' },
-                { targets: [8], "width": "10%", className: 'dt-center' },
+                { targets: [0, 8], "width": "10%", className: 'dt-center' },
                 // { targets: [4], "width": "5%", className: 'dt-center' },
-                { targets: [4, 5, 6], "width": "10%", className: 'dt-right' },
+                { targets: [4], "width": "10%", className: 'dt-right' },
+                { targets: [5, 6], "width": "15%", className: 'dt-right' },
                 { targets: [1, 2], "visible": false }
-            ]
+            ],            
+            footerCallback: function ( row, data, start, end, display ) {
+                var api = this.api(), data;
+    
+                // Remove the formatting to get integer data for summation
+                var intVal = function ( i ) {
+                    return typeof i === 'string' ?
+                        i.replace(/[\$,]/g, '')*1 :
+                        typeof i === 'number' ?
+                            i : 0;
+                };
+    
+                // Total over all pages
+                var amtTotal = api.column(5).data().reduce( function (a, b) {
+                        return intVal(a) + intVal(b);
+                    }, 0 );
+    
+                // Total over this page
+                var amtPageSumm = api.column( 5, { page: 'current'} ).data().reduce( function (a, b) {
+                        return intVal(a) + intVal(b);
+                    }, 0 );
+    
+                // Total over all pages
+                var commTotal = api.column(6).data().reduce( function (a, b) {
+                        return intVal(a) + intVal(b);
+                    }, 0 );
+    
+                // Total over this page
+                var commPageSumm = api.column( 6, { page: 'current'} ).data().reduce( function (a, b) {
+                    return intVal(a) + intVal(b);
+                }, 0 );
+    
+                // Update footer
+                $( api.column(5).footer() ).html(
+                    $.number( amtPageSumm, 2 ) +' </br>Total : '+ $.number( amtTotal, 2 )
+                );
+                $( api.column(6).footer() ).html(
+                    $.number( commPageSumm, 2 ) +' </br>Total : '+ $.number( commTotal, 2 )
+                );
+            }
         });
         
         var tableRow = table.row($(this).parents('tr'));

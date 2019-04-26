@@ -18,8 +18,34 @@
             ],
             columnDefs: [
                 { targets: [0, 1, 2, 4], "width": "15%", className: 'dt-center' },
-                { targets: [3], "width": "10%", className: 'dt-right' }
-            ]
+                { targets: [3], "width": "20%", className: 'dt-right' }
+            ],            
+            footerCallback: function ( row, data, start, end, display ) {
+                var api = this.api(), data;
+    
+                // Remove the formatting to get integer data for summation
+                var intVal = function ( i ) {
+                    return typeof i === 'string' ?
+                        i.replace(/[\$,]/g, '')*1 :
+                        typeof i === 'number' ?
+                            i : 0;
+                };
+    
+                // Total over all pages
+                var amtTotal = api.column(3).data().reduce( function (a, b) {
+                        return intVal(a) + intVal(b);
+                    }, 0 );
+    
+                // Total over this page
+                var amtPageSumm = api.column( 3, { page: 'current'} ).data().reduce( function (a, b) {
+                        return intVal(a) + intVal(b);
+                    }, 0 );
+    
+                // Update footer
+                $( api.column(3).footer() ).html(
+                    $.number( amtPageSumm, 2 ) +' </br>Total : '+ $.number( amtTotal, 2 )
+                );
+            }
         });
         
         var tableRow = table.row($(this).parents('tr'));

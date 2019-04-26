@@ -25,6 +25,7 @@ class Buffet extends Controller {
                                 ,URL."assets/js/init/datatables-init.js"
                                 ,URL."views/buffet/js/default.js"
                                 ,URL."assets/js/lib/chosen/chosen.jquery.min.js"
+                                ,URL."public/js/jquery.number.min.js"
                             );
 
         $this->view->css = array('https://cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css'
