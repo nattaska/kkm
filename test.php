@@ -36,7 +36,7 @@ $ipinfo = file_get_contents("http://ipinfo.io/{$ip}");
 echo $ipinfo."<br>";
 
 $ipObj = json_decode($ipinfo,true);
-echo $ipObj."<br>";
+// echo "ipObj : ".$ipObj."<br>";
 echo "org : ".$ipObj["org"]."<br>";
 echo "hostname : ".$ipObj["hostname"]."<br>";
 

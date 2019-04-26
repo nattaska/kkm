@@ -34,10 +34,11 @@ class Checkin_Model extends Model {
         $sql = "";
 
         if (strcmp($clockType, 'in') == 0) {
-            $sql = "INSERT INTO timesheet(timempcd, timdate, timin) VALUE(:empcd, CURRENT_DATE, CURRENT_TIMESTAMP);";
+            $sql = "INSERT INTO timesheet(timempcd, timdate, timin, timipin) VALUE(:empcd, CURRENT_DATE, CURRENT_TIMESTAMP, :ip);";
         } else {
             $sql = "UPDATE  timesheet
-                    SET  timout  = CURRENT_TIMESTAMP
+                    SET  timout  = CURRENT_TIMESTAMP,
+                         timipout = :ip
                     WHERE timempcd = :empcd 
                     AND timdate = CURRENT_DATE";
         }
@@ -46,7 +47,8 @@ class Checkin_Model extends Model {
             $this->db->beginTransaction();
             $stmt = $this->db->prepare($sql);
             $stmt->execute(array(
-                ':empcd'=>$_POST['code']
+                ':empcd'=>$_POST['code'],
+                ':ip'=>$_SERVER['REMOTE_ADDR']
                 ));
 
             $this->db->commit();
