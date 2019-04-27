@@ -23,26 +23,13 @@
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <link rel="stylesheet" href="assets/css/cs-skin-elastic.css">
     <link rel="stylesheet" href="assets/css/style.css">
-    <!-- <link rel="stylesheet" href="public/css/style.css"> -->
+    <link rel="stylesheet" href="views/checkin/style.css">
 
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
-
-<style type="text/css">
-
-    .nav-link-custom {
-        color: #ffffff;
-        font-weight: bolder;   
-    }
-
-    .nav-link-custom:focus .nav-link-custom:hover {
-        color: #ff3906;
-    }
-</style>
 
 </head>
 
 <body>
-
 <div class="content">
     <div class="animated fadeIn">
         <div class="row">
@@ -83,6 +70,7 @@
                         </div>
                     </form>
                         <div id="msgMain" ></div>
+                        <div id="loader"></div>
                         <table class="table table-striped">
                             <thead>
                                 <tr>

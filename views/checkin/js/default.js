@@ -18,8 +18,11 @@
             }
         }, 'json');
 
-        $("#clocked").submit(function() {
-            
+        
+        $("#clocked").submit(function(e) {
+            e.preventDefault();
+            $('#loader').show();
+
             $("#code").val('0');
             for (var i=0; i<arrEmp.length; i++) {
                 if ($("#phone").val() == arrEmp[i].phone) {
@@ -59,7 +62,7 @@
                     }
                 }, 'json');
             }
-                    
+            $('#loader').hide();
             //timing the alert box to close after 5 seconds
             window.setTimeout(function () {
                 $(".alert").fadeTo(500, 0).slideUp(500, function () {
