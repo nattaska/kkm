@@ -162,7 +162,7 @@
             messages: {
                 empcd: {
                     required: "Please enter your Order Id",
-                    minlength: "Your order must be at least 5 characters long"
+                    minlength: "Your code must be at least 5 characters long"
                 },
                 advdate: "Please enter your Advance Date",
                 total: {

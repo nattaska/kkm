@@ -6,7 +6,6 @@
         var arrEmp;
     
         $('#loader').show();
-
         $.post(module+"/xhrSearch", function(o) {
             arrEmp = o;
             $("#listTimeChecked").html("");
@@ -20,7 +19,6 @@
             }
             $('#loader').hide();
         }, 'json');
-
         
         $("#clocked").submit(function(e) {
 
@@ -30,7 +28,27 @@
                     $("#code").val(arrEmp[i].code);
                     (arrEmp[i].timin === '-')?$("#clocktype").val('in'):$("#clocktype").val('out');
                 }
+                // $('#loader').hide();
+                //timing the alert box to close after 5 seconds
+                window.setTimeout(function () {
+                    $(".alert").fadeTo(500, 0).slideUp(500, function () {
+                        $(this).remove();
+                    });
+                }, 5000);
+        
+                //Adding a click event to the 'x' button to close immediately
+                $('.alert .close').on("click", function (e) {
+                    $(this).parent().fadeTo(500, 0).slideUp(500);
+                }); 
+
+                return false;  //This doesn't prevent the form from submitting.
             }
+        });
+
+        
+        // $("#clocked").submit(function(e) {
+        //     e.preventDefault();
+        //     $('#loader').show();
 
             if ($("#code").val() === '0') {
                 $("#msgMain").html('<div class="alert alert-warning"><button type="button" class="close">×</button><strong>Warning!</strong> Phone number does not matched !!!</div>');
@@ -38,8 +56,10 @@
                 // alert("Phone number does not matched !!!");
             } else {                
 
-                var url = $(this).attr('action');
-                var data = $(this).serialize();
+        //     if ($("#code").val() === '0') {
+        //         $("#msgMain").html('<div class="alert alert-warning"><button type="button" class="close">×</button><strong>Warning!</strong> Phone number does not matched !!!</div>');
+        //         // alert("Phone number does not matched !!!");
+        //     } else {                
 
                 e.preventDefault();
                 $('#loader').show();
@@ -75,8 +95,8 @@
             console.log("Hide 76");
             // $('#loader').hide();
 
-            return false;
-        });
+        //     return false;
+        // });
 
     });
     
