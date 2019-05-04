@@ -20,7 +20,7 @@ class Timesheet extends Controller {
         
         $date = new DateTime();
         $loginData = Session::get('LoginData');
-        // echo print_r($loginData);
+        echo print_r($loginData);
 
         // Session::set('criteriaTimesheet', $criteria);
         $this->view->criteria = array("code" => $loginData['code']

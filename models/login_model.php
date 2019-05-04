@@ -8,6 +8,26 @@ class Login_Model extends Model {
         parent::__construct();
     }
 
+    public function validateLogin($user, $password) {
+        $valid = false;
+
+        $sql = "SELECT 1 FROM user WHERE usrcd = :code AND usrpwd = :password";
+
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute(array(
+            ':code'=>$user,
+            ':password'=> md5($password)
+        ));
+
+        if ($stmt->rowCount() > 0) {
+            $valid = true;
+            Session::init();
+            Session::set('logined',true);
+        }
+
+        return $valid;
+    }
+
     public function login() {
 
         $sql = "select usrcd code, usrprof pfcode, pmddesc profdesc, ifnull(empnnm,'-') nickname
