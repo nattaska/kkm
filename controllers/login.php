@@ -11,9 +11,21 @@ class Login extends Controller {
     }
 
     function login() {
-        $this->model->login();
-        // $userModel = $this->loadModedl("User", true);
-        $this->model->validateLogin($_POST['usercode'], $_POST['password']);
+        $valid = $this->model->validateLogin($_POST['usercode'], $_POST['password']);
+        if($valid) {
+            Session::init();
+            Session::set('logged',$valid);
+
+            $userModel = $this->loadModelByName("User");
+            $userMenu = $userModel->getUserPermmission($_POST['usercode']);
+            Session::set('userMenu',$userMenu);
+
+            header('location: ../timesheet');
+        } else {
+            Session::destroy();
+            header('location: ../login');
+            exit;
+        }
 
     }
 

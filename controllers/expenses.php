@@ -4,7 +4,7 @@ class Expenses extends Controller {
     function __construct(){
         parent::__construct();
         Session::init();
-        $logged = Session::get('LoginData');
+        $logged = Session::get('logged');
         if ($logged == false) {
             Session::destroy();
             header('location: login');
@@ -39,8 +39,9 @@ class Expenses extends Controller {
         $this->view->criteria = array("sdate" => date_format($date,"Y-m-01")
                                     , "edate" => date_format($date,"Y-m-t"));
 
-        $this->view->expgrps = $this->paramModel->getParameter(10);
-        $this->view->titles = $this->paramModel->getParameterGroup(10, 9);
+        $paramModel = $this->loadModelByName("Parameter");
+        $this->view->expgrps = $paramModel->getParameter(10);
+        $this->view->titles = $paramModel->getParameterGroup(10, 9);
 
         $this->view->render('expenses/index');
     }

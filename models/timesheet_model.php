@@ -33,7 +33,7 @@ class Timesheet_Model extends Model {
     // xhrGetTimesheet($param)
     function xhrGetTimesheet() {
         // echo "post code = ".$_POST['code'];
-        $user = Session::get('LoginData');
+        $user = Session::get('userMenu');
         $date = new DateTime();
 
         $code = (isset($_POST['code']))?$_POST['code']:$user['code'];

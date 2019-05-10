@@ -1,6 +1,3 @@
-<?php 
-        // $loginData = Session::get('LoginData');
-?>
 <div class="content">
     <div class="animated fadeIn">
         <div class="row">

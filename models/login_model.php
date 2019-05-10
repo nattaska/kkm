@@ -21,8 +21,8 @@ class Login_Model extends Model {
 
         if ($stmt->rowCount() > 0) {
             $valid = true;
-            Session::init();
-            Session::set('logined',true);
+            // Session::init();
+            // Session::set('logined',true);
         }
 
         return $valid;

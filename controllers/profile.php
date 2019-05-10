@@ -7,7 +7,7 @@ class Profile extends Controller {
     function __construct(){
         parent::__construct();
         Session::init();
-        $logged = Session::get('LoginData');
+        $logged = Session::get('logged');
         // echo "logged = ".$logged."</br>";
         if ($logged == false) {
             Session::destroy();
@@ -27,17 +27,11 @@ class Profile extends Controller {
 
     function index() {
 
-        // $logged = Session::get('UserProfile');
-        // $this->model->getProfile($logged['code']);
         $this->view->user = Session::get('UserProfile');
 
-        // $paramObj = new Parameter_Model();
-        // $this->paramModel->getParameter(3);
-
-        $this->view->depts = $this->paramModel->getParameter(3);
-
-        // $this->paramModel->getParameter(4);
-        $this->view->profiles = $this->paramModel->getParameter(4);
+        $paramModel = $this->loadModelByName("Parameter");
+        $this->view->depts = $paramModel->getParameter(3);
+        $this->view->profiles = $paramModel->getParameter(4);
 
         $this->view->render('profile/index');
     }

@@ -4,7 +4,7 @@ class Advance extends Controller {
     function __construct(){
         parent::__construct();
         Session::init();
-        $logged = Session::get('LoginData');
+        $logged = Session::get('logged');
         if ($logged == false) {
             Session::destroy();
             header('location: login');

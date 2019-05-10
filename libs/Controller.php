@@ -6,19 +6,25 @@ class Controller {
         $this->view = new View();
     }
 
-    public function loadModel($name, $noInclude = false) {
+    public function loadModel($name) {
         $path = 'models/'.$name.'_model.php';
         if (file_exists($path)) {
             require 'models/'.$name.'_model.php';
             $modelName = $name.'_Model';
             $this->model = new $modelName;
-
-            if ($noInclude == false) {
-                require 'models/parameter_model.php';
-                $this->paramModel = new Parameter_Model();
-            }
-
         }
+    }
+
+    public function loadModelByName($name) {
+        $model;
+        $path = 'models/'.$name.'_model.php';
+        if (file_exists($path)) {
+            require 'models/'.$name.'_model.php';
+            $modelName = $name.'_Model';
+            $model = new $modelName;
+        }
+
+        return $model;
     }
 }
 

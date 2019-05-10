@@ -6,7 +6,7 @@ class Buffet extends Controller {
     function __construct(){
         parent::__construct();
         Session::init();
-        $logged = Session::get('LoginData');
+        $logged = Session::get('logged');
         if ($logged == false) {
             Session::destroy();
             header('location: login');
@@ -41,9 +41,8 @@ class Buffet extends Controller {
         $this->view->criteria = array("sdate" => date_format($date,"Y-m-01")
                                     , "edate" => date_format($date,"Y-m-t"));
 
-        // $this->paramModel->getParameter(2);
-        // $this->view->buffType = $this->paramModel->paramList;
-        $this->view->buffType = $this->paramModel->getParameter(2);
+        $paramModel = $this->loadModelByName("Parameter");
+        $this->view->buffType = $paramModel->getParameter(2);
 
         $this->view->render('buffet/index');
     }

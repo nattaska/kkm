@@ -4,7 +4,7 @@ class Revenue extends Controller {
     function __construct(){
         parent::__construct();
         Session::init();
-        $logged = Session::get('LoginData');
+        $logged = Session::get('logged');
         if ($logged == false) {
             Session::destroy();
             header('location: login');
@@ -40,7 +40,8 @@ class Revenue extends Controller {
         $this->view->criteria = array("sdate" => date_format($date,"Y-m-01")
                                     , "edate" => date_format($date,"Y-m-t"));
 
-        $this->view->revenues = $this->paramModel->getParameter(8);
+        $paramModel = $this->loadModelByName("Parameter");
+        $this->view->revenues = $paramModel->getParameter(8);
 
         $this->view->render('revenue/index');
     }
