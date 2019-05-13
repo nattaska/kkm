@@ -1,7 +1,5 @@
 <?php 
 
-// $user =  $_SESSION['UserData'];
-// echo "User : ".$user['nickname'];
 $user=$this->user;
 
 ?>
@@ -26,20 +24,20 @@ $user=$this->user;
                                     </div>
                                 </div>
                                 <div class="row form-group">
-                                    <div class="col col-md-3"><label for="text-input" class=" form-control-label">First Name</label></div>
-                                    <div class="col-12 col-md-3"><input type="text" id="fname" name="fname" value="<?php echo $user['firstname']; ?>" placeholder="First Name" class="form-control"></div>
-                                </div>
-                                <div class="row form-group">
-                                    <div class="col col-md-3"><label for="text-input" class=" form-control-label">Last Name</label></div>
-                                    <div class="col-12 col-md-3"><input type="text" id="lname" name="lname" value="<?php echo $user['lastname']; ?>" placeholder="Last Name" class="form-control"></div>
+                                    <div class="col col-md-3"><label for="text-input" class=" form-control-label">Name</label></div>
+                                    <div class="col-12 col-md-3"><input type="text" id="name" name="name" value="<?php echo $user['name']; ?>" placeholder="Name" class="form-control"></div>
                                 </div>
                                 <div class="row form-group">
                                     <div class="col col-md-3"><label for="text-input" class=" form-control-label">Nick Name</label></div>
-                                    <div class="col-12 col-md-3"><input type="text" id="nname" name="nname" value="<?php echo $user['nickname']; ?>" placeholder="Nick Name" class="form-control"></div>
+                                    <div class="col-12 col-md-3"><input type="text" id="nickname" name="nickname" value="<?php echo $user['nickname']; ?>" placeholder="Nick Name" class="form-control"></div>
                                 </div>
                                 <div class="row form-group">
                                     <div class="col col-md-3"><label for="text-input" class=" form-control-label">Phone</label></div>
                                     <div class="col-12 col-md-3"><input type="text" id="phone" name="phone" value="<?php echo $user['phone']; ?>" placeholder="Phone" class="form-control"></div>
+                                </div>
+                                <div class="row form-group">
+                                    <div class="col col-md-3"><label for="text-input" class=" form-control-label">E-Mail</label></div>
+                                    <div class="col-12 col-md-3"><input type="text" id="email" name="email" value="<?php echo $user['email']; ?>" placeholder="E-Mail" class="form-control"></div>
                                 </div>
                                 <div class="row form-group">
                                     <div class="col col-md-3"><label class=" form-control-label">Department</label></div>
@@ -50,20 +48,6 @@ $user=$this->user;
                                             ?>
                                             <label for="dept-radio<?php echo $dept['code']; ?>" class="form-check-label">
                                                 <input type="radio" id="dept<?php echo $dept['code']; ?>" name="department" value="<?php echo $dept['code']; ?>" class="form-check-input" <?php if ($dept['code']==$user['deptid']) {echo "checked";} ?> ><?php echo $dept['descp']; ?>
-                                            </label>&nbsp;&nbsp;&nbsp;&nbsp;
-                                            <?php } ?>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row form-group">
-                                    <div class="col col-md-3"><label class=" form-control-label">Profile</label></div>
-                                    <div class="col col-md-9">
-                                        <div class="form-check-inline form-check">
-                                            <?php 
-                                            foreach ($this->profiles as $profile) {
-                                            ?>
-                                            <label for="profile-radio<?php echo $profile['code']; ?>" class="form-check-label">
-                                                <input type="radio" id="profile<?php echo $profile['code']; ?>" name="profile" value="<?php echo $profile['code']; ?>" class="form-check-input" <?php if ($profile['code']==$user['pfcode']) {echo "checked";} ?> ><?php echo $profile['descp']; ?>
                                             </label>&nbsp;&nbsp;&nbsp;&nbsp;
                                             <?php } ?>
                                         </div>

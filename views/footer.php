@@ -11,7 +11,7 @@
         if (isset($this->js)) {
             foreach ($this->js as $js) {
                 // echo '<script type="text/javascript" src="'.URL.'views/'.$js.'"></script> 
-                echo '<script type="text/javascript" src="'.$js.'"></script> 
+                echo '<script src="'.$js.'"></script> 
     ';
             }
         }
@@ -19,5 +19,6 @@
     
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="https://cdn.jsdelivr.net/jquery.validation/1.15.1/jquery.validate.min.js"></script>
+    
 </body>
 </html>

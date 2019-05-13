@@ -1,8 +1,5 @@
 <?php
 
-// require 'models/parameter_model.php';
-// require 'models/profile_model.php';
-
 class Profile extends Controller {
     function __construct(){
         parent::__construct();
@@ -15,23 +12,17 @@ class Profile extends Controller {
             exit;
         }
 
-        // $this->model->getProfile($logged['code']);
-        // $profObj = new Profile_Model();
-        // $profObj->getProfile($logged['code']);
-        // $this->view->user = $profObj->userProfile;
-
-        // echo "We are in index </br>";
-        $this->view->js = array('profile/default.js');
+        $this->view->js = array(URL."views/profile/js/default.js");
         
     }
 
     function index() {
-
-        $this->view->user = Session::get('UserProfile');
+        $userMenu = Session::get('userMenu');
+        $this->view->user = $this->model->getProfile($userMenu['code']);
+        // print_r($this->view->user);
 
         $paramModel = $this->loadModelByName("Parameter");
         $this->view->depts = $paramModel->getParameter(3);
-        $this->view->profiles = $paramModel->getParameter(4);
 
         $this->view->render('profile/index');
     }

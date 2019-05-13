@@ -1,34 +1,27 @@
 <?php
 
 class Profile_Model extends Model {
-    // public $param = array();
-    // public $userProfile = array();
 
     public function __construct() {
         parent::__construct();
     }
 
     public function getProfile($code) {
-        $sql = "select empcd code, empfnm firstname, emplnm lastname, empnnm nickname
-                , empphone phone, empprof pfcode, pmddesc profile 
-                , paydeptid deptid, paytype, paymethd, payaccount account, paysso 
-                from employee, prmdtl, payment     
-                where empcd=:code
-                AND pmdtbno=4 
-                AND empprof=pmdcd 
-                and payempcd=empcd 
-                and current_date between paysdate and payedate ";
-// echo $code;
+        $sql = "SELECT  usrcd code, usrnm name, usrnnm nickname
+                        , usrtel phone, usremail email
+                        , paydeptid deptid, paytype, paymethd, payaccount account, paysso 
+                FROM user, payment     
+                WHERE usrcd=:code
+                AND usrcd=payempcd
+                AND CURRENT_DATE between paysdate and payedate ";
+                
         $sth = $this->db->prepare($sql);
         $sth->execute(array(
             ':code'=>$code
         ));
-
-        // $this->userProfile=$sth->fetch(PDO::FETCH_ASSOC);
-        $user=$sth->fetch(PDO::FETCH_ASSOC);
-        Session::init();
-        Session::set('UserProfile',$user);
-
+        
+        $user = $sth->fetch(PDO::FETCH_ASSOC);
+        return $user;
     }
 
     function xhrGetUserLov() {
@@ -50,18 +43,17 @@ class Profile_Model extends Model {
         try {
     
             $this->db->beginTransaction();
-
-            $sql = "UPDATE employee
-                    SET empfnm = :fname, emplnm = :lname, empnnm = :nname, empphone = :phone, empprof = :profile
-                    WHERE empcd = :code";
+            
+            $sql = "UPDATE user
+                    SET usrnm = :name, usrnnm = :nickname, usrtel = :phone, usremail = :email
+                    WHERE usrcd = :code";
             $stmt = $this->db->prepare($sql);
             $stmt->execute(array(
                 ':code'=>$_POST['code'],
-                ':fname'=>$_POST['fname'],
-                ':lname'=>$_POST['lname'],
-                ':nname'=>$_POST['nname'],
+                ':name'=>$_POST['name'],
+                ':nickname'=>$_POST['nickname'],
                 ':phone'=>$_POST['phone'],
-                ':profile'=>$_POST['profile']
+                ':email'=>$_POST['email']
                 ));
     
             $sql = "UPDATE payment
