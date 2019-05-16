@@ -19,12 +19,6 @@ class Profile extends Controller {
     function index() {
         $userMenu = Session::get('userMenu');
 
-        foreach ($userMenu["menus"] as $menu) {
-            if ($menu["name"]=="Profile") {
-                $this->view->auth = $menu["permission"];
-            }
-        }
-
         $this->view->user = $this->model->getProfile($userMenu['code']);
 
         $paramModel = $this->loadModelByName("Parameter");

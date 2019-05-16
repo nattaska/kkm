@@ -1,5 +1,7 @@
 <?php 
 $userMenu =  $_SESSION['userMenu'];
+$uri = $_SERVER['REQUEST_URI'];
+$auth = $userMenu[substr($uri,strpos($uri,"/",1)+1)];
 ?>
 <!doctype html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
@@ -38,7 +40,6 @@ $userMenu =  $_SESSION['userMenu'];
 </head>
 
 <body>
-
 <!-- Left Panel -->
     <aside id="left-panel" class="left-panel">
         <nav class="navbar navbar-expand-sm navbar-default">

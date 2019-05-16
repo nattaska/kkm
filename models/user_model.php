@@ -41,7 +41,7 @@ class User_Model extends Model {
             $menu["url"] = $res["url"];
             $menu["icon"] = $res["icon"];
             $menu["level"] = $res["level"];
-            $menu["permission"] = $res["mnupms"];
+            $this->users[$res["url"]] = $res["mnupms"];
 
             $this->users["menus"][] = $menu;
 
