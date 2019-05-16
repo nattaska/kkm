@@ -1,7 +1,8 @@
 <?php 
 
 $user=$this->user;
-
+// print_r($userMenu);
+// echo $this->auth;
 ?>
 
 <div class="content">
@@ -47,7 +48,7 @@ $user=$this->user;
                                             foreach ($this->depts as $dept) {
                                             ?>
                                             <label for="dept-radio<?php echo $dept['code']; ?>" class="form-check-label">
-                                                <input type="radio" id="dept<?php echo $dept['code']; ?>" name="department" value="<?php echo $dept['code']; ?>" class="form-check-input" <?php if ($dept['code']==$user['deptid']) {echo "checked";} ?> ><?php echo $dept['descp']; ?>
+                                                <input type="radio" id="dept<?php echo $dept['code']; ?>" name="department" value="<?php echo $dept['code']; ?>" class="form-check-input" <?php echo ($dept['code']==$user['deptid'])?"checked":""; ?> <?php echo ($this->auth=="R"?"disabled":""); ?> ><?php echo $dept['descp']; ?>
                                             </label>&nbsp;&nbsp;&nbsp;&nbsp;
                                             <?php } ?>
                                         </div>
@@ -55,7 +56,7 @@ $user=$this->user;
                                 </div>
                                 <div class="row form-group">
                                     <div class="col col-md-3"><label for="number-input" class=" form-control-label">Payroll cycle</label></div>
-                                    <div class="col-12 col-md-2"><input type="number" id="paymethd" name="paymethd" value="<?php echo $user['paymethd']; ?>" class="form-control"></div>
+                                    <div class="col-12 col-md-2"><input type="number" id="paymethd" name="paymethd" class="form-control" value="<?php echo $user['paymethd']; ?>" <?php echo ($this->auth=="R"?"disabled":""); ?> ></div>
                                 </div>
                                 <div class="row form-group">
                                     <div class="col col-md-3"><label class=" form-control-label">Payment Type</label></div>

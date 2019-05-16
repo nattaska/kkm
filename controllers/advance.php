@@ -10,6 +10,14 @@ class Advance extends Controller {
             header('location: login');
             exit;
         }
+
+        $userMenu = Session::get('userMenu');
+
+        foreach ($userMenu["menus"] as $menu) {
+            if ($menu["name"]=="Advance") {
+                $this->view->auth = $menu["permission"];
+            }
+        }
         
         $this->view->js = array(URL."assets/js/lib/data-table/datatables.min.js"
                                 ,URL."assets/js/lib/data-table/dataTables.bootstrap.min.js"
