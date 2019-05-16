@@ -2,7 +2,7 @@
     "use strict";
   
     $(function() {
-        var module = "checkin";    
+        var module = "checkin";
         var arrEmp;
     
         $('#loader').show();

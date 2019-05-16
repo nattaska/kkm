@@ -3,11 +3,12 @@
   
     $(function() {
         var module = "revenue";
+        var disabled = ($('#auth').val()==='R'?'disabled':'');
 
         var table = $('#table-data').DataTable({
             dom: 'Bfrtip',
             buttons: [
-                { text: '<a id="add" href="#" class="add"><button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modifyDataModel"><i class="fa fa-plus"></i>&nbsp;Add</button></a>' },
+                { text: '<a id="add" href="#" class="add"><button '+disabled+' type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modifyDataModel"><i class="fa fa-plus"></i>&nbsp;Add</button></a>' },
                 { extend: 'excel',
                   exportOptions: { columns: [0, 1, 2, 3] }
                 }
@@ -19,8 +20,8 @@
                 { data: 'rvncmt' },
                 { data: 'rvncd' },
                 { sortable: false,
-                  defaultContent: '<a id="edit" href="#" class="edit"><button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#modifyDataModel"><i class="fa fa-edit"></i></button></a>&nbsp;'+
-                                  '<a id="delete" href="#" class="delete"><button type="button" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i></button></a>' }
+                  defaultContent: '<a id="edit" href="#" class="edit"><button '+disabled+' type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#modifyDataModel"><i class="fa fa-edit"></i></button></a>&nbsp;'+
+                                  '<a id="delete" href="#" class="delete"><button '+disabled+' type="button" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i></button></a>' }
             ],
             columnDefs: [
                 { targets: [1], "width": "15%", className: 'dt-left' },
