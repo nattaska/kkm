@@ -2,7 +2,7 @@
     "use strict";
   
     $(function() {
-        var module = "advance";
+        var module = "user";
         var disabled = ($('#auth').val()==='R'?'disabled':'');
 
         var table = $('#table-data').DataTable({
@@ -11,40 +11,27 @@
                 { text: '<a id="add" href="#" class="add"><button '+disabled+' type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modifyDataModel"><i class="fa fa-plus"></i>&nbsp;Add</button></a>' }
             ],
             columns: [
-                { data: 'empcd' },
+                { data: 'code' },
                 { data: 'name' },
-                { data: 'advdate' },
-                { data: 'pay' }, 
+                { data: 'nickname' },
+                { data: 'phone' }, 
+                { data: 'rolename' }, 
+                { data: 'rolecode' }, 
+                { data: 'email' }, 
                 { sortable: false,
                   defaultContent: '<a id="edit" href="#" class="edit"><button '+disabled+' type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#modifyDataModel"><i class="fa fa-edit"></i></button></a>&nbsp;'+
                                   '<a id="delete" href="#" class="delete"><button '+disabled+' type="button" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i></button></a>' }
             ],
             columnDefs: [
-                { targets: [0, 2, 4], "width": "15%", className: 'dt-center' },
-                { targets: [1], "width": "15%", className: 'dt-left' },
-                { targets: [3], "width": "10%", className: 'dt-right' }
+                { targets: [0, 2, 7], "width": "10%", className: 'dt-center' },
+                { targets: [3], "width": "15%", className: 'dt-center' },
+                { targets: [1], "width": "20%", className: 'dt-left' },
+                { targets: [4], "width": "10%", className: 'dt-left' },
+                { targets: [5, 6], "visible": false }
             ]
         });
         
         var tableRow = table.row($(this).parents('tr'));
-    
-        $.post("profile/xhrGetUserLov", function(o) {
-            // console.log(o);
-            $( "#empcd" ).autocomplete({
-                minLength: 0,
-                source: o,
-                focus: function( event, ui ) {
-                    $( "#empcd" ).val( ui.item.value );
-                    $( "#empname" ).val( $.trim(ui.item.label.split('-')[1]) );
-                    return false;
-                },
-                select: function( event, ui ) {
-                    $( "#empcd" ).val( ui.item.value );
-                    $( "#empname" ).val( $.trim(ui.item.label.split('-')[1]) );
-                    return false;
-                } 
-            });
-        }, 'json');
 
 //  ------------    Action Search, Add, Update, Delete  ---------------------   //
             
@@ -63,18 +50,15 @@
         });
  
         $('#add').on( 'click', function () {
-            var now = new Date();
-            var day = ("0" + now.getDate()).slice(-2);
-            var month = ("0" + (now.getMonth() + 1)).slice(-2);
-            var today = now.getFullYear()+"-"+(month)+"-"+(day) ;
-            // alert($('#url').val());
 
             $("#modify-data-form").attr("action", $('#url').val()+module+'/xhrInsert');
             $("#modifyDataModel #staticModalLabel").html("Add Data");
-            $('#empcd').val('');
-            $('#empname').val('');
-            $('#advdate').val(today);
-            $('#pay').val('');
+            $('#code').val('AUTO');
+            $('#name').val('');
+            $('#nickname').val('');
+            $('#phone').val('');
+            $('#email').val('');
+            $('#rolcd').val('');
         });
  
         $('#table-data tbody').on( 'click', '.edit', function () {
@@ -84,13 +68,14 @@
 
             $("#modify-data-form").attr("action", $('#url').val()+module+'/xhrUpdate');
             $("#modifyDataModel #staticModalLabel").html("Edit Data");
-            $('#empcd').val(data.empcd);
-            $('#empname').val(data.name);
-            $('#advdate').val(data.advdate);
-            $('#pay').val(data.pay);
+            $('#code').val(data.code);
+            $('#name').val(data.name);
+            $('#nickname').val(data.nickname);
+            $('#phone').val(data.phone);
+            $('#email').val(data.email);
+            $('#rolcd').val(data.rolecode);
 
-            $("#empcd").prop("readonly",true);
-            $("#advdate").prop("readonly",true);
+            $("#code").prop("readonly",true);
     
         });
  
@@ -99,11 +84,11 @@
             var data = row.data();
             // console.log(data);
 
-            $.post(module+'/xhrDelete', {'empcd': data.empcd, 'advdate': data.advdate}, function(o) {
+            $.post(module+'/xhrDelete', {'code': data.code}, function(o) {
                 
                 if (o.res > 0) {
                     row.remove().draw();
-                    $("#msgMain").html('<div class="alert alert-success"><button type="button" class="close">×</button><strong>Success!</strong> '+data.name+'\'s advance has been deleted successfully</div>');
+                    $("#msgMain").html('<div class="alert alert-success"><button type="button" class="close">×</button><strong>Success!</strong> User code '+data.code+' has been deleted successfully</div>');
                 } else {
                     $("#msgMain").html('<div class="alert alert-danger"><button type="button" class="close">×</button><strong>Error!</strong> '+o.error+'</div>');
                 }
@@ -124,8 +109,8 @@
 
         $('#modifyDataModel').on('hidden.bs.modal', function() {
             $('#modify-data-form').validate().resetForm();
-            $("#empcd").removeClass("is-invalid");
-            $("#pay").removeClass("is-invalid");
+            $("#name").removeClass("is-invalid");
+            $("#phone").removeClass("is-invalid");
         });
 
 //  ------------    Validation and submit from  ---------------------   //
@@ -149,44 +134,50 @@
             e.preventDefault();
         }).validate({
             rules: {
-                empcd: {
+                name: "required",
+                phone:  {
                     required: true,
-                    minlength: 5
+                    number: true,
+                    minlength: 10,
+                    maxlength: 10
                 },
-                advdate: "required",
-                pay:  {
-                    required: true,
-                    number: true
-                }
+                email: { email: true },
+                rolcd: "required"
             },
             // Specify validation error messages
             messages: {
-                empcd: {
-                    required: "Please enter your code",
-                    minlength: "Your code must be at least 5 characters long"
+                name: "Please enter your name",
+                phone: {
+                    required: "Please enter your phone number",
+                    number: "Please enter a valid number.",
+                    minlength: "Your phone must be 10 characters",
+                    maxlength: "Your phone must be 10 characters"
                 },
-                advdate: "Please enter your Advance Date",
-                total: {
-                    required: "Please enter your paid",
-                    number: "Please enter a valid number."
-                }
+                email: "E-Mail invalid format",
+                rolcd: "Please choose your role"
             },
             submitHandler: function(form) { 
                 var url = $(form).attr('action');
                 var data = $(form).serialize();
     
-                var empcd  = $('#empcd').val();
-                var empname   = $('#empname').val();
-                var advdate = $('#advdate').val();
-                var pay = $('#pay').val();
+                var code  = $('#code').val();
+                var name   = $('#name').val();
+                var nickname = $('#nickname').val();
+                var phone = $('#phone').val();
+                var rolename = $('#rolcd option:selected').text();
+                var rolecode = $('#rolcd').val();
+                var email = $('#email').val();
                 var msg = "";
                 
                 $.post(url, data, function(o) {
                     // alert(o);
                     var loadingModal = $("#modifyDataModel");
                     if (o.res > 0) {
+                        if(url.indexOf('Insert') >= 0) {
+                            code = o.code;
+                        }
                         var newdata_arr = [];
-                        var newdata = {"empcd":empcd, "name":empname, "advdate":advdate, "pay":pay};
+                        var newdata = {"code":code, "name":name, "nickname":nickname, "phone":phone, "rolename":rolename, "rolecode":rolecode, "email":email};
                         newdata_arr.push(newdata);
 
                         if(url.indexOf('Insert') >= 0) {
