@@ -11,7 +11,7 @@ class View {
         $uri = $_SERVER['REQUEST_URI'];
         $module = substr($uri,strpos($uri,"/",1)+1);
 
-        if (($module != "login") && !isset($userMenu[$module])) {
+        if (($module != "login") && ($module != "checkin") && !isset($userMenu[$module])) {
             require 'views/header.php';
             require 'views/error/403.php';
             require 'views/footer.php';
