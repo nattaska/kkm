@@ -21,7 +21,7 @@ class Profile extends Controller {
 
         $this->view->user = $this->model->getProfile($userMenu['code']);
 
-        $paramModel = $this->loadModelByName("Parameter");
+        $paramModel = $this->loadModelByName("parameter");
         $this->view->depts = $paramModel->getParameter(3);
 
         $this->view->render('profile/index');
