@@ -16,7 +16,7 @@ class Login extends Controller {
             Session::init();
             Session::set('logged',$valid);
 
-            $userModel = $this->loadModelByName("User");
+            $userModel = $this->loadModelByName("user");
             $userMenu = $userModel->getUserPermmission($_POST['usercode']);
             Session::set('userMenu',$userMenu);
 

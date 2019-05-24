@@ -39,7 +39,7 @@ class NPFood extends Controller {
         $this->view->criteria = array("sdate" => date_format($date,"Y-m-01")
                                     , "edate" => date_format($date,"Y-m-t"));
 
-        $paramModel = $this->loadModelByName("Parameter");
+        $paramModel = $this->loadModelByName("parameter");
         $this->view->rooms = $paramModel->getParameter(5);
 
         $this->view->render('npfood/index');
@@ -65,7 +65,7 @@ class NPFood extends Controller {
         $arr = [];
         $i = 0;
 
-        $paramModel = $this->loadModelByName("Parameter");
+        $paramModel = $this->loadModelByName("parameter");
         $rooms = $paramModel->getParameter(5);
         foreach ($rooms as $row) {
             $arr[$i]=(array('value' => $row["code"]

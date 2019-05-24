@@ -1,11 +1,3 @@
-<!-- <h1>Login</h1>
-
-<form action="login/login" method="post">
-    <label>Login</label><input type="text" name="usercode"/><br/>
-    <label>Password</label><input type="password" name="password"/><br/>
-    <label></label><input type="submit" />
-</form> -->
-
 <!doctype html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang=""> <![endif]-->

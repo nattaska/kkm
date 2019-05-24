@@ -40,7 +40,7 @@ class Revenue extends Controller {
         $this->view->criteria = array("sdate" => date_format($date,"Y-m-01")
                                     , "edate" => date_format($date,"Y-m-t"));
 
-        $paramModel = $this->loadModelByName("Parameter");
+        $paramModel = $this->loadModelByName("parameter");
         $this->view->revenues = $paramModel->getParameter(8);
 
         $this->view->render('revenue/index');

@@ -39,7 +39,7 @@ class Expenses extends Controller {
         $this->view->criteria = array("sdate" => date_format($date,"Y-m-01")
                                     , "edate" => date_format($date,"Y-m-t"));
 
-        $paramModel = $this->loadModelByName("Parameter");
+        $paramModel = $this->loadModelByName("parameter");
         $this->view->expgrps = $paramModel->getParameter(10);
         $this->view->titles = $paramModel->getParameterGroup(10, 9);
 

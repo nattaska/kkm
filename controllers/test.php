@@ -7,7 +7,7 @@ class Test extends Controller {
     }
 
     function index() {
-        $userModel = $this->loadModelByName("User");
+        $userModel = $this->loadModelByName("user");
         
         // $this->view->users=$userModel->getUserPermmission("60001");
         $userMenu = $userModel->getUserPermmission("60001");
