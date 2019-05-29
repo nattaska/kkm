@@ -7,13 +7,15 @@ class Parameter_Model extends Model {
         parent::__construct();
     }
 
-    function getParameter($p_tbno) {    
+    function getParameter($p_tbno, $orderBy = "code") {    
         // $keyword = $_GET['keyword'];
 
-        $sql = "select pmdcd code, pmddesc descp, pmdval1 val1, pmdval2 val2
+        $sql = "select * 
+                from ( select pmdtbno tbno, pmdcd code, pmddesc descp, pmdval1 val1, pmdval2 val2
                         , pmdval3 val3, pmdval4 val4, pmdval5 val5
                 from prmdtl 
-                where pmdtbno=".$p_tbno;
+                where pmdtbno=".$p_tbno.") p
+                ORDER BY ".$orderBy;
 
         $sth = $this->db->prepare($sql);
         // $sth->bindParam(':keyword', $keyword, PDO::PARAM_INT);

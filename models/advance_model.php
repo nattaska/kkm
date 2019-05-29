@@ -1,15 +1,13 @@
 <?php
 
 class Advance_Model extends Model {
-    // public $param = array();
-    // public $userProfile = array();
 
     public function __construct() {
         parent::__construct();
     }
 
     function xhrSearch() {
-        // echo "post code = ".$_POST['code'];
+        
         $date = new DateTime();
         $sdate = (isset($_POST['sdate']))?$_POST['sdate']:date_format($date,"Y-m-01");
         $edate = (isset($_POST['edate']))?$_POST['edate']:date_format($date,"Y-m-t");
@@ -32,7 +30,6 @@ class Advance_Model extends Model {
 
     public function xhrInsert() {
 
-        // echo print_r($_POST);
             $result = "1";
             $error = "";
         try {

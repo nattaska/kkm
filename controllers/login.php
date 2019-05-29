@@ -20,7 +20,8 @@ class Login extends Controller {
             $userMenu = $userModel->getUserPermmission($_POST['usercode']);
             Session::set('userMenu',$userMenu);
 
-            header('location: ../timesheet');
+            header('location: ../order');
+            // header('location: ../timesheet');
         } else {
             Session::destroy();
             header('location: ../login');
