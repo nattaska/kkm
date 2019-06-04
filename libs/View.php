@@ -8,8 +8,10 @@ class View {
     public function render($name, $noInclude = false) {
 
         $userMenu = Session::get('userMenu');
-        $uri = $_SERVER['REQUEST_URI'];
-        $module = substr($uri,strpos($uri,"/",1)+1);
+        $url = $_GET['url'];
+        $url = rtrim($url,'/');
+        $url = explode('/',$url);
+        $module=$url[0];
 
         if (($module != "login") && ($module != "checkin") && !isset($userMenu[$module])) {
             require 'views/header.php';
@@ -19,7 +21,7 @@ class View {
             if ($noInclude == true) {
                 require 'views/'.$name.'.php';
             } else {
-                $auth = $userMenu[substr($uri,strpos($uri,"/",1)+1)];
+                $auth = $userMenu[$module];
                 require 'views/header.php';
                 require 'views/'.$name.'.php';
                 require 'views/footer.php';

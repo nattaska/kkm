@@ -50,6 +50,17 @@ class Order extends Controller {
         $this->model->xhrSearch();
     }
 
+    function printOrder() {
+        
+        $date = new DateTime();
+        $orddate = (isset($_POST['prtdate']))?$_POST['prtdate']:date_format($date,"Y-m-d");
+        $this->view->orddate = $orddate;
+        $this->view->items = $this->model->printOrder($orddate);
+        // print_r($this->view->items);
+
+        $this->view->render('order/printOrder', true);
+    }
+
 }
 
 ?>

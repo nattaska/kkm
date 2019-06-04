@@ -59,6 +59,26 @@ class Order_Model extends Model {
         $data = array('res' => $result, 'error' => $error);
         echo json_encode($data);
     }
+
+    function printOrder($orddate) {
+        // echo $orddate;
+
+        $sql="SELECT pmddesc item, ordqty qty
+                FROM orders, prmdtl
+                WHERE orddate=:orddate
+                AND pmdtbno=7
+                AND orditm=pmdcd
+                ORDER BY pmdval2 ";
+            // echo $sql."<br>";
+        $sth=$this->db->prepare($sql);
+
+        $sth->bindParam(':orddate', $orddate, PDO::PARAM_STR);
+        $sth->setFetchMode(PDO::FETCH_ASSOC);
+        $sth->execute();
+        $data = $sth->fetchAll();
+
+        return $data;
+    }
 }
 
 ?>

@@ -5,6 +5,16 @@
         var module = "order";
         var disabled = ($('#auth').val()==='R'?'disabled':'');
 
+        $.post("order/xhrSearch", { orddate: $("#orddate").val() }, function(o) {
+            
+            for (var i=0; i<o.length; i++) {
+                $("#qty"+o[i].item).removeAttr("disabled");
+                $("#qty"+o[i].item).val(o[i].qty);
+                $("#chkOrder"+o[i].item).prop('checked', true); 
+            }
+            
+        }, 'json');
+
         $('input[name="items[]"').click(function(){
             // alert("Checked"+$(this).val());
             if ($(this).is(":checked")) {
@@ -25,6 +35,8 @@
             orddate =  new Date(orddate);
             
             var diffDays =  Math.ceil((nowTime.getTime() - orddate.getTime()) / (1000 * 3600 * 24));
+
+            $("#prtdate").val($("#orddate").val());
             
             $('input[type="checkbox"]').prop('checked', false); 
             $('input[type="text"]').val(''); 
