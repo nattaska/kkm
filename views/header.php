@@ -43,12 +43,42 @@
                 <ul class="nav navbar-nav">
                     <!-- <li class="active"><a href="index.php"><i class="menu-icon fa fa-laptop"></i>Dashboard </a></li> -->
                     <?php
+                    // print_r($userMenu["menus"]);
+                    $startLV3 = false;
+
                     foreach ($userMenu["menus"] as $menu) {
+                        // echo $menu["url"].'</br>';
                         if ($menu["level"] == 1) {
-                            echo '<li class="menu-title">'.$menu["name"].'</li>';
+
+                            if ($startLV3) {
+                                echo '</ul></li>
+                                ';
+                                $startLV3 = false;
+                            }
+
+                            echo '<li class="menu-title">'.$menu["name"].'</li>'
+                            ;
+                        } else if (($menu["level"] == 2) && isset($menu["url"]) ) {
+                            echo '<li><a href="'.$menu["url"].'"> <i class="menu-icon fa '.$menu["icon"].'"></i>'.$menu["name"].' </a></li>
+                            ';
+                        } else if (($menu["level"] == 2) && !isset($menu["url"]) ) {
+                            
+                                echo '<li class="menu-item-has-children active dropdown">
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa '.$menu["icon"].'"></i>'.$menu["name"].'</a>
+                                        <ul class="sub-menu children dropdown-menu">
+                                        ';
+                                        
+                                $startLV3 = true;
+                                
                         } else {
-                            echo '<li><a href="'.$menu["url"].'"> <i class="menu-icon fa '.$menu["icon"].'"></i>'.$menu["name"].' </a></li>';
+                            echo '<li><i class="menu-icon fa '.$menu["icon"].'"></i><a href="'.$menu["url"].'">'.$menu["name"].'</a></li>
+                            ';
                         }
+                    }
+                    if ($startLV3) {
+                        echo '</ul></li>
+                        ';
+                        $startLV3 = false;
                     }
                     ?>
                 </ul>
