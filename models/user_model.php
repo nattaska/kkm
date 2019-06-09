@@ -9,8 +9,8 @@ class User_Model extends Model {
     public function getUserPermmission($user) {
 
         $sql = "SELECT u.usrcd 'code', u.usrnm name, u.usrnnm nickname, u.usrtel tel, u.usremail email
-                     , u.usrrolcd rolcode, r.rolnm rolnm, m.mnuid, m.mnunm, m.mnuurl url
-                     , m.mnuicon icon, m.mnulv level, p.pmsauth mnupms
+                     , u.usrrolcd rolcode, r.rolnm rolnm, m.mnuid, m.mnunm, m.mnumodule module
+                     , m.mnuurl url, m.mnuicon icon, m.mnulv level, p.pmsauth mnupms
                 FROM user u JOIN role r ON u.usrrolcd=r.rolcd
                     JOIN permission p ON u.usrrolcd=p.pmsrolcd
                     JOIN menu m ON p.pmsmnuid=m.mnuid
@@ -38,10 +38,12 @@ class User_Model extends Model {
             // print_r($res);
             $menu["id"] = $res["mnuid"];
             $menu["name"] = $res["mnunm"];
-            $menu["url"] = $res["url"];
+            $menu["module"] = $res["module"];
+            $url = isset($res["url"])?$res["module"].'/'.$res["url"]:$res["module"];
+            $menu["url"] = $url;
             $menu["icon"] = $res["icon"];
             $menu["level"] = $res["level"];
-            $this->users[$res["url"]] = $res["mnupms"];
+            $this->users[$url] = $res["mnupms"];
 
             $this->users["menus"][] = $menu;
 
