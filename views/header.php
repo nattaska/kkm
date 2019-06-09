@@ -20,9 +20,9 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pixeden-stroke-7-icon@1.2.3/pe-icon-7-stroke/dist/pe-icon-7-stroke.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.2.0/css/flag-icon.min.css">
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    <link rel="stylesheet" href="assets/css/cs-skin-elastic.css">
-    <link rel="stylesheet" href="assets/css/style.css">
-    <link rel="stylesheet" href="public/css/style.css">
+    <link rel="stylesheet" href="<?php echo URL ?>assets/css/cs-skin-elastic.css">
+    <link rel="stylesheet" href="<?php echo URL ?>assets/css/style.css">
+    <link rel="stylesheet" href="<?php echo URL ?>public/css/style.css">
 
     <?php 
         if (isset($this->css)) {
@@ -59,11 +59,11 @@
                             echo '<li class="menu-title">'.$menu["name"].'</li>'
                             ;
                         } else if (($menu["level"] == 2) && isset($menu["url"]) ) {
-                            echo '<li><a href="'.$menu["url"].'"> <i class="menu-icon fa '.$menu["icon"].'"></i>'.$menu["name"].' </a></li>
+                            echo '<li><a href="'.URL.$menu["url"].'"> <i class="menu-icon fa '.$menu["icon"].'"></i>'.$menu["name"].' </a></li>
                             ';
                         } else if (($menu["level"] == 2) && !isset($menu["url"]) ) {
                             
-                                echo '<li class="menu-item-has-children active dropdown">
+                                echo '<li class="menu-item-has-children dropdown">
                                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa '.$menu["icon"].'"></i>'.$menu["name"].'</a>
                                         <ul class="sub-menu children dropdown-menu">
                                         ';
@@ -71,7 +71,7 @@
                                 $startLV3 = true;
                                 
                         } else {
-                            echo '<li><i class="menu-icon fa '.$menu["icon"].'"></i><a href="'.$menu["url"].'">'.$menu["name"].'</a></li>
+                            echo '<li><i class="menu-icon fa '.$menu["icon"].'"></i><a href="'.URL.$menu["url"].'">'.$menu["name"].'</a></li>
                             ';
                         }
                     }
@@ -105,7 +105,7 @@
 
                             <?php echo $userMenu['code'].'['.$userMenu['nickname']."]&nbsp;|&nbsp;&nbsp;".$userMenu['role_name']; ?> &nbsp;&nbsp; 
                             
-                            <a href="login/logout"><button type="button" class="btn btn-danger btn-sm"><i class="ti-power-off"></i>&nbsp;Log Out </button></a>
+                            <a href="<?php echo URL ?>login/logout"><button type="button" class="btn btn-danger btn-sm"><i class="ti-power-off"></i>&nbsp;Log Out </button></a>
                         </div>
                     </div>
                 </div>

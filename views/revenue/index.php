@@ -94,7 +94,7 @@
                                                     </div>
                                                     <div class="row form-group">
                                                         <div class="col col-md-3"><label for="text-input" class=" form-control-label">Amount&nbsp;</label></div>
-                                                        <div class="col-12 col-md-5"><input type="number" step="0.25" id="amount" name="amount" value="0" class="form-control"></div>
+                                                        <div class="col-12 col-md-5"><input type="number" step="0.01" id="amount" name="amount" value="0" class="form-control"></div>
                                                     </div>
                                                     <div class="row form-group">
                                                         <div class="col col-md-3"><label for="comment" class=" form-control-label">Comment</label></div>    

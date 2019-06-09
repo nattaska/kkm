@@ -9,11 +9,11 @@ class View {
 
         $userMenu = Session::get('userMenu');
         $url = $_GET['url'];
-        $url = rtrim($url,'/');
-        $url = explode('/',$url);
-        $module=$url[0];
+        $arrUrl = rtrim($url,'/');
+        $arrUrl = explode('/',$arrUrl);
+        $module=$arrUrl[0];
 
-        if (($module != "login") && ($module != "checkin") && !isset($userMenu[$module])) {
+        if (($module != "login") && ($module != "checkin") && !isset($userMenu[$url])) {
             require 'views/header.php';
             require 'views/error/403.php';
             require 'views/footer.php';
@@ -21,7 +21,7 @@ class View {
             if ($noInclude == true) {
                 require 'views/'.$name.'.php';
             } else {
-                $auth = $userMenu[$module];
+                $auth = $userMenu[$url];
                 require 'views/header.php';
                 require 'views/'.$name.'.php';
                 require 'views/footer.php';

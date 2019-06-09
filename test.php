@@ -1,3 +1,6 @@
+
+<input type="text" class="form-control" id="qty101" name="qty101" disabled >
+
 <?php
 require 'config/paths.php';
 
@@ -5,6 +8,7 @@ $pastDate = strtotime('2019-05-28')."<br>";
 $currentDate = strtotime(date("Y-m-d"))."<br>";
 
 echo ($currentDate - $pastDate)/( 60 * 60 * 24 )."<br>";
+
 
 $date = new DateTime();
 // echo $date."</br>";
