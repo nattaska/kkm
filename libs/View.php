@@ -7,16 +7,21 @@ class View {
 
     public function render($name, $noInclude = false) {
 
+        Session::init();
         $userMenu = Session::get('userMenu');
         $url = $_GET['url'];
         $arrUrl = rtrim($url,'/');
         $arrUrl = explode('/',$arrUrl);
         $module=$arrUrl[0];
-
-        if (($module != "login") && ($module != "checkin") && !isset($userMenu[$url])) {
-            require 'views/header.php';
-            require 'views/error/403.php';
-            require 'views/footer.php';
+        
+        if (($module != "login") && !isset($userMenu[$url])) {
+            if ($noInclude == true) {
+                require 'views/error/403.php';
+            } else {
+                require 'views/header.php';
+                require 'views/error/403.php';
+                require 'views/footer.php';
+            }
         } else {
             if ($noInclude == true) {
                 require 'views/'.$name.'.php';

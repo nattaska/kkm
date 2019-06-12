@@ -35,7 +35,7 @@ class Order extends Controller {
         $this->model->xhrSearch();
     }
 
-    function printOrder() {
+    function printOrderExcel() {
         
         $date = new DateTime();
         $orddate = (isset($_POST['prtdate']))?$_POST['prtdate']:date_format($date,"Y-m-d");
@@ -43,7 +43,7 @@ class Order extends Controller {
         $this->view->items = $this->model->printOrder($orddate);
         // print_r($this->view->items);
 
-        $this->view->render('order/printOrder', true);
+        $this->view->render('order/printOrderExcel',true);
     }
 
 }

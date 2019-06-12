@@ -3,6 +3,7 @@
 class Checkin extends Controller {
     function __construct(){
         parent::__construct();
+        Session::init();
 
         $ip=$_SERVER['REMOTE_ADDR'];
         $ipinfo = file_get_contents("http://ipinfo.io/{$ip}");

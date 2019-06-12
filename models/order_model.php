@@ -76,6 +76,7 @@ class Order_Model extends Model {
         $sth->setFetchMode(PDO::FETCH_ASSOC);
         $sth->execute();
         $data = $sth->fetchAll();
+        // print_r($data);
 
         return $data;
     }

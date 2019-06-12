@@ -8,12 +8,12 @@
                                 <strong class="card-title">Order</strong>
                             </div>
                             <div class="card-body">
-                                <form id="print-form" action="<?php echo URL; ?>order/printOrder" target="_blank" method="post" class="form-horizontal">
+                                <form id="print-form" action="<?php echo URL; ?>order/printOrderExcel" target="_blank" method="post" class="form-horizontal">
                                     <div class="col-md-2">
                                         <div class="input-group">
                                             <input type="hidden" id="prtdate" name="prtdate" class="form-control" value="<?php echo date("Y-m-d"); ?>">  
                                             <input type="hidden" id="url" name="url" value="<?php echo URL; ?>" class="form-control">
-                                            <a id="print" href="#" class="print"><button type="submit" class="btn btn-info btn-sm" ><i class="fa fa-print"></i>&nbsp;Print</button></a>
+                                            <a id="print" href="#"><button type="submit" class="btn btn-info btn-sm" ><i class="fa fa-print"></i>&nbsp;Print</button></a>
                                         </div>
                                     </div>
                                 </form>

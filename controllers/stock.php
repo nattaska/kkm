@@ -9,20 +9,32 @@ class Stock extends Controller {
             Session::destroy();
             header('location: login');
             exit;
-        }     
+        }
+        $this->view->js = array(URL."views/stock/js/default.js");
         
     }
 
-    function stkcount() {
+    function xhrPrepareStock() {
+        $this->model->xhrPrepareStock();
+    }
 
-        $this->view->js = array(URL."views/stock/js/stkcount.js");
+    function index($stkType) {
 
         $paramModel = $this->loadModelByName("parameter");
 
+        $this->view->stkType = $stkType;
         $this->view->stkGrps = $paramModel->getParameter(11);
-        $this->view->stkItems = $paramModel->getParameter(12);
+        
+        $date = new DateTime();
+        $stkDate = (isset($_POST['stkDate']))?$_POST['stkDate']:date_format($date,"Y-m-d");
+        $this->view->stkItems = $this->model->getStockByDate($stkDate);
+        $this->view->preStockStat = (count($this->view->stkItems) == 0?true:false);
 
-        $this->view->render('stock/stkcount_view');
+        $this->view->render('stock/index');
+    }
+
+    function xhrSave() {
+        $this->model->xhrSave();
     }
 
     function stkcompare() {
@@ -33,38 +45,7 @@ class Stock extends Controller {
         $this->view->stkGrps = $paramModel->getParameter(11);
         $this->view->stkItems = $paramModel->getParameter(12);
 
-        $this->view->render('stock/stkcount_view');
-    }
-
-    function stkroom() {
-
-        $this->view->js = array(URL."views/stock/js/stkroom.js");
-
-        $paramModel = $this->loadModelByName("parameter");
-
-        $this->view->stkGrps = $paramModel->getParameter(11);
-        $this->view->stkItems = $paramModel->getParameter(12);
-
-        $this->view->render('stock/stkroom_view');
-    }
-
-    function xhrSaveCounting() {
-        $this->model->xhrSaveCounting();
-    }
-
-    function xhrSearchCounting() {
-        $this->model->xhrSearchCounting();
-    }
-
-    function printOrder() {
-        
-        $date = new DateTime();
-        $orddate = (isset($_POST['prtdate']))?$_POST['prtdate']:date_format($date,"Y-m-d");
-        $this->view->orddate = $orddate;
-        $this->view->items = $this->model->printOrder($orddate);
-        // print_r($this->view->items);
-
-        $this->view->render('order/printOrder', true);
+        $this->view->render('stock/stkcompare_view');
     }
 
 }

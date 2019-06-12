@@ -4,16 +4,20 @@
     $(function() {
         var module = "stock";
         var disabled = ($('#auth').val()==='R'?'disabled':'');
+        
+        $("#genStock").click(function() {
+            $.post($('#url').val()+"stock/xhrPrepareStock", function(o) {
+                if (o.res > 0) {
+                    $("#msgMain").html('<div class="alert alert-success"><button type="button" class="close">×</button><strong>Success!</strong> Prepare stock successfully</div>');
+                    $("#prepare-form").remove();
+                } else {
+                    $("#msgMain").html('<div class="alert alert-danger"><button type="button" class="close">×</button><strong>Error!</strong> '+o.error+'</div>');
+                }
+            }, 'json');
+            console.log(location.href);
 
-        // $.post(module+"/xhrSearchCounting", { countdate: $("#countdate").val() }, function(o) {
-            
-        //     for (var i=0; i<o.length; i++) {
-        //         $("#qty"+o[i].item).removeAttr("disabled");
-        //         $("#qty"+o[i].item).val(o[i].qty);
-        //         $("#chkOrder"+o[i].item).prop('checked', true); 
-        //     }
-            
-        // }, 'json');
+            $("#listItems").load(location.href + " #listItems");
+        });
 
 //  ------------    Action Search, Add, Update, Delete  ---------------------   //
             

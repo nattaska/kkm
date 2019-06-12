@@ -58,7 +58,7 @@
 
                             echo '<li class="menu-title">'.$menu["name"].'</li>'
                             ;
-                        } else if (($menu["level"] == 2) && isset($menu["url"]) ) {
+                        } else if (($menu["level"] == 2) && isset($menu["url"])) {
                             echo '<li><a href="'.URL.$menu["url"].'"> <i class="menu-icon fa '.$menu["icon"].'"></i>'.$menu["name"].' </a></li>
                             ';
                         } else if (($menu["level"] == 2) && !isset($menu["url"]) ) {
@@ -71,6 +71,7 @@
                                 $startLV3 = true;
                                 
                         } else {
+                            if ( isset($menu["icon"]))
                             echo '<li><i class="menu-icon fa '.$menu["icon"].'"></i><a href="'.URL.$menu["url"].'">'.$menu["name"].'</a></li>
                             ';
                         }
