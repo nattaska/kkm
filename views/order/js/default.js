@@ -19,7 +19,7 @@
             // alert("Checked"+$(this).val());
             if ($(this).is(":checked")) {
                 $("#qty"+$(this).val()).removeAttr("disabled");
-                $("#qty"+$(this).val()).focus();
+                // $("#qty"+$(this).val()).focus();
                 $("#qty"+$(this).val()).val("1");
             } else {
                 $("#qty"+$(this).val()).val("");
@@ -37,6 +37,7 @@
             var diffDays =  Math.ceil((nowTime.getTime() - orddate.getTime()) / (1000 * 3600 * 24));
 
             $("#prtdate").val($("#orddate").val());
+            $("#prtexceldate").val($("#orddate").val());
             
             $('input[type="checkbox"]').prop('checked', false); 
             $('input[type="text"]').val(''); 

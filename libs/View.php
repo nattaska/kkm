@@ -13,7 +13,8 @@ class View {
         $arrUrl = rtrim($url,'/');
         $arrUrl = explode('/',$arrUrl);
         $module=$arrUrl[0];
-        
+        // print_r($userMenu );
+        // echo "</br>$url";
         if (($module != "login") && !isset($userMenu[$url])) {
             if ($noInclude == true) {
                 require 'views/error/403.php';
