@@ -15,7 +15,7 @@ class View {
         $module=$arrUrl[0];
         // print_r($userMenu );
         // echo "</br>$url";
-        if (($module != "login") && !isset($userMenu[$url])) {
+        if (($module != "login") && ($module != "checkin") && !isset($userMenu[$url])) {
             if ($noInclude == true) {
                 require 'views/error/403.php';
             } else {
