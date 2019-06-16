@@ -5,26 +5,49 @@
         var module = "order";
         var disabled = ($('#auth').val()==='R'?'disabled':'');
 
-        $.post("order/xhrSearch", { orddate: $("#orddate").val() }, function(o) {
-            
+        $.post(module+"/xhrSearch", { orddate: $("#orddate").val() }, function(o) {
+            var sumPrice = 0;
+
             for (var i=0; i<o.length; i++) {
                 $("#qty"+o[i].item).removeAttr("disabled");
                 $("#qty"+o[i].item).val(o[i].qty);
-                $("#chkOrder"+o[i].item).prop('checked', true); 
+                $("#chkOrder"+o[i].item).prop('checked', true);
+                $('#price'+o[i].item).removeAttr("disabled");
+                sumPrice = sumPrice+(o[i].qty*o[i].price);
             }
+            $('#sumprice').text(sumPrice);
             
         }, 'json');
 
         $('input[name="items[]"').click(function(){
-            // alert("Checked"+$(this).val());
+
+            var sumPrice = parseInt($('#sumprice').text());
+            var qtyObj = $("#qty"+$(this).val());
+            var priceObj = $("#price"+$(this).val());
+
             if ($(this).is(":checked")) {
-                $("#qty"+$(this).val()).removeAttr("disabled");
-                // $("#qty"+$(this).val()).focus();
-                $("#qty"+$(this).val()).val("1");
+                qtyObj.val("1");
+                qtyObj.removeAttr("disabled");
+                priceObj.removeAttr("disabled");
+                $('#sumprice').text(sumPrice + parseInt(priceObj.val()));
             } else {
-                $("#qty"+$(this).val()).val("");
-                $("#qty"+$(this).val()).attr("disabled", "disabled");
+                $('#sumprice').text(sumPrice - (qtyObj.val()*priceObj.val()));
+                qtyObj.val("");
+                qtyObj.attr("disabled", "disabled");
+                priceObj.attr("disabled", "disabled");
             }
+        });
+        
+        $('.field').on('focusin', function(){
+            $(this).data('val', $(this).val());
+        });
+
+        $('.field').on('change', function(){
+            var prevQty = $(this).data('val');
+            var currentQty = $(this).val();
+            var price = $("#price"+$(this).attr("id").substring(3,6)).val();
+
+            $('#sumprice').text(parseInt($('#sumprice').text())+((parseInt(currentQty)-parseInt(prevQty))*price));
         });
 
         $("#orddate").focusout(function() {
@@ -51,7 +74,8 @@
                 $("#save").removeAttr("disabled");
             }
 
-            $.post("order/xhrSearch", { orddate: $("#orddate").val() }, function(o) {
+            $.post(module+"/xhrSearch", { orddate: $("#orddate").val() }, function(o) {
+                var sumPrice = 0;
                 
                 for (var i=0; i<o.length; i++) {
                     // console.log(o[i].item+'  '+o[i].qty);
@@ -60,7 +84,9 @@
                     }
                     $("#qty"+o[i].item).val(o[i].qty);
                     $("#chkOrder"+o[i].item).prop('checked', true); 
+                    sumPrice = sumPrice+(o[i].qty*o[i].price);
                 }
+                $('#sumprice').text(sumPrice);
                 
             }, 'json');
 

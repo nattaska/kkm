@@ -11,10 +11,7 @@ class Order extends Controller {
             exit;
         }
         
-        $this->view->js = array(URL."views/order/js/default.js");
-
-        $this->view->css = array(URL.'assets/css/lib/datatable/dataTables.bootstrap.min.css');
-        
+        $this->view->js = array(URL."views/order/js/default.js");        
     }
 
     function index() {

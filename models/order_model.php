@@ -8,7 +8,7 @@ class Order_Model extends Model {
 
     function xhrSearch() {
 
-        $sql="SELECT orddate, orditm item, ordqty qty
+        $sql="SELECT orddate, orditm item, ordqty qty, ifnull(ordprice,0) price
                 FROM orders
                 WHERE orddate=:orddate
                 ORDER BY orditm";
@@ -38,13 +38,14 @@ class Order_Model extends Model {
                 ':orddate'=>$ordDate
                 ));
 
-            $sql = "INSERT INTO orders (orddate, orditm, ordqty) VALUES (:orddate, :item, :qty) ";
+            $sql = "INSERT INTO orders (orddate, orditm, ordqty, ordprice) VALUES (:orddate, :item, :qty, :price) ";
             $stmt = $this->db->prepare($sql);
             foreach ($items as $item) {
                 $stmt->execute(array(
                     ':orddate'=>$ordDate,
                     ':item'=>$item,
-                    ':qty'=> (!(isset($_POST["qty".$item])) || $_POST["qty".$item]==""?"1":$_POST["qty".$item])
+                    ':qty'=> (!(isset($_POST["qty".$item])) || $_POST["qty".$item]==""?"1":$_POST["qty".$item]),
+                    ':price'=> (!(isset($_POST["price".$item])) || $_POST["price".$item]==""?0:$_POST["price".$item])
                     ));
             }
 
