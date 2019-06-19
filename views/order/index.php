@@ -113,7 +113,7 @@
                                                     }
                                                     echo '<div class="col-md-3">
                                                             <input type="checkbox" id="chkOrder'.$order['code'].'" name="items[]" value="'.$order['code'].'" class="form-check-input">
-                                                            <span id="desc'.$order['code'].'" >'.$order['descp'].'</span>
+                                                            <span class="itemname" id="desc'.$order['code'].'" >'.$order['descp'].'</span>
                                                             <span class="text-info"> ( '.(isset($order['val3'])?$order['val3']:0).' ฿ )</span>
                                                             <input type="text" class="form-control field" id="qty'.$order['code'].'" name="qty'.$order['code'].'" disabled >
                                                             <input type="hidden" class="form-control" id="price'.$order['code'].'" name="price'.$order['code'].'" value="'.(isset($order['val3'])?$order['val3']:0).'" disabled >

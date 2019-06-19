@@ -81,15 +81,19 @@
 
             $.post(module+"/xhrSearch", { orddate: $("#orddate").val() }, function(o) {
                 var sumPrice = 0;
+                $(".itemname").css('color','');
                 
                 for (var i=0; i<o.length; i++) {
                     // console.log(o[i].item+'  '+o[i].qty);
                     if (diffDays <= 0) {
                         $("#qty"+o[i].item).removeAttr("disabled");
+                        $('#price'+o[i].item).removeAttr("disabled");
                     }
+
                     $("#qty"+o[i].item).val(o[i].qty);
                     $("#chkOrder"+o[i].item).prop('checked', true); 
-                    sumPrice = sumPrice+(o[i].qty*o[i].price);
+                    $("#desc"+o[i].item).css('color', 'red');
+                    sumPrice = sumPrice+(o[i].qty*o[i].price);                    
                 }
                 $('#sumprice').text(sumPrice);
                 
