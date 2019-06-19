@@ -14,6 +14,8 @@
                 $("#chkOrder"+o[i].item).prop('checked', true);
                 $('#price'+o[i].item).removeAttr("disabled");
                 sumPrice = sumPrice+(o[i].qty*o[i].price);
+                $("#desc"+o[i].item).css('color', 'red');
+
             }
             $('#sumprice').text(sumPrice);
             
@@ -24,17 +26,20 @@
             var sumPrice = parseInt($('#sumprice').text());
             var qtyObj = $("#qty"+$(this).val());
             var priceObj = $("#price"+$(this).val());
+            var descObj = $("#desc"+$(this).val());
 
             if ($(this).is(":checked")) {
                 qtyObj.val("1");
                 qtyObj.removeAttr("disabled");
                 priceObj.removeAttr("disabled");
+                descObj.css('color', 'red');
                 $('#sumprice').text(sumPrice + parseInt(priceObj.val()));
             } else {
                 $('#sumprice').text(sumPrice - (qtyObj.val()*priceObj.val()));
                 qtyObj.val("");
                 qtyObj.attr("disabled", "disabled");
                 priceObj.attr("disabled", "disabled");
+                descObj.css('color', '');
             }
         });
         
