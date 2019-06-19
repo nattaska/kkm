@@ -17,16 +17,29 @@
 <body bgcolor=#FFFFFF topmargin=0 leftmargin=0>
 <div align=center>
 <table border="0" width="300" height="200">
-<caption align="top"><font size="4"><B> Order Date : <?php echo $this->orddate; ?> </B></font></caption>
-<tr><td></br></td><td></td><td></td></tr>
+<caption align="center"><font size="5"><B> Order Date : <?php echo $this->orddate; ?> </B></font></caption>
+<tr><td></br></td><td></td><td></td><td></td></tr>
 <?php
 // print_r($this->items);
+$oldLocation = "0";
+$white = "FFFFFF";
+$color = $white;
 foreach ($this->items as $item) {
-    echo '<tr>  
-            <td align="left"> &emsp; <font size="2">'.$item['item'].' </font></td>   
-            <td align="left"><font size="2"> '.$item['qty'].' </font></td>  
-            <td>&emsp;&emsp;&emsp;&emsp;&ensp;</td>  
-        </tr>';
+    if ($oldLocation != $item['location']) {
+        if ($color === $white) {
+            $color = "9FE5C4";
+        } else {
+            $color = $white;
+        }
+    }
+
+    echo '<tr bgcolor="#'.$color.'">  
+            <td align="left"><font size="3">'.$item['item'].' </font></td>   
+            <td align="left"><font size="3"> '.$item['qty'].' </font></td>  
+            <td>&emsp;&emsp;&ensp;</td>  
+            <td align="right"><font size="3"> '.$item['price'].' </font></td>  
+          </tr>';
+    $oldLocation = $item['location'];
 }
 ?>
 </table>

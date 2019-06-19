@@ -64,12 +64,12 @@ class Order_Model extends Model {
     function printOrder($orddate) {
         // echo $orddate;
 
-        $sql="SELECT pmddesc item, ordqty qty
+        $sql="SELECT pmddesc item, ordqty qty, ifnull(ordprice,0) price, pmdval4 'location'
                 FROM orders, prmdtl
                 WHERE orddate=:orddate
                 AND pmdtbno=7
                 AND orditm=pmdcd
-                ORDER BY pmdval2 ";
+                ORDER BY pmdval4, pmdval2 ";
             // echo $sql."<br>";
         $sth=$this->db->prepare($sql);
 
