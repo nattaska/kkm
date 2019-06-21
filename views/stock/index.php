@@ -83,7 +83,7 @@
                                                         ';
                                                     }
                                                     echo '<div class="col-md-1 input-group">
-                                                            <input type="number" step="1" class="form-control" id="'.$stkItem['code'].'" name="items['.$stkItem['code'].']" value="'.$stkItem[$this->stkType.'qty'].'">                                                         
+                                                            <input type="number" step="1" class="form-control" id="'.$stkItem['code'].'" name="items['.$stkItem['code'].']" value="'.$stkItem[$this->stkType.'qty'].'" '.($this->stkType === "adj"?"readonly":"").' >                                                         
                                                           </div>
                                                           <div class="col-md-2">
                                                           ';

@@ -37,7 +37,7 @@ class Stock_Model extends Model {
 
         $sql="SELECT pmdcd 'code', pmddesc descp, stkitmgrp 'group', stkoutqty outqty
                     , stkunt unit, stkroomqty roomqty, stksysqty sysqty
-                    , ifnull(stksysqty,0)-(ifnull(stkoutqty,0)+(ifnull(stkroomqty,0)*ifnull(stkunt,0))) adjqty 
+                    , (ifnull(stkoutqty,0)+(ifnull(stkroomqty,0)*ifnull(stkunt,0)))-ifnull(stksysqty,0) adjqty 
                 FROM stock, prmdtl
                 WHERE pmdtbno=12
                 AND stkdate=:stkDate 
