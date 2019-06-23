@@ -19,6 +19,12 @@
 <table border="0" width="300" height="200">
 <caption align="center"><font size="5"><B> Order Date : <?php echo $this->orddate; ?> </B></font></caption>
 <tr><td></br></td><td></td><td></td><td></td></tr>
+<tr bgcolor="#gray">  
+    <td align="center"><font size="4">รายการ </font></td>   
+    <td align="center"><font size="4">จำนวน </font></td>  
+    <td align="center"><font size="4">ราคา </font></td>  
+    <td align="center"><font size="4">รวม </font></td>
+</tr>
 <?php
 // print_r($this->items);
 $oldLocation = "0";
@@ -35,9 +41,9 @@ foreach ($this->items as $item) {
 
     echo '<tr bgcolor="#'.$color.'">  
             <td align="left"><font size="3">'.$item['item'].' </font></td>   
-            <td align="left"><font size="3"> '.$item['qty'].' </font></td>  
-            <td>&emsp;&emsp;&ensp;</td>  
+            <td align="right"><font size="3"> '.$item['qty'].' </font></td>  
             <td align="right"><font size="3"> '.$item['price'].' </font></td>  
+            <td align="right"><font size="3"> '.($item['qty'] * $item['price']).' </font></td>  
           </tr>';
     $oldLocation = $item['location'];
 }
