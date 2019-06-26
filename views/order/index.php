@@ -59,7 +59,7 @@
                                                 <div class="col-md-3 offset-md-3">
                                                     <div class="input-group">
                                                         <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
-                                                        <input type="date" id="orddate" name="orddate" class="form-control" value="<?php echo date("Y-m-d"); ?>">                                                        
+                                                        <input type="date" id="orddate" name="orddate" class="form-control" value="<?php echo date("Y-m-d"); ?>">
                                                         <input type="hidden" id="current_date" name="current_date" class="form-control" value="<?php echo date("Y-m-d"); ?>">
                                                     </div>
                                                 </div>
@@ -89,6 +89,8 @@
                                                 <?php 
                                                 $oldVal1 = "-1";
                                                 $count = 0;
+                                                $divide = ($this->isMobile()?1:4);
+
                                                 foreach ($this->orders as $order) {
                                                     if ($oldVal1 != $order['val1']) {
                                                         if ($oldVal1 != -1) {
@@ -101,7 +103,7 @@
                                                         ';
                                                     }
 
-                                                    if ($count%4 == 0) {
+                                                    if ($count%$divide == 0) {
                                                         if ($count != 0) {
                                                             echo '
                                                             </div></div>

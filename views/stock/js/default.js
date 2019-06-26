@@ -18,6 +18,45 @@
             $("#listItems").load(location.href + " #listItems");
         });
 
+        $("#stkDate").focusout(function() {
+
+            var nowTime = new Date($("#current_date").val()).toLocaleString("en-US", {timeZone: "Asia/Bangkok"});
+            nowTime = new Date(nowTime);
+            var stkDate = new Date($("#stkDate").val()).toLocaleString("en-US", {timeZone: "Asia/Bangkok"});
+            stkDate =  new Date(stkDate);
+            
+            var diffDays =  Math.ceil((nowTime.getTime() - stkDate.getTime()) / (1000 * 3600 * 24));
+
+            $('input[type="number"]').val('');            
+
+            if (diffDays > 0) {
+                $('input[type="number"]').attr('disabled','disabled');
+                $("#save").attr('disabled','disabled');
+            } else if (diffDays === 0) {
+                $('input[type="number"]').removeAttr("disabled");
+                $("#save").removeAttr("disabled");
+            } else {
+                $("#stkDate").val($("#current_date").val());
+                $('input[type="number"]').removeAttr("disabled");
+                $("#save").removeAttr("disabled");
+            }
+
+            $.post("../../stock/xhrSearch", { stkDate: $("#stkDate").val() }, function(o) {
+                
+                for (var i=0; i<o.length; i++) {
+                    if ($("#stkType").val() === "out") {
+                        $("#"+o[i].code).val(o[i].outqty);
+                    } else if($("#stkType").val() === "room") {
+                        $("#"+o[i].code).val(o[i].roomqty);
+                    }else if($("#stkType").val() === "sys") {
+                        $("#"+o[i].code).val(o[i].sysqty);
+                    }else if($("#stkType").val() === "adj") {
+                        $("#"+o[i].code).val(o[i].adjqty);
+                    }
+                }                
+            }, 'json');
+        });
+
 //  ------------    Action Search, Add, Update, Delete  ---------------------   //
             
         $("#save-form").submit(function() {

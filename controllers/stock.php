@@ -33,6 +33,16 @@ class Stock extends Controller {
         $this->view->render('stock/index');
     }
 
+    function xhrSearch() {
+        $date = new DateTime();
+        $stkDate = (isset($_POST['stkDate']))?$_POST['stkDate']:date_format($date,"Y-m-d");
+        // $this->view->stkItems = $this->model->getStockByDate($stkDate);
+        // print_r($this->view->stkItems);
+
+        echo json_encode($this->model->getStockByDate($stkDate));
+        // $this->view->preStockStat = false;
+    }
+
     function xhrSave() {
         $this->model->xhrSave();
     }

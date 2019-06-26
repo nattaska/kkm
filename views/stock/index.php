@@ -27,9 +27,10 @@
                                             <div class="row form-group">
                                                 <div class="col-md-3 offset-md-3">
                                                     <div class="input-group">
-                                                        <input type="hidden" id="stkType" name="stkType" value="<?php echo $this->stkType; ?>" class="form-control">
                                                         <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
-                                                        <input type="date" id="stkDate" name="stkDate" class="form-control" value="<?php echo date("Y-m-d"); ?>" readonly >
+                                                        <input type="date" id="stkDate" name="stkDate" class="form-control" value="<?php echo date("Y-m-d"); ?>" <?php echo ($userMenu['role']=='ADM'?'':'readonly'); ?>>
+                                                        <input type="hidden" id="stkType" name="stkType" value="<?php echo $this->stkType; ?>" class="form-control">
+                                                        <input type="hidden" id="current_date" name="current_date" class="form-control" value="<?php echo date("Y-m-d"); ?>">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-3">
@@ -60,6 +61,8 @@
                                                 // print_r($this->stkItems);
                                                 $oldGroup = "-1";
                                                 $count = 0;
+                                                $divide = ($this->isMobile()?1:4);
+
                                                 foreach ($this->stkItems as $stkItem) {
                                                     if ($oldGroup != $stkItem['group']) {
                                                         if ($oldGroup != -1) {
@@ -72,7 +75,7 @@
                                                         ';
                                                     }
 
-                                                    if ($count%4 == 0) {
+                                                    if ($count%$divide == 0) {
                                                         if ($count != 0) {
                                                             echo '
                                                             </div></div>
