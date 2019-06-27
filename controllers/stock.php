@@ -24,6 +24,16 @@ class Stock extends Controller {
 
         $this->view->stkType = $stkType;
         $this->view->stkGrps = $paramModel->getParameter(11);
+        $this->view->title = "";
+        if ($stkType == "out") {
+            $this->view->title = "Stock Count";
+        } else if($stkType == "room") {
+            $this->view->title = "Stock Room";
+        } else if($stkType == "sys") {
+            $this->view->title = "Stock System";
+        } else if($stkType == "adj") {
+            $this->view->title = "Stock Checking";
+        }
         
         $date = new DateTime();
         $stkDate = (isset($_POST['stkDate']))?$_POST['stkDate']:date_format($date,"Y-m-d");
