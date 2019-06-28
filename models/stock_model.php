@@ -73,7 +73,7 @@ class Stock_Model extends Model {
             $stmt = $this->db->prepare($sql);
             
             foreach ($items as $code=>$qty) {
-                if (isset($qty) && !empty($qty)) {
+                if (isset($qty) && (!empty($qty) || $qty=="0")) {
                     $stmt->execute(array(
                             ':stkdate'=>$stkdate
                             ,':code'=>$code

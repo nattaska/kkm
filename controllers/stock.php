@@ -54,17 +54,6 @@ class Stock extends Controller {
         $this->model->xhrSave();
     }
 
-    function stkcompare() {
-
-        $this->view->js = array(URL."views/stock/js/stkcompare.js");
-        $paramModel = $this->loadModelByName("parameter");
-
-        $this->view->stkGrps = $paramModel->getParameter(11);
-        $this->view->stkItems = $paramModel->getParameter(12);
-
-        $this->view->render('stock/stkcompare_view');
-    }
-
 }
 
 ?>
