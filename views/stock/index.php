@@ -23,23 +23,21 @@
                                 <form id="save-form" action="<?php echo URL; ?>stock/xhrSave" method="post" class="form-horizontal">
                                 <div class="card">
                                     <div class="card-header">
-                                        <!-- <form id="save" action="<?php echo URL; ?>order/xhrSave" method="post" class="form-horizontal"> -->
-                                            <div class="row form-group">
-                                                <div class="col-md-3 offset-md-3">
-                                                    <div class="input-group">
-                                                        <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
-                                                        <input type="date" id="stkDate" name="stkDate" class="form-control" value="<?php echo date("Y-m-d"); ?>" <?php echo ($userMenu['role']=='ADM'?'':'readonly'); ?>>
-                                                        <input type="hidden" id="stkType" name="stkType" value="<?php echo $this->stkType; ?>" class="form-control">
-                                                        <input type="hidden" id="current_date" name="current_date" class="form-control" value="<?php echo date("Y-m-d"); ?>">
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-3">
-                                                    <div class="input-group">
-                                                        <button id="save" class="btn btn-primary"><i class="ti ti-save"></i> Save </button>
-                                                    </div>
+                                        <div class="row form-group">
+                                            <div class="col-md-3 offset-md-3">
+                                                <div class="input-group">
+                                                    <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
+                                                    <input type="date" id="stkDate" name="stkDate" class="form-control" value="<?php echo date("Y-m-d"); ?>" <?php echo ($userMenu['role']=='STA'?'readonly':''); ?>>
+                                                    <input type="hidden" id="stkType" name="stkType" value="<?php echo $this->stkType; ?>" class="form-control">
+                                                    <input type="hidden" id="current_date" name="current_date" class="form-control" value="<?php echo date("Y-m-d"); ?>">
                                                 </div>
                                             </div>
-                                        <!-- </form> -->
+                                            <div class="col-md-3">
+                                                <div class="input-group">
+                                                    <button id="save" class="btn btn-primary"><i class="ti ti-save"></i> Save </button>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                     <div id="msgMain" ></div>
                                 
