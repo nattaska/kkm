@@ -28,7 +28,7 @@
         if (isset($this->css)) {
             foreach ($this->css as $css) {
                 echo '<link rel="stylesheet" href="'.$css.'">
-    ';
+        ';
             }
         }
     ?>
@@ -59,12 +59,12 @@
                             echo '<li class="menu-title">'.$menu["name"].'</li>'
                             ;
                         } else if (($menu["level"] == 2) && isset($menu["url"])) {
-                            echo '<li><a href="'.URL.$menu["url"].'"> <i class="menu-icon fa '.$menu["icon"].'"></i>'.$menu["name"].' </a></li>
+                            echo '<li><a href="'.URL.$menu["url"].'"> <i class="menu-icon '.$menu["icon"].'"></i>'.$menu["name"].' </a></li>
                             ';
                         } else if (($menu["level"] == 2) && !isset($menu["url"]) ) {
                             
                                 echo '<li class="menu-item-has-children dropdown">
-                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa '.$menu["icon"].'"></i>'.$menu["name"].'</a>
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon '.$menu["icon"].'"></i>'.$menu["name"].'</a>
                                         <ul class="sub-menu children dropdown-menu">
                                         ';
                                         
@@ -72,7 +72,7 @@
                                 
                         } else {
                             if ( isset($menu["icon"]))
-                            echo '<li><i class="menu-icon fa '.$menu["icon"].'"></i><a href="'.URL.$menu["url"].'">'.$menu["name"].'</a></li>
+                            echo '<li><i class="menu-icon '.$menu["icon"].'"></i><a href="'.URL.$menu["url"].'">'.$menu["name"].'</a></li>
                             ';
                         }
                     }

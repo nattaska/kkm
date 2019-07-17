@@ -14,14 +14,12 @@
                                             <div class="row form-group">
                                                 <div class="col-md-4"></div>
                                                 <div class="col-md-3">
-                                                    <label for="usercode" class="control-label mb-1">User Code</label>
                                                     <div class="input-group">
-                                                        <div class="input-group-addon"><i class="fa fa-user"></i></div>
+                                                        <div class="input-group-addon"><i class="fa fa-user"></i></div>&nbsp;
                                                         <input type="text" name="usercode" class="form-control" value="">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-2">
-                                                    <label for="search" class="control-label mb-1"></label>
                                                     <div class="input-group">
                                                         <button class="btn btn-primary"> <i class="ti ti-search"></i> Search</button>
                                                     </div>

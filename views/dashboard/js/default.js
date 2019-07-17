@@ -12,7 +12,7 @@
         var date = new Date();
         var lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
         var days = [];
-        console.log(xx);
+        // console.log(xx);
         // console.log(lastDay);
 
         for (let i = 0; i < lastDay; i++) { 
@@ -29,7 +29,7 @@
             var expense = [];            
 
             $.post(module+"/xhrGetProfitAllDays", function(o) {
-                console.log(o);
+                // console.log(o);
 
                 for (var i=0; i<o.length; i++) {
                     pdate.push(o[i].date_field);
@@ -46,7 +46,7 @@
             var xxx = [];
             xxx.push(income);
             xxx.push(expense);
-            console.log(xxx);
+            // console.log(xxx);
 
             var chart = new Chartist.Line('#traffic-chart', {
                     // labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],

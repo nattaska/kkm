@@ -23,7 +23,7 @@ $objPHPExcel->getActiveSheet()->getPageMargins()->setBottom(0);
 
 // Add column headers
 $objPHPExcel->getActiveSheet()->getColumnDimension('A')->setWidth(21);
-$objPHPExcel->getActiveSheet()->getColumnDimension('B')->setWidth(3);
+$objPHPExcel->getActiveSheet()->getColumnDimension('B')->setWidth(5);
 $objPHPExcel->getActiveSheet()->getColumnDimension('C')->setWidth(10);
 $objPHPExcel->getActiveSheet()->setCellValue('A1',date_format($date,"Y-m-d"));
 $objPHPExcel->getActiveSheet()->getStyle('A1')->getFont()->setBold(true);
