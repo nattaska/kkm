@@ -73,6 +73,19 @@ class Buffet_Model extends Model {
                 ':bfqty'=>$_POST['qty']
                 ));
 
+            if ($arrType['code'] == '7' ) {
+                $sql = "REPLACE INTO revenue(rvndate, rvncd, rvnamt, rvncmt) 
+                                VALUES (:bfdate,2,(SELECT SUM(bfqty)
+                                                FROM buffet
+                                                WHERE bfdate=:bfdate2
+                                                AND bftype='7'), NULL)";
+                $stmt = $this->db->prepare($sql);
+                $stmt->execute(array(
+                    ':bfdate'=>$_POST['bfdate'],
+                    ':bfdate2'=>$_POST['bfdate']
+                    ));
+            }
+
             $this->db->commit();
 
         } catch (Exception $e) {
@@ -110,6 +123,19 @@ class Buffet_Model extends Model {
                 ':bfnote'=>$_POST['note']
                 ));
 
+            if ($arrType['code'] == '7' ) {
+                $sql = "REPLACE INTO revenue(rvndate, rvncd, rvnamt, rvncmt) 
+                                VALUES (:bfdate,2,(SELECT SUM(bfqty)
+                                                FROM buffet
+                                                WHERE bfdate=:bfdate2
+                                                AND bftype='7'), NULL)";
+                $stmt = $this->db->prepare($sql);
+                $stmt->execute(array(
+                    ':bfdate'=>$_POST['bfdate'],
+                    ':bfdate2'=>$_POST['bfdate']
+                    ));
+            }
+
             $this->db->commit();
 
         } catch (Exception $e) {
@@ -140,6 +166,19 @@ class Buffet_Model extends Model {
                 ':bftype'=>$_POST['bftype'],
                 ':bfgrp'=>$_POST['grp']
                 ));
+
+            if ($_POST['bftype'] == '7' ) {
+                $sql = "REPLACE INTO revenue(rvndate, rvncd, rvnamt, rvncmt) 
+                                VALUES (:bfdate,2,(SELECT SUM(bfqty)
+                                                FROM buffet
+                                                WHERE bfdate=:bfdate2
+                                                AND bftype='7'), NULL)";
+                $stmt = $this->db->prepare($sql);
+                $stmt->execute(array(
+                    ':bfdate'=>$_POST['bfdate'],
+                    ':bfdate2'=>$_POST['bfdate']
+                    ));
+            }
 
             $this->db->commit();
 

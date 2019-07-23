@@ -57,20 +57,7 @@ class Timesheet_Model extends Model {
         $data = $sth->fetchAll();
 
         echo json_encode($data);
-
-        // while($res=$sth->fetch(PDO::FETCH_ASSOC)) {
-        //     $this->worksheets[]=$res;
-        // }
-        // $this->worksheets=$sth->fetch(PDO::FETCH_ASSOC);
-
-        // return $this->worksheets;
     }
-
-    // function xhrDeleteListing() {
-    //     $id = $_POST['id'];
-    //     $sth = $this->db->prepare('DELETE FROM data WHERE id = "'.$id.'"');
-    //     $sth->execute();
-    // }
 
 }
 ?>

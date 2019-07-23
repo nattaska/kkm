@@ -80,8 +80,6 @@ class Profile_Model extends Model {
             $this->db->rollBack();
         }
 
-        //  [fname] => นายกษิดิษ [lname] => เทียมทัด [nname] => Natt [department] => 1 [profile] => 1 [paymethd] => 1 [paytype] => 1 [account] => 4089590539 [acchide] => 4089590539 [paysso] => 600 
-
         header('location: ../profile');
     }
 }
