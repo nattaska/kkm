@@ -10,19 +10,39 @@ class Timesheet extends Controller {
             header('location: login');
             exit;
         }
+        
+        $this->view->js = array(URL."assets/js/lib/data-table/datatables.min.js"
+                                ,URL."assets/js/lib/data-table/dataTables.bootstrap.min.js"
+                                ,URL."assets/js/lib/data-table/dataTables.buttons.min.js"
+                                ,URL."assets/js/lib/data-table/buttons.bootstrap.min.js"
+                                ,URL."assets/js/lib/data-table/jszip.min.js"
+                                ,URL."assets/js/lib/data-table/vfs_fonts.js"
+                                ,URL."assets/js/lib/data-table/buttons.html5.min.js"
+                                ,URL."assets/js/lib/data-table/buttons.print.min.js"
+                                ,URL."assets/js/lib/data-table/buttons.colVis.min.js"
+                                ,URL."assets/js/init/datatables-init.js"
+                                ,URL."assets/js/lib/chosen/chosen.jquery.min.js"
+                                // ,"https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/js/bootstrap-datepicker.min.js"
+                                ,"https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"
+                                ,"https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"
+                                ,URL."views/timesheet/js/default.js"
+                                );
 
-        $this->view->js = array(URL.'views/timesheet/default.js');
+        $this->view->css = array(URL.'assets/css/lib/datatable/dataTables.bootstrap.min.css'
+                                ,"https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css"
+                                ,URL."assets/css/lib/chosen/chosen.min.css"
+                                // ,"https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/css/bootstrap-datepicker.min.css"
+                                ,"https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css"
+                                );
+
+        // $this->view->js = array(URL.'views/timesheet/default.js');
     }
 
     function index() {
         
         $date = new DateTime();
-        $userMenu = Session::get('userMenu');
-
-        $this->view->criteria = array("code" => $userMenu['code']
-                                    , "nickname" => $userMenu['nickname']
-                                    , "sdate" => date_format($date,"Y-m-01")
-                                    , "edate" => date_format($date,"Y-m-t"));
+        $this->view->criteria = array( "sdate" => date_format($date,"Y-m-01")
+                                        , "edate" => date_format($date,"Y-m-t"));
 
         $this->view->render('timesheet/index');
     }
@@ -37,6 +57,22 @@ class Timesheet extends Controller {
 
     function xhrGetTimesheet() {
         $this->model->xhrGetTimesheet();
+    }
+
+    function xhrSearch() {
+        $this->model->xhrSearch();
+    }
+
+    function xhrInsert() {
+        $this->model->xhrInsert();
+    }
+
+    function xhrUpdate() {
+        $this->model->xhrUpdate();
+    }
+
+    function xhrDelete() {
+        $this->model->xhrDelete();
     }
 
 }
