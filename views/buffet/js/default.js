@@ -8,7 +8,10 @@
         var table = $('#table-data').DataTable({
             dom: 'Bfrtip',
             buttons: [
-                { text: '<a id="add" href="#" class="add"><button '+disabled+' type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modifyDataModel"><i class="fa fa-plus"></i>&nbsp;Add</button></a>' }
+                { text: '<a id="add" href="#" class="add"><button '+disabled+' type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modifyDataModel"><i class="fa fa-plus"></i>&nbsp;Add</button></a>' },
+                { extend: 'excel',
+                  exportOptions: { columns: [0, 3, 4, 5, 6, 7] }
+                }
             ],
             columns: [
                 { data: 'bfdate' },
@@ -25,12 +28,13 @@
             ],
             columnDefs: [
                 // { targets: [0, "width": "15%", className: 'dt-center' },
-                { targets: [3], "width": "15%", className: 'dt-left' },
+                { targets: [3], "width": "12%", className: 'dt-left' },
                 { targets: [7], "width": "20%", className: 'dt-left' },
                 { targets: [0, 8], "width": "10%", className: 'dt-center' },
                 // { targets: [4], "width": "5%", className: 'dt-center' },
                 { targets: [4], "width": "10%", className: 'dt-right' },
-                { targets: [5, 6], "width": "15%", className: 'dt-right' },
+                { targets: [5,6 ], "width": "20%", className: 'dt-right' },
+                // { targets: [6], "width": "20%", className: 'dt-right' },
                 { targets: [1, 2], "visible": false }
             ],            
             footerCallback: function ( row, data, start, end, display ) {
@@ -39,10 +43,21 @@
                 // Remove the formatting to get integer data for summation
                 var intVal = function ( i ) {
                     return typeof i === 'string' ?
+                        i === '-' ? 0 :
                         i.replace(/[\$,]/g, '')*1 :
                         typeof i === 'number' ?
                             i : 0;
                 };
+    
+                // Total over all pages
+                var amtPaxTotal = api.column(4).data().reduce( function (a, b) {                    
+                        return intVal(a) + intVal(b);
+                    }, 0 );
+    
+                // Total over this page
+                var amtPagePax = api.column( 4, { page: 'current'} ).data().reduce( function (a, b) {
+                        return intVal(a) + intVal(b);
+                    }, 0 );
     
                 // Total over all pages
                 var amtTotal = api.column(5).data().reduce( function (a, b) {
@@ -65,11 +80,14 @@
                 }, 0 );
     
                 // Update footer
+                $( api.column(4).footer() ).html(
+                    'Pax : ' + $.number( amtPagePax, 0 ) +' </br>Total : '+ $.number( amtPaxTotal, 0 )
+                );
                 $( api.column(5).footer() ).html(
-                    $.number( amtPageSumm, 2 ) +' </br>Total : '+ $.number( amtTotal, 2 )
+                    'Amount : ' + $.number( amtPageSumm, 2 ) +' </br>Total : '+ $.number( amtTotal, 2 )
                 );
                 $( api.column(6).footer() ).html(
-                    $.number( commPageSumm, 2 ) +' </br>Total : '+ $.number( commTotal, 2 )
+                    'Commission : ' + $.number( commPageSumm, 2 ) +' </br>Total : '+ $.number( commTotal, 2 )
                 );
             }
         });
@@ -81,15 +99,7 @@
 
         $("#bftype").change(function(){
             var arr = $("#bftype option:selected").text().split('-');
-            $("#typename").val($.trim(arr[1]));
-
-            // if ($.trim(arr[0]) >= 3) {
-            //     $("#grp").removeAttr('readonly');
-            // } else {
-            //     $("#grp").val('-');
-            //     $("#grp").attr('readonly', 'readonly');
-            // }
-            
+            $("#typename").val($.trim(arr[1]));            
         });
 
         //  ------------    Action Search, Add, Update, Delete  ---------------------   //
@@ -140,9 +150,6 @@
             $('#note').val(data.note);
 
             $("#bfdate").prop("readonly",true);
-            // $("#bftype").prop("readonly",true).trigger("chosen:updated");
-            // $("#bftype").chosen().chosenReadonly(true).trigger("chosen:updated");
-            // $("#bftype").prop('readonly',true).trigger("chosen:updated");
             $('input[name=bftype]').val($("#bftype").val());   
             $('#bftype').attr("disabled", true).trigger("chosen:updated");
     
@@ -178,7 +185,7 @@
 
         $('#modifyDataModel').on('hidden.bs.modal', function() {
             $('#modify-data-form').validate().resetForm();
-            // $("#grp").removeClass("is-invalid");
+            $("#bfdate").prop("readonly",false);
             $("#qty").removeClass("is-invalid");
             $('#bftype').attr("disabled", false).trigger("chosen:updated");
         });

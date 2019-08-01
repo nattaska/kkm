@@ -94,15 +94,15 @@
                                                     <div class="col-12 col-md-8"><input type="text" id="period" name="period" /></div>
                                                 </div>  -->
                                                 <div class="row form-group">
-                                                    <div class="col col-md-3"><label for="text-input" class=" form-control-label">Check In</label></div>    
-                                                    <div class="col-12 col-md-6"><input type="datetime-local" id="timin" name="timin" placeholder="DD/MM/YYYY HH:MI:SS" class="form-control"></div>
+                                                    <div class="col col-md-3"><label for="timin" class=" form-control-label">Check In</label></div>    
+                                                    <div class="col-12 col-md-6"><input type="text" id="timin" name="timin" placeholder="DD/MM/YYYY HH:MI:SS" class="form-control"></div>
                                                 </div> 
                                                 <div class="row form-group">
-                                                    <div class="col col-md-3"><label for="text-input" class=" form-control-label">Check Out</label></div>    
-                                                    <div class="col-12 col-md-6"><input type="datetime-local" id="timout" name="timout" placeholder="DD/MM/YYYY HH:MI:SS" class="form-control"></div>
+                                                    <div class="col col-md-3"><label for="timout" class=" form-control-label">Check Out</label></div>    
+                                                    <div class="col-12 col-md-6"><input type="text" id="timout" name="timout" placeholder="DD/MM/YYYY HH:MI:SS" class="form-control"></div>
                                                 </div> 
                                                 <div class="row form-group">
-                                                    <div class="col col-md-3"><label for="text-input" class=" form-control-label">Status</label></div>    
+                                                    <div class="col col-md-3"><label for="timstat" class=" form-control-label">Status</label></div>    
                                                     <div class="col-12 col-md-3"><input type="number" id="timstat" name="timstat" class="form-control"></div>
                                                 </div> 
                                             </div>

@@ -8,7 +8,10 @@
         var table = $('#table-npfood').DataTable({
             dom: 'Bfrtip',
             buttons: [
-                { text: '<a id="add" href="#" class="add"><button '+disabled+' type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modifyDataModel"><i class="fa fa-plus"></i>&nbsp;Add</button></a>' }
+                { text: '<a id="add" href="#" class="add"><button '+disabled+' type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modifyDataModel"><i class="fa fa-plus"></i>&nbsp;Add</button></a>' },
+                { extend: 'excel',
+                  exportOptions: { columns: [0, 1, 2, 3] }
+                }
             ],
             columns: [
                 { data: 'ordid' },
@@ -104,8 +107,7 @@
             $('#ordid').val(data.ordid);
             $('#orddate').val(data.orddate);
             $("#room").val(data.room).trigger("chosen:updated");
-            // $('#room').val(data.room);
-            $('#total').val(data.total);            
+            $('#total').val(data.total.replace(/,/g, ""));
     
             $.post("npfood/xhrGetTable", {'room': data.room}, function(o) {
                 
@@ -115,6 +117,8 @@
                     $("#tabno").val(o[0].tabno);
                 }
             }, 'json');
+
+            $("#ordid").prop("readonly",true);
         });
  
         $('#table-npfood tbody').on( 'click', '.delete', function () {
@@ -150,6 +154,8 @@
             $('#modify-data-form').validate().resetForm();
             $("#ordid").removeClass("is-invalid");
             $("#total").removeClass("is-invalid");
+
+            $("#ordid").prop("readonly",false);
         });
 
         // $('[data-toggle="tooltip"]').tooltip();
