@@ -9,16 +9,39 @@
                             </div>
                             <div class="card-body">
                                 <?php 
-                                if ($this->preStockStat) {
+                                // if ($this->preStockStat) 
+                                if ($this->stkType == "sys") {
                                 ?>
-                                <form id="prepare-form" action="<?php echo URL; ?>stock/xhrPrepareStock" method="post" class="form-horizontal">
-                                    <div class="col-md-2">
-                                        <div class="input-group">
-                                            <input type="hidden" id="url" name="url" value="<?php echo URL; ?>" class="form-control">
-                                            <a id="genStock" href="#" ><button type="button" class="btn btn-info btn-sm" ><i class="fa fa-copy"></i>&nbsp;Prepare Stock</button></a>
+                                <button type="button" id="upload-btn" class="btn btn-info" data-toggle="modal" data-target="#uploadModal">Upload file</button>
+                                <!-- Modal -->
+                                <div class="modal fade" id="uploadModal" tabindex="-1" role="dialog" aria-labelledby="staticModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog modal-md" role="document">
+                                        <!-- Modal content-->
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                <h4 class="modal-title">File upload</h4>
+                                            </div>
+                                            <div class="modal-body">
+                                                <!-- Form -->
+                                                <form id="upload-form" method='post' action="" enctype="multipart/form-data">
+                                                <div class="row form-group">
+                                                    <div class="col-md-12">
+                                                        <!-- <label for="stkfile" class="control-label mb-1">Select file : </label> -->
+                                                        <div class="input-group">
+                                                            <input type='file' name='stkfile' id='stkfile' accept=".csv" class='form-control' >&nbsp;
+                                                            <!-- <input type='button' class='btn btn-info' value='Upload' id='upload'> -->
+                                                            <button type="submit" id="upload" class="btn btn-primary"><i class="fa fa-upload"></i> Upload </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                </form>
+                                                <div id='msgModel'></div>
+                                            </div>                                    
                                         </div>
+
                                     </div>
-                                </form>
+                                </div>
                                 <?php  } ?>
                                 <form id="save-form" action="<?php echo URL; ?>stock/xhrSave" method="post" class="form-horizontal">
                                 <div class="card">

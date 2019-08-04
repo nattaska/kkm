@@ -33,6 +33,67 @@ class Stock_Model extends Model {
         echo json_encode($data);
     }
 
+    public function uploadStockSystem() {
+
+        $result = "1";
+        $error = "";
+
+        try {
+            $this->db->beginTransaction();
+
+            if (isset($_FILES['stkfile'])) {
+
+                $filename = $_FILES['stkfile']['name'];
+                
+                if($_FILES["stkfile"]["size"] > 0)
+                {
+                    move_uploaded_file($_FILES["stkfile"]["tmp_name"],$_FILES["stkfile"]["name"]);
+                    $file = fopen($filename, "r");
+
+                    $sql = "DELETE FROM stock_import";
+                    $stmt = $this->db->prepare($sql);
+                    $stmt->execute();
+
+                    $sql = "INSERT INTO stock_import values (:id, :name, :qty)";
+                    $stmt = $this->db->prepare($sql);
+                    // echo $file;
+                    while (($getData = fgetcsv($file, 10000, ",")) !== FALSE) {
+                        $stmt->execute(array(
+                            ':id'=>$getData[0]
+                            ,':name'=>$getData[1]
+                            ,':qty'=>$getData[2]
+                        ));
+                    }
+
+                    $sql = "REPLACE INTO stock (stkdate, stkitmgrp, stkitmcd, stkoutqty, stkroomqty, stksysqty, stkunt, stkadjqty)
+                            SELECT CURRENT_DATE, p.pmdval1, p.pmdcd, stkoutqty, stkroomqty, stiqty, p.pmdval4, stkadjqty
+                            FROM (SELECT * FROM prmdtl WHERE pmdtbno=12) p
+                            LEFT JOIN stock_import ON (INSTR(stiname, p.pmddesc) OR stiname=p.pmddesc)
+                            LEFT JOIN stock ON stkdate=CURRENT_DATE 
+                                    AND p.pmdcd=stkitmcd";
+                    $stmt = $this->db->prepare($sql);
+                    $stmt->execute();
+                }
+
+                $error = $filename;
+
+                $this->db->commit();
+            } else {
+                $result = "0";
+                $error = "No upload file";
+            }
+
+        } catch (Exception $e) {
+            $result = "0";
+            $error = $e->getMessage();
+            $this->db->rollBack();
+        }
+        
+        $data = array('res' => $result, 'error' => $error);
+        echo json_encode($data);
+
+    }
+
     function getStockByDate($stkDate) {
 
         $sql="SELECT pmdcd 'code', pmddesc descp, stkitmgrp 'group', stkoutqty outqty
@@ -42,7 +103,7 @@ class Stock_Model extends Model {
                 WHERE pmdtbno=12
                 AND stkdate=:stkDate 
                 AND stkitmcd=pmdcd
-                ORDER BY pmdval2";
+                ORDER BY stkitmgrp, pmddesc";
             // echo $sql."<br>";
         $sth=$this->db->prepare($sql);
 
