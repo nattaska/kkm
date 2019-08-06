@@ -47,7 +47,7 @@ class Stock_Model extends Model {
                 
                 if($_FILES["stkfile"]["size"] > 0)
                 {
-                    move_uploaded_file($_FILES["stkfile"]["tmp_name"],$_FILES["stkfile"]["name"]);
+                    move_uploaded_file($_FILES["stkfile"]["tmp_name"],$filename);
                     $file = fopen($filename, "r");
 
                     $sql = "DELETE FROM stock_import";
@@ -68,7 +68,7 @@ class Stock_Model extends Model {
                     $sql = "REPLACE INTO stock (stkdate, stkitmgrp, stkitmcd, stkoutqty, stkroomqty, stksysqty, stkunt, stkadjqty)
                             SELECT CURRENT_DATE, p.pmdval1, p.pmdcd, stkoutqty, stkroomqty, stiqty, p.pmdval4, stkadjqty
                             FROM (SELECT * FROM prmdtl WHERE pmdtbno=12) p
-                            LEFT JOIN stock_import ON (INSTR(stiname, p.pmddesc) OR stiname=p.pmddesc)
+                            LEFT JOIN stock_import ON REPLACE(stiname,' (ราคาปกติ)','')=p.pmddesc
                             LEFT JOIN stock ON stkdate=CURRENT_DATE 
                                     AND p.pmdcd=stkitmcd";
                     $stmt = $this->db->prepare($sql);
@@ -78,6 +78,8 @@ class Stock_Model extends Model {
                 $error = $filename;
 
                 $this->db->commit();
+                fclose($file);
+                unlink($filename);
             } else {
                 $result = "0";
                 $error = "No upload file";

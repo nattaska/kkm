@@ -8,11 +8,29 @@
                                 <strong class="card-title"><?php echo $this->title; ?></strong>
                             </div>
                             <div class="card-body">
+                                <form id="prepare-form" action="<?php echo URL; ?>stock/xhrPrepareStock" method="post" class="form-horizontal">
+                                    <div class="col-md-12">
+                                        <div class="input-group">
+                                            <input type="hidden" id="url" name="url" value="<?php echo URL; ?>" class="form-control">
                                 <?php 
-                                // if ($this->preStockStat) 
+                                if ($this->preStockStat) {
+                                ?>
+                                            <a id="genStock" href="#" ><button type="button" class="btn btn-info btn-sm" ><i class="fa fa-copy"></i>&nbsp;Prepare Stock</button></a>
+                                <?php 
+                                }
                                 if ($this->stkType == "sys") {
                                 ?>
-                                <button type="button" id="upload-btn" class="btn btn-info" data-toggle="modal" data-target="#uploadModal">Upload file</button>
+                                            &nbsp;<button type="button" id="upload-btn" class="btn btn-info btn-sm" data-toggle="modal" data-target="#uploadModal"><i class="fa fa-upload"></i> Upload file</button>
+                                <?php 
+                                }
+                                ?>
+                                        </div>
+                                    </div>
+                                </form>
+                                <?php 
+                                
+                                if ($this->stkType == "sys") {
+                                ?>
                                 <!-- Modal -->
                                 <div class="modal fade" id="uploadModal" tabindex="-1" role="dialog" aria-labelledby="staticModalLabel" aria-hidden="true">
                                     <div class="modal-dialog modal-md" role="document">
@@ -27,10 +45,8 @@
                                                 <form id="upload-form" method='post' action="" enctype="multipart/form-data">
                                                 <div class="row form-group">
                                                     <div class="col-md-12">
-                                                        <!-- <label for="stkfile" class="control-label mb-1">Select file : </label> -->
                                                         <div class="input-group">
                                                             <input type='file' name='stkfile' id='stkfile' accept=".csv" class='form-control' >&nbsp;
-                                                            <!-- <input type='button' class='btn btn-info' value='Upload' id='upload'> -->
                                                             <button type="submit" id="upload" class="btn btn-primary"><i class="fa fa-upload"></i> Upload </button>
                                                         </div>
                                                     </div>

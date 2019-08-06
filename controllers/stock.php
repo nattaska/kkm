@@ -42,7 +42,7 @@ class Stock extends Controller {
         $date = new DateTime();
         $stkDate = (isset($_POST['stkDate']))?$_POST['stkDate']:date_format($date,"Y-m-d");
         $this->view->stkItems = $this->model->getStockByDate($stkDate);
-        // $this->view->preStockStat = (count($this->view->stkItems) == 0?true:false);
+        $this->view->preStockStat = (count($this->view->stkItems) == 0?true:false);
 
         $this->view->render('stock/index');
     }
