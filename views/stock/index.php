@@ -46,7 +46,7 @@
                                                 <div class="row form-group">
                                                     <div class="col-md-12">
                                                         <div class="input-group">
-                                                            <input type='file' name='stkfile' id='stkfile' accept=".csv" class='form-control' >&nbsp;
+                                                            <input type='file' name='stkfile' id='stkfile' accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" class='form-control' >&nbsp;
                                                             <button type="submit" id="upload" class="btn btn-primary"><i class="fa fa-upload"></i> Upload </button>
                                                         </div>
                                                     </div>

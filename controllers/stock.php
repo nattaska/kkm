@@ -19,7 +19,8 @@ class Stock extends Controller {
     }
 
     function uploadStockSystem() {
-        $this->model->uploadStockSystem();
+        // $this->model->uploadStockSystem();
+        $this->model->uploadStockSystemExcel();
     }
 
     function index($stkType) {

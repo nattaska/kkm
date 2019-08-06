@@ -103,6 +103,8 @@
             $('#timin').val('');
             $('#timout').val('');
             $('#timstat').val('');
+            $("#empcd").prop("readonly",false);
+            $("#timdate").prop("readonly",false);
         });
  
         $('#table-data tbody').on( 'click', '.edit', function () {
@@ -155,7 +157,9 @@
         $('#modifyDataModel').on('hidden.bs.modal', function() {
             $('#modify-data-form').validate().resetForm();
             $("#empcd").removeClass("is-invalid");
-            $("#pay").removeClass("is-invalid");
+
+            $("#empcd").prop("readonly",false);
+            $("#timdate").prop("readonly",false);
         });
 
 //  ------------    Validation and submit from  ---------------------   //
