@@ -64,11 +64,16 @@ class Timesheet_Model extends Model {
         $date = new DateTime();
         $sdate = (isset($_POST['sdate']))?$_POST['sdate']:date_format($date,"Y-m-01");
         $edate = (isset($_POST['edate']))?$_POST['edate']:date_format($date,"Y-m-t");
+        $userMenu = Session::get('userMenu');
 
         $sql="SELECT empcd code, empnnm name, timdate, timin, timout, timspec timstat "
             ."FROM timesheet, employee "
             ."WHERE timempcd=empcd "
             ."AND timdate BETWEEN :sdate AND :edate ";
+
+        if ($userMenu['role']!="ADM") {
+            $sql .= "AND empcd=".$userMenu['code']." ";
+        }
             // echo $sql."<br>";
         $sth=$this->db->prepare($sql);
 

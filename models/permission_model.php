@@ -47,17 +47,19 @@ class Permission_Model extends Model {
             $rolecd = $_POST['rolecd'];
             $auths = $_POST['auths'];
 
-            $del = "DELETE FROM permission WHERE pmsrolcd = :rolecd";
-            $stmt = $this->db->prepare($del);
-            $stmt->execute(array(
-                ':rolecd'=>$rolecd
-                ));
+            $del = "DELETE FROM permission WHERE pmsrolcd = :rolecd AND pmsmnuid = :menuid ";
+            $stmtdel = $this->db->prepare($del);
 
             $sql = "INSERT INTO permission (pmsrolcd, pmsmnuid, pmsauth) VALUES (:rolecd, :menuid, :auth) ";
             $stmt = $this->db->prepare($sql);
+            
             for ($i = 0; $i < count($auths); $i++) {
                 if ($auths[$i]['auth'] != "N") {
-                    echo $auths[$i]['menuid']." : ".$auths[$i]['menu']." : ".$auths[$i]['auth']."</br>";
+                    $stmtdel->execute(array(
+                        ':rolecd'=>$rolecd,
+                        ':menuid'=>$auths[$i]['menuid']
+                        ));
+
                     $stmt->execute(array(
                         ':rolecd'=>$rolecd,
                         ':menuid'=>$auths[$i]['menuid'],

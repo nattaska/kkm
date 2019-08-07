@@ -41,13 +41,11 @@ for($i=0; $i<count($excelData); $i++){
 $ii = $ii+2;
 $objPHPExcel->getActiveSheet()->setCellValue('A'.$ii++, "จ่ายตลาด");
 $objPHPExcel->getActiveSheet()->setCellValue('A'.$ii++, "Makro");
-$objPHPExcel->getActiveSheet()->setCellValue('A'.$ii++, "");
-$objPHPExcel->getActiveSheet()->setCellValue('A'.$ii++, "");
 $objPHPExcel->getActiveSheet()->setCellValue('A'.$ii++, "รวม");
 $objPHPExcel->getActiveSheet()->setCellValue('A'.$ii++, "เบิก");
 $objPHPExcel->getActiveSheet()->setCellValue('A'.$ii++, "เหลือ");
-$objPHPExcel->getActiveSheet()->getStyle('A'.($ii-7).':A'.$ii)->getFont()->setBold(true);
-$objPHPExcel->getActiveSheet()->getStyle('A'.($ii-7).':A'.$ii)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
+$objPHPExcel->getActiveSheet()->getStyle('A'.($ii-5).':A'.$ii)->getFont()->setBold(true);
+$objPHPExcel->getActiveSheet()->getStyle('A'.($ii-5).':A'.$ii)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
 
 // Set worksheet title
 $objPHPExcel->getActiveSheet()->setTitle($fileName);
