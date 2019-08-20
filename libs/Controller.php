@@ -4,6 +4,7 @@ class Controller {
     function __construct() {
         // echo "Main controller</br>";
         $this->view = new View();
+        $this->view->nowdate = new DateTime();
     }
 
     public function loadModel($name) {

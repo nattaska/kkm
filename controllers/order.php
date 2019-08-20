@@ -19,7 +19,7 @@ class Order extends Controller {
         $paramModel = $this->loadModelByName("parameter");
 
         $this->view->orderGrps = $paramModel->getParameter(6);
-        $this->view->orders = $paramModel->getParameter(7);
+        $this->view->orders = $paramModel->getParameter(7, "val2, code");
 
         $this->view->render('order/index');
     }

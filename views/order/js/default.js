@@ -23,19 +23,20 @@
 
         $('input[name="items[]"').click(function(){
 
-            var sumPrice = parseInt($('#sumprice').text());
-            var qtyObj = $("#qty"+$(this).val());
-            var priceObj = $("#price"+$(this).val());
-            var descObj = $("#desc"+$(this).val());
+            let sumPrice = parseInt($('#sumprice').text());
+            let qtyObj = $("#qty"+$(this).val());
+            let priceObj = $("#price"+$(this).val());
+            let descObj = $("#desc"+$(this).val());
+            let price = (isEmpty(priceObj.val())?0:parseInt(priceObj.val()));
 
             if ($(this).is(":checked")) {
                 qtyObj.val("1");
                 qtyObj.removeAttr("disabled");
                 priceObj.removeAttr("disabled");
                 descObj.css('color', 'red');
-                $('#sumprice').text(sumPrice + parseInt(priceObj.val()));
+                $('#sumprice').text(sumPrice + price);
             } else {
-                $('#sumprice').text(sumPrice - (qtyObj.val()*priceObj.val()));
+                $('#sumprice').text(sumPrice - (qtyObj.val()*price));
                 qtyObj.val("");
                 qtyObj.attr("disabled", "disabled");
                 priceObj.attr("disabled", "disabled");
@@ -48,9 +49,10 @@
         });
 
         $('.field').on('change', function(){
-            var prevQty = $(this).data('val');
-            var currentQty = $(this).val();
-            var price = $("#price"+$(this).attr("id").substring(3,6)).val();
+            let prevQty = $(this).data('val');
+            let currentQty = $(this).val();
+            let price = $("#price"+$(this).attr("id").substring(3,6)).val();
+            price = (isEmpty(price)?0:price);
 
             $('#sumprice').text(parseInt($('#sumprice').text())+((parseInt(currentQty)-parseInt(prevQty))*price));
         });
@@ -134,3 +136,7 @@
     });
   
   }(jQuery));
+
+  function isEmpty(value) {
+    return typeof value == 'string' && !value.trim() || typeof value == 'undefined' || value === null;
+  }

@@ -1537,17 +1537,22 @@ header .form-inline {
 .nav-tabs .dropdown .dropdown-menu {
   top: 100% !important; }
 
+.nav-tabs {
+  border-bottom: 1px solid #dee2e6;
+}
+
 .custom-tab .nav-tabs > a.active,
 .custom-tab .nav-tabs > .active > a:focus,
 .custom-tab .nav-tabs > li.active > a:hover {
-  border-color: transparent transparent;
-  color: #ff2e44;
+  border-color: #2e8fff;
+  background-color: #2e8fff;
+  color: #fff;
   position: relative; }
 
 .custom-tab .nav-tabs > a.active:after,
 .custom-tab .nav-tabs > li.active > a:focus:after,
 .custom-tab .nav-tabs > li.active > a:hover:after {
-  background: #ff2e44;
+  background: #2e8fff;
   bottom: -1px;
   content: "";
   height: 2px;

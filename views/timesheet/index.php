@@ -86,13 +86,9 @@
                                                     $date = new DateTime();                                                            
                                                 ?>
                                                 <div class="row form-group">
-                                                    <div class="col col-md-3"><label for="text-input" class="form-control-label">Date</label></div>
+                                                    <div class="col col-md-3"><label for="timdate" class="form-control-label">Date</label></div>
                                                     <div class="col-12 col-md-5"><input type="date" id="timdate" name="timdate" value="<?php echo date_format($date,"Y-m-d"); ?>" class="form-control"></div>
                                                 </div>
-                                                <!-- <div class="row form-group">
-                                                    <div class="col col-md-3"><label for="text-input" class=" form-control-label">Period</label></div>    
-                                                    <div class="col-12 col-md-8"><input type="text" id="period" name="period" /></div>
-                                                </div>  -->
                                                 <div class="row form-group">
                                                     <div class="col col-md-3"><label for="timin" class=" form-control-label">Check In</label></div>    
                                                     <div class="col-12 col-md-6"><input type="text" id="timin" name="timin" placeholder="DD/MM/YYYY HH:MI:SS" class="form-control"></div>

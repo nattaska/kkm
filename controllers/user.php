@@ -33,6 +33,9 @@ class User extends Controller {
     }
 
     function index() {
+        $paramModel = $this->loadModelByName("parameter");
+        $this->view->depts = $paramModel->getParameter(3);
+        $this->view->roles = $this->model->getAllRole();
         $this->view->render('user/index');
     }
 

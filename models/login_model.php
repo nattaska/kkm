@@ -60,24 +60,5 @@ class Login_Model extends Model {
         // print_r($data);
     }
 
-    public function getUser($code) {
-        $sql="SELECT empcd code, emppwd password, empfnm firstname, emplnm lastname, empnnm nickname, pmddesc profile "
-            ."FROM employee, prmdtl "
-            ."WHERE empcd=:code "
-            ."AND pmdtbno=5 "
-            ."AND empprof=pmdcd ";
-        $sth=$this->conn->prepare($sql);
-        $sth->bindParam(':code', $code, PDO::PARAM_INT);
-        $sth->execute();
-        $this->users=$sth->fetch(PDO::FETCH_ASSOC);
-
-        // while($res=$sth->fetch(PDO::FETCH_ASSOC)) {
-        //     print_r($res);
-        //     $this->users[]=$res;
-        // }
-
-        return $this->users;
-    }
-
 }
 ?>

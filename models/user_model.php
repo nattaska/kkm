@@ -52,18 +52,38 @@ class User_Model extends Model {
         return $this->users;
     }
 
+    public function getAllRole() {
+
+        $sql = "SELECT rolcd code, rolnm name FROM role ";
+        $sth = $this->db->prepare($sql);
+        $sth->setFetchMode(PDO::FETCH_ASSOC);
+        $sth->execute();
+
+        return $sth->fetchAll();
+    }
+
     public function xhrSearch() {
 
         $code = $_POST['usercode'];
 
+        $activedate = $_POST['activedate'];
+
         $sql="SELECT u.usrcd code, u.usrnm name, u.usrnnm nickname, u.usrtel phone, 
-                        u.usremail email, u.usrrolcd rolecode, r.rolnm rolename
-                FROM user u, role r
+                        u.usremail email, u.usrrolcd rolecode, r.rolnm rolename,
+                        paysdate sdate, payedate edate, paydeptid deptid, paytype, 
+                        paymethd, payaccount account, paysso, payhour, 
+                        payothour othour, paystime stime, payetime etime
+                FROM user u, role r, payment p
                 WHERE u.usrrolcd=r.rolcd
                 AND u.usrcd LIKE '".$code."%' 
+                AND u.usrcd = payempcd
+                AND :activedate BETWEEN paysdate AND payedate
                 ORDER BY u.usrcd";
 
         $sth=$this->db->prepare($sql);
+        $sth->execute(array(
+            ':activedate'=>$activedate
+        ));
 
         $sth->setFetchMode(PDO::FETCH_ASSOC);
         $sth->execute();
@@ -97,9 +117,28 @@ class User_Model extends Model {
                 ':name'=>$_POST['name'],
                 ':nickname'=>$_POST['nickname'],
                 ':phone'=>$_POST['phone'],
-                ':email'=>$_POST['email'],
+                ':email'=>(empty($_POST['email'])?null:$_POST['email']),
                 ':rolcd'=>$_POST['rolcd']
                 ));
+
+                // payempcd, paysdate, payedate, paydeptid, paytype, paymethd, payaccount, paysso, payhour, payothour, paystime, payetime
+                $sql = "INSERT INTO payment VALUE ( :code, :sdate, :edate, :deptid, :paytype, :paymethd, :account,
+                                                    null, :paysso, :payhour, :othour, :stime, :etime) ";
+                $stmt = $this->db->prepare($sql);
+                $stmt->execute(array(
+                    ':code'=>$code,
+                    ':sdate'=>$_POST['sdate'],
+                    ':edate'=>$_POST['edate'],
+                    ':deptid'=>$_POST['dept'],
+                    ':paytype'=>$_POST['paytype'],
+                    ':paymethd'=>$_POST['paymethd'],
+                    ':account'=>(empty($_POST['account'])?null:$_POST['account']),
+                    ':paysso'=>(empty($_POST['paysso'])?null:$_POST['paysso']),
+                    ':payhour'=>($_POST['payhour']),
+                    ':othour'=>(empty($_POST['othour'])?null:$_POST['othour']),
+                    ':stime'=>($_POST['stime']),
+                    ':etime'=>($_POST['etime'])
+                    ));
 
             $this->db->commit();
 
@@ -136,6 +175,35 @@ class User_Model extends Model {
                 ':email'=>$_POST['email'],
                 ':rolcd'=>$_POST['rolcd'],
                 ':code'=>$_POST['code']
+                ));
+
+            $sql = "UPDATE payment
+            SET payedate=:edate, 
+                paydeptid=:deptid, 
+                paytype=:paytype, 
+                paymethd=:paymethd, 
+                payaccount=:account, 
+                paysso=:paysso, 
+                payhour=:payhour, 
+                payothour=:othour, 
+                paystime=:stime, 
+                payetime=:etime            
+            WHERE payempcd=:code
+            AND paysdate=:sdate";
+            $stmt = $this->db->prepare($sql);
+            $stmt->execute(array(
+                ':edate'=>$_POST['edate'],
+                ':deptid'=>$_POST['dept'],
+                ':paytype'=>$_POST['paytype'],
+                ':paymethd'=>$_POST['paymethd'],
+                ':account'=>(empty($_POST['account'])?null:$_POST['account']),
+                ':paysso'=>(empty($_POST['paysso'])?null:$_POST['paysso']),
+                ':payhour'=>($_POST['payhour']),
+                ':othour'=>(empty($_POST['othour'])?null:$_POST['othour']),
+                ':stime'=>($_POST['stime']),
+                ':etime'=>($_POST['etime']),
+                ':code'=>$_POST['code'],
+                ':sdate'=>$_POST['sdate']
                 ));
 
             $this->db->commit();

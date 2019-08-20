@@ -16,18 +16,28 @@
                 { data: 'nickname' },
                 { data: 'phone' }, 
                 { data: 'rolename' }, 
+                { data: 'sdate' }, 
+                { data: 'edate' }, 
                 { data: 'rolecode' }, 
                 { data: 'email' }, 
+                { data: 'deptid' }, 
+                { data: 'paytype' }, 
+                { data: 'paymethd' }, 
+                { data: 'account' }, 
+                { data: 'paysso' },  
+                { data: 'payhour' },  
+                { data: 'othour' }, 
+                { data: 'stime' }, 
+                { data: 'etime' }, 
                 { sortable: false,
-                  defaultContent: '<a id="edit" href="#" class="edit"><button '+disabled+' type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#modifyDataModel"><i class="fa fa-edit"></i></button></a>&nbsp;'+
-                                  '<a id="delete" href="#" class="delete"><button '+disabled+' type="button" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i></button></a>' }
+                  defaultContent: '<a id="edit" href="#" class="edit"><button '+disabled+' type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#modifyDataModel"><i class="fa fa-edit"></i></button></a>&nbsp;' }
             ],
             columnDefs: [
-                { targets: [0, 2, 7], "width": "10%", className: 'dt-center' },
+                { targets: [0, 2, 5, 6, 18], "width": "10%", className: 'dt-center' },
                 { targets: [3], "width": "15%", className: 'dt-center' },
                 { targets: [1], "width": "20%", className: 'dt-left' },
                 { targets: [4], "width": "10%", className: 'dt-left' },
-                { targets: [5, 6], "visible": false }
+                { targets: [7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17], "visible": false }
             ]
         });
         
@@ -50,6 +60,10 @@
         });
  
         $('#add').on( 'click', function () {
+            let now = new Date();
+            let day = ("0" + now.getDate()).slice(-2);
+            let month = ("0" + (now.getMonth() + 1)).slice(-2);
+            let today = now.getFullYear()+"-"+(month)+"-"+(day) ;
 
             $("#modify-data-form").attr("action", $('#url').val()+module+'/xhrInsert');
             $("#modifyDataModel #staticModalLabel").html("Add Data");
@@ -59,6 +73,20 @@
             $('#phone').val('');
             $('#email').val('');
             $('#rolcd').val('');
+            $('#sdate').val(today);
+            $('#edate').val('2049-12-31');
+            $('#dept').val('');
+            $('#paymethd').val('');
+            $('input[name=paytype]').prop('checked', false);
+            $('#account').val('');
+            $('#paysso').val('');
+            $('#payhour').val('');
+            $('#othour').val('');
+            $('#stime').val('');
+            $('#etime').val('');
+
+            $("#sdate").prop("readonly",false);
+            $("#edate").prop("readonly",true);
         });
  
         $('#table-data tbody').on( 'click', '.edit', function () {
@@ -74,8 +102,22 @@
             $('#phone').val(data.phone);
             $('#email').val(data.email);
             $('#rolcd').val(data.rolecode);
+            $('#sdate').val(data.sdate);
+            $('#edate').val(data.edate);
+            $('#dept').val(data.deptid);
+            $('#paymethd').val(data.paymethd);
+            $('#paytype'+data.paytype).prop("checked", true);
+            // $('#paytype'+data.paytype).attr('checked', true);
+            $('#account').val(data.account);
+            $('#paysso').val(data.paysso);
+            $('#payhour').val(data.payhour);
+            $('#othour').val(data.othour);
+            $('#stime').val(data.stime);
+            $('#etime').val(data.etime);
 
             $("#code").prop("readonly",true);
+            $("#sdate").prop("readonly",true);
+            $("#edate").prop("readonly",false);
     
         });
  
@@ -110,7 +152,17 @@
         $('#modifyDataModel').on('hidden.bs.modal', function() {
             $('#modify-data-form').validate().resetForm();
             $("#name").removeClass("is-invalid");
+            $("#nickname").removeClass("is-invalid");
+            $("#email").removeClass("is-invalid");
             $("#phone").removeClass("is-invalid");
+            $("#rolcd").removeClass("is-invalid");
+            $("#sdate").removeClass("is-invalid");
+            $("#dept").removeClass("is-invalid");
+            $("#paymethd").removeClass("is-invalid");
+            $("#paytype").removeClass("is-invalid");
+            $("#payhour").removeClass("is-invalid");
+            $("#stime").removeClass("is-invalid");
+            $("#etime").removeClass("is-invalid");
         });
 
 //  ------------    Validation and submit from  ---------------------   //
@@ -135,6 +187,7 @@
         }).validate({
             rules: {
                 name: "required",
+                nickname: "required",
                 phone:  {
                     required: true,
                     number: true,
@@ -142,11 +195,20 @@
                     maxlength: 10
                 },
                 email: { email: true },
-                rolcd: "required"
+                rolcd: "required",
+                sdate: "required",
+                edate: "required",
+                deptid: "required",
+                paymethd: "required",
+                paytype: "required",
+                payhour: "required",
+                stime: "required",
+                etime: "required"
             },
             // Specify validation error messages
             messages: {
                 name: "Please enter your name",
+                nickname: "Please enter your nickname",
                 phone: {
                     required: "Please enter your phone number",
                     number: "Please enter a valid number.",
@@ -154,19 +216,22 @@
                     maxlength: "Your phone must be 10 characters"
                 },
                 email: "E-Mail invalid format",
-                rolcd: "Please choose your role"
+                rolcd: "Please choose your role",
+                sdate: "Please enter your start working date",
+                edate: "Please enter your end working date",
+                deptid: "Please choose your department",
+                paymethd: "Please enter your payroll cycle",
+                paytype: "Please choose your payment type",
+                payhour: "Please enter your working hours",
+                stime: "Please enter your start working time",
+                etime: "Please enter your end working time"
             },
             submitHandler: function(form) { 
                 var url = $(form).attr('action');
                 var data = $(form).serialize();
-    
-                var code  = $('#code').val();
-                var name   = $('#name').val();
-                var nickname = $('#nickname').val();
-                var phone = $('#phone').val();
-                var rolename = $('#rolcd option:selected').text();
-                var rolecode = $('#rolcd').val();
-                var email = $('#email').val();
+
+                var sdate = $('#sdate').val();
+                var edate = $('#edate').val();
                 var msg = "";
                 
                 $.post(url, data, function(o) {
@@ -177,7 +242,11 @@
                             code = o.code;
                         }
                         var newdata_arr = [];
-                        var newdata = {"code":code, "name":name, "nickname":nickname, "phone":phone, "rolename":rolename, "rolecode":rolecode, "email":email};
+                        var newdata = { "code":$('#code').val(), "name":$('#name').val(), "nickname":$('#nickname').val(), "phone":$('#phone').val()
+                                    , "rolename":$('#rolcd option:selected').text(), "sdate":$('#sdate').val(), "edate":$('#edate').val()
+                                    , "rolecode":$('#rolcd').val(), "email":$('#email').val(), "deptid":$('#dept').val(), "paytype":$("input[name='paytype']:checked"). val()
+                                    , "paymethd":$('#paymethd').val(), "account":$('#account').val(), "paysso":$('#paysso').val()
+                                    , "payhour":$('#payhour').val(), "othour":$('#othour').val(), "stime":$('#stime').val(), "etime":$('#etime').val() };
                         newdata_arr.push(newdata);
 
                         if(url.indexOf('Insert') >= 0) {
