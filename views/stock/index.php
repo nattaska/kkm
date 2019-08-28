@@ -3,9 +3,9 @@
                 <div class="row">
 
                     <div class="col-md-12">
-                        <div class="card">
-                            <div class="card-header">
-                                <strong class="card-title"><?php echo $this->title; ?></strong>
+                        <div class="card border border-info">
+                            <div class="card-header bg-info">
+                                <strong class="card-title text-light"><?php echo $this->title; ?></strong>
                             </div>
                             <div class="card-body">
                                 <form id="prepare-form" action="<?php echo URL; ?>stock/xhrPrepareStock" method="post" class="form-horizontal">
@@ -60,27 +60,24 @@
                                 </div>
                                 <?php  } ?>
                                 <form id="save-form" action="<?php echo URL; ?>stock/xhrSave" method="post" class="form-horizontal">
-                                <div class="card">
-                                    <div class="card-header">
-                                        <div class="row form-group">
-                                            <div class="col-md-3 offset-md-3">
-                                                <div class="input-group">
-                                                    <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
-                                                    <input type="date" id="stkDate" name="stkDate" class="form-control" value="<?php echo date("Y-m-d"); ?>" <?php echo ($userMenu['role']=='STA'?'readonly':''); ?>>
-                                                    <input type="hidden" id="stkType" name="stkType" value="<?php echo $this->stkType; ?>" class="form-control">
-                                                    <input type="hidden" id="current_date" name="current_date" class="form-control" value="<?php echo date("Y-m-d"); ?>">
-                                                </div>
+                                    <div class="row form-group">
+                                        <div class="col-md-3 offset-md-3">
+                                            <div class="input-group">
+                                                <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
+                                                <input type="date" id="stkDate" name="stkDate" class="form-control" value="<?php echo date("Y-m-d"); ?>" <?php echo ($userMenu['role']=='STA'?'readonly':''); ?>>
+                                                <input type="hidden" id="stkType" name="stkType" value="<?php echo $this->stkType; ?>" class="form-control">
+                                                <input type="hidden" id="current_date" name="current_date" class="form-control" value="<?php echo date("Y-m-d"); ?>">
                                             </div>
-                                            <div class="col-md-3">
-                                                <div class="input-group">
-                                                    <button id="save" class="btn btn-primary"><i class="ti ti-save"></i> Save </button>
-                                                </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="input-group">
+                                                <button id="save" class="btn btn-primary"><i class="ti ti-save"></i> Save </button>
                                             </div>
                                         </div>
                                     </div>
                                     <div id="msgMain" ></div>
                                 
-                                    <div class="card-body" id="listItems">
+                                    <div id="listItems">
                                         <div class="custom-tab" id="order-tab">
                                             <nav>
                                                 <div class="nav nav-tabs" id="nav-tab" role="tablist">
@@ -94,8 +91,6 @@
                                             </nav>
                                             <div class="tab-content pl-3 pt-2" id="nav-tabContent">
                                                 <?php 
-                                                // echo $this->stkType.'</br>';
-                                                // print_r($this->stkItems);
                                                 $oldGroup = "-1";
                                                 $count = 0;
                                                 $divide = ($this->isMobile()?1:4);
@@ -157,7 +152,6 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>
                                 </form>
                             </div>
                         </div>

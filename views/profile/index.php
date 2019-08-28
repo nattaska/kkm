@@ -8,10 +8,10 @@ $user=$this->user;
             <div class="col-md-1"></div>
             <div class="col-lg-10">
                 <form action="profile/update" method="post" enctype="multipart/form-data" class="form-horizontal">
-                    <div class="card border border-primary">
-                        <div class="card-header bg-primary">
+                    <div class="card border border-info">
+                        <div class="card-header bg-info">
                             <strong class="card-title text-light">Profile</strong>
-                            <div class="pull-right"><button type="submit" class="btn btn-success">Update</button></div>
+                            <div class="pull-right"><button type="submit" class="btn btn-warning">Update</button></div>
                         </div>
                         <div class="card-body">
                             <div class="row form-group">
