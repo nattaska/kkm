@@ -33,44 +33,40 @@
                                     </div>
                                 </form>
                                 <div id="msgMain" ></div>
-                            
-                                <div class="card-body">
-                                    <table id="table-data" class="table table-striped table-bordered dataTale" role="grid">
-                                        <thead>
-                                            <tr>
-                                                <th>Code</th>
-                                                <th>Name</th>
-                                                <th>Nick Name</th>
-                                                <th>Phone</th>
-                                                <th>Role</th>
-                                                <th>Start</th>
-                                                <th>End</th>
-                                                <th>Role Code</th>
-                                                <th>Email</th>
-                                                <th></th><th></th><th></th><th></th><th></th>
-                                                <th></th><th></th><th></th><th></th>
-                                                <th></th>
-                                            </tr>
-                                        </thead>
-                                        <tfoot>
-                                            <tr>
-                                                <th>Code</th>
-                                                <th>Name</th>
-                                                <th>Nick Name</th>
-                                                <th>Phone</th>
-                                                <th>Role</th>
-                                                <th>Start</th>
-                                                <th>End</th>
-                                                <th>Role Code</th>
-                                                <th>Email</th>
-                                                <th></th><th></th><th></th><th></th><th></th>
-                                                <th></th><th></th><th></th><th></th>
-                                                <th></th>
-                                            </tr>
-                                        </tfoot>
-                                    </table>
-                                </div>
-
+                                <table id="table-data" class="table table-striped table-bordered dataTale" role="grid">
+                                    <thead>
+                                        <tr>
+                                            <th>Code</th>
+                                            <th>Name</th>
+                                            <th>Nick Name</th>
+                                            <th>Phone</th>
+                                            <th>Role</th>
+                                            <th>Start</th>
+                                            <th>End</th>
+                                            <th>Role Code</th>
+                                            <th>Email</th>
+                                            <th></th><th></th><th></th><th></th><th></th>
+                                            <th></th><th></th><th></th><th></th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tfoot>
+                                        <tr>
+                                            <th>Code</th>
+                                            <th>Name</th>
+                                            <th>Nick Name</th>
+                                            <th>Phone</th>
+                                            <th>Role</th>
+                                            <th>Start</th>
+                                            <th>End</th>
+                                            <th>Role Code</th>
+                                            <th>Email</th>
+                                            <th></th><th></th><th></th><th></th><th></th>
+                                            <th></th><th></th><th></th><th></th>
+                                            <th></th>
+                                        </tr>
+                                    </tfoot>
+                                </table>
                                 <div class="modal fade" id="modifyDataModel" tabindex="-1" role="dialog" aria-labelledby="staticModalLabel" aria-hidden="true">
                                     <div class="modal-dialog modal-md" role="document">
                                         <div class="modal-content border border-info">
