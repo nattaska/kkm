@@ -80,12 +80,9 @@
                                     <form id="modify-data-form" action="" method="post" class="form-horizontal">
                                         <div class="modal-body">
                                                 <input type="hidden" id="url" name="url" value="<?php echo URL; ?>" class="form-control">
-                                                <?php
-                                                    $date = new DateTime();                                                            
-                                                ?>
                                                 <div class="row form-group">
                                                     <div class="col col-md-3"><label for="text-input" class="form-control-label">Date</label></div>
-                                                    <div class="col-12 col-md-5"><input type="date" id="pdate" name="pdate" value="<?php echo date_format($date,"Y-m-d"); ?>" class="form-control"></div>
+                                                    <div class="col-12 col-md-5"><input type="date" id="pdate" name="pdate" value="<?php echo date_format($this->nowdate,"Y-m-d"); ?>" class="form-control"></div>
                                                 </div>
                                                 <div class="row form-group">
                                                     <div class="col col-md-3"><label for="text-input" class=" form-control-label">Title</label></div>

@@ -92,14 +92,12 @@
             let today = now.getFullYear()+"-"+(month)+"-"+(day) ;
             
             let user = $('#user').val();
-            // alert($('#url').val());
 
             $("#modify-data-form").attr("action", $('#url').val()+module+'/xhrInsert');
             $("#modifyDataModel #staticModalLabel").html("Add Data");
             $('#empcd').val($.trim(user.split('-')[0]));
             $('#empname').val($.trim(user.split('-')[1]));
             $('#timdate').val(today);
-            // $('#timin').val(("0" + now.getHours()).slice(-2)+':'+("0" + now.getMinutes()).slice(-2));
             $('#timin').val('');
             $('#timout').val('');
             $('#timstat').val('');

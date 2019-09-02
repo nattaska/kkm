@@ -22,7 +22,6 @@ class Timesheet extends Controller {
                                 ,URL."assets/js/lib/data-table/buttons.colVis.min.js"
                                 ,URL."assets/js/init/datatables-init.js"
                                 ,URL."assets/js/lib/chosen/chosen.jquery.min.js"
-                                // ,"https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/js/bootstrap-datepicker.min.js"
                                 ,"https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"
                                 ,"https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"
                                 ,URL."views/timesheet/js/default.js"
@@ -31,7 +30,6 @@ class Timesheet extends Controller {
         $this->view->css = array(URL.'assets/css/lib/datatable/dataTables.bootstrap.min.css'
                                 ,"https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css"
                                 ,URL."assets/css/lib/chosen/chosen.min.css"
-                                // ,"https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/css/bootstrap-datepicker.min.css"
                                 ,"https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css"
                                 );
 

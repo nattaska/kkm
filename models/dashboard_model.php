@@ -7,19 +7,21 @@ class Dashboard_Model extends Model {
     }
 
     function getProfitSummary() {
-        
         $date = new DateTime();
-        $ddate = (isset($_POST['ddate']))?$_POST['ddate']:date_format($date,"Ym");
+        
+        $sdate = (isset($_POST['sdate']))?$_POST['sdate']:date_format($date,"Y-m-01");
+        $edate = (isset($_POST['edate']))?$_POST['edate']:date_format($date,"Y-m-t");
 
-        $sql="SELECT (SELECT SUM(rvnamt) FROM revenue WHERE date_format(rvndate,'%Y%m')=:ddate) sale,
-                    (SELECT SUM(bfqty) FROM buffet WHERE date_format(bfdate,'%Y%m')=:ddate AND bftype='7') buff,
-                    (SELECT SUM(expamt) FROM expenses WHERE date_format(expdate,'%Y%m')=:ddate) expense ";
+        $sql="SELECT (SELECT IFNULL(SUM(rvnamt), 0) FROM revenue WHERE rvndate BETWEEN :sdate AND :edate AND rvncd != '2') sale,
+                    (SELECT IFNULL(SUM(bfqty), 0) FROM buffet WHERE bfdate BETWEEN :sdate AND :edate AND bftype='7') buff,
+                    (SELECT IFNULL(SUM(expamt), 0) FROM expenses WHERE expdate BETWEEN :sdate AND :edate) expense ";
             // echo $sql."<br>";
         $stmt=$this->db->setAttribute(PDO::ATTR_EMULATE_PREPARES, true);
         $stmt=$this->db->prepare($sql);
         $stmt->setFetchMode(PDO::FETCH_ASSOC);
         $stmt->execute([
-            ':ddate' => $ddate
+            ':sdate' => $sdate,
+            ':edate' => $edate
           ]);
 
         $data = $stmt->fetch();
@@ -40,6 +42,26 @@ class Dashboard_Model extends Model {
         $stmt->execute([
             ':year' => $year,
             ':month' => $month
+          ]);
+
+        $data = $stmt->fetchAll();
+
+        return $data;
+    }
+
+    function getProfitDetails() {
+        $date = new DateTime();
+        
+        $sdate = (isset($_POST['sdate']))?$_POST['sdate']:date_format($date,"Y-m-01");
+        $edate = (isset($_POST['edate']))?$_POST['edate']:date_format($date,"Y-m-t");
+
+        $sql="call search_profit_details(:sdate, :edate); ";
+            // echo $sql."<br>";
+        $stmt=$this->db->prepare($sql);
+        $stmt->setFetchMode(PDO::FETCH_ASSOC);
+        $stmt->execute([
+            ':sdate' => $sdate,
+            ':edate' => $edate
           ]);
 
         $data = $stmt->fetchAll();

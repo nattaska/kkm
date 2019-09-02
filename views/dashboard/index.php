@@ -2,6 +2,23 @@
             <div class="animated fadeIn">
                 <!-- Widgets  -->
                 <div class="row">
+                    <div class="col-lg-12 col-md-6">
+                        <div class="card">
+                            <div class="card-header">
+                                <strong class="card-title">
+                                    <div class="row form-group">
+                                        <!-- <div class="col col-md-1 offset-2"></div> -->
+                                        <div class="col col-3 offset-9" id="reportrange" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc; width: 100%">
+                                            <i class="fa fa-calendar"></i>&nbsp;
+                                            <span></span> <i class="fa fa-caret-down"></i>
+                                        </div>
+                                        <!-- <div class="col col-md-1 offset-2"></div> -->
+                                    </div> 
+                                </strong>
+                            </div>
+                        </div>
+                    </div>
+                    
                     <div class="col-lg-3 col-md-6">
                         <div class="card">
                             <div class="card-body">
@@ -11,7 +28,7 @@
                                     </div>
                                     <div class="stat-content">
                                         <div class="text-left dib">
-                                            <div class="stat-text"><?php echo number_format($this->profit['sale']) ?></div>
+                                            <div class="stat-text" id="sumsale"></div>
                                             <div class="stat-heading">Sales</div>
                                         </div>
                                     </div>
@@ -29,7 +46,7 @@
                                     </div>
                                     <div class="stat-content">
                                         <div class="text-left dib">
-                                            <div class="stat-text"><?php echo number_format($this->profit['buff']) ?></div>
+                                            <div class="stat-text" id="sumbuff"></div>
                                             <div class="stat-heading">Staff Food</div>
                                         </div>
                                     </div>
@@ -47,7 +64,7 @@
                                     </div>
                                     <div class="stat-content">
                                         <div class="text-left dib">
-                                            <div class="stat-text"><?php echo number_format($this->profit['expense']) ?></div>
+                                            <div class="stat-text" id="sumexp"></div>
                                             <div class="stat-heading">Expenses</div>
                                         </div>
                                     </div>
@@ -65,7 +82,7 @@
                                     </div>
                                     <div class="stat-content">
                                         <div class="text-left dib">
-                                            <div class="stat-text"><?php echo number_format($this->profit['sale']+$this->profit['buff']-$this->profit['expense']) ?></div>
+                                            <div class="stat-text" id="sumprofit"></div>
                                             <div class="stat-heading">Profit</div>
                                         </div>
                                     </div>
