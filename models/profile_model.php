@@ -27,7 +27,7 @@ class Profile_Model extends Model {
     function xhrGetUserLov() {
         // $keyword = $_GET['keyword'];
 
-        $sql = "SELECT empcd value, concat(empcd,' - ',empnnm) label FROM employee";
+        $sql = "SELECT usrcd value, concat(usrcd,' - ',usrnnm) label FROM user";
 
         $sth = $this->db->prepare($sql);
         $sth->setFetchMode(PDO::FETCH_ASSOC);

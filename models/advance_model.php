@@ -12,9 +12,9 @@ class Advance_Model extends Model {
         $sdate = (isset($_POST['sdate']))?$_POST['sdate']:date_format($date,"Y-m-01");
         $edate = (isset($_POST['edate']))?$_POST['edate']:date_format($date,"Y-m-t");
 
-        $sql="SELECT advempcd empcd, empnnm name, advdate, advpay pay
-              FROM advance, employee
-              WHERE advempcd = empcd
+        $sql="SELECT advempcd empcd, usrnnm name, advdate, advpay pay
+              FROM advance, user
+              WHERE advempcd = usrcd
               AND advdate BETWEEN :sdate AND :edate ";
             // echo $sql."<br>";
         $sth=$this->db->prepare($sql);

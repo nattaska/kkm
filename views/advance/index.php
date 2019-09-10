@@ -68,7 +68,7 @@
                                                 <div class="modal-body">
                                                         <input type="hidden" id="url" name="url" value="<?php echo URL; ?>" class="form-control">
                                                         <div class="row form-group">
-                                                            <div class="col-12 col-md-3"><label for="text-input" class=" form-control-label">Employee</label></div>                                          
+                                                            <div class="col-12 col-md-3"><label for="text-input" class=" form-control-label">User</label></div>                                          
                                                             <div class="col col-md-3"><input type="text" id="empcd" name="empcd" class="form-control"></div>
                                                             <div class="col col-md-5"><input type="text" id="empname" name="empname" class="form-control" disabled></div>
                                                         </div>

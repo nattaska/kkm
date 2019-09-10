@@ -30,9 +30,8 @@ class Login_Model extends Model {
 
     public function login() {
 
-        $sql = "select usrcd code, usrprof pfcode, pmddesc profdesc, ifnull(empnnm,'-') nickname
+        $sql = "select usrcd code, usrprof pfcode, pmddesc profdesc, ifnull(usrnnm,'-') nickname
                 FROM users
-                LEFT JOIN employee ON usrcd=empcd
                 JOIN prmdtl ON usrprof=pmdcd AND pmdtbno=4 
                 WHERE usrcd = :code
                 AND usrpwd = MD5(:password) ";

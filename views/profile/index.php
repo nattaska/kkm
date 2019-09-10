@@ -15,7 +15,7 @@ $user=$this->user;
                         </div>
                         <div class="card-body">
                             <div class="row form-group">
-                                <div class="col col-md-3"><label class=" form-control-label">Employee Code</label></div>
+                                <div class="col col-md-3"><label class=" form-control-label">User Code</label></div>
                                     <div class="col-12 col-md-9">
                                         <p class="form-control-static"><?php echo $user['code']; ?></p>
                                         <input type="hidden" id="code" name="code" value="<?php echo $user['code']; ?>" class="form-control">

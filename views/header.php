@@ -42,7 +42,6 @@
         <nav class="navbar navbar-expand-sm navbar-default">
             <div id="main-menu" class="main-menu collapse navbar-collapse">
                 <ul class="nav navbar-nav">
-                    <!-- <li class="active"><a href="index.php"><i class="menu-icon fa fa-laptop"></i>Dashboard </a></li> -->
                     <?php
                     // print_r($userMenu["menus"]);
                     $startLV3 = false;
@@ -60,16 +59,28 @@
                             echo '<li class="menu-title">'.$menu["name"].'</li>'
                             ;
                         } else if (($menu["level"] == 2) && isset($menu["url"])) {
+
+                            if ($startLV3) {
+                                echo '</ul></li>
+                                ';
+                                $startLV3 = false;
+                            }
                             echo '<li><a href="'.URL.$menu["url"].'"> <i class="menu-icon '.$menu["icon"].'"></i>'.$menu["name"].' </a></li>
                             ';
                         } else if (($menu["level"] == 2) && !isset($menu["url"]) ) {
+
+                            if ($startLV3) {
+                                echo '</ul></li>
+                                ';
+                                $startLV3 = false;
+                            }
                             
-                                echo '<li class="menu-item-has-children dropdown">
-                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon '.$menu["icon"].'"></i>'.$menu["name"].'</a>
-                                        <ul class="sub-menu children dropdown-menu">
-                                        ';
-                                        
-                                $startLV3 = true;
+                            echo '<li class="menu-item-has-children dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon '.$menu["icon"].'"></i>'.$menu["name"].'</a>
+                                    <ul class="sub-menu children dropdown-menu">
+                                    ';
+                                    
+                            $startLV3 = true;
                                 
                         } else {
                             if ( isset($menu["icon"]))

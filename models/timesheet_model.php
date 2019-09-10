@@ -8,7 +8,7 @@ class Timesheet_Model extends Model {
     function xhrGetUserLov() {
         // $keyword = $_GET['keyword'];
 
-        $sql = "SELECT empcd value, concat(empcd,' - ',empnnm) label FROM employee";
+        $sql = "SELECT usrcd value, concat(usrcd,' - ',usrnnm) label FROM user";
 
         $sth = $this->db->prepare($sql);
         $sth->setFetchMode(PDO::FETCH_ASSOC);
@@ -21,7 +21,7 @@ class Timesheet_Model extends Model {
     function xhrUsername() {
         $code = $_POST['code'];
 
-        $sth = $this->db->prepare('SELECT empnnm name FROM employee WHERE empcd=:code');
+        $sth = $this->db->prepare('SELECT usrnnm name FROM user WHERE usrcd=:code');
         $sth->bindParam(':code', $code, PDO::PARAM_INT);
         $sth->setFetchMode(PDO::FETCH_ASSOC);
         $sth->execute();
@@ -40,10 +40,10 @@ class Timesheet_Model extends Model {
         $sdate = (isset($_POST['sdate']))?$_POST['sdate']:date_format($date,"Y-m-01");
         $edate = (isset($_POST['edate']))?$_POST['edate']:date_format($date,"Y-m-t");
 
-        $sql="SELECT empcd code, empnnm name, timdate date, IFNULL(DATE_FORMAT(timin,'%H:%i'),'-') chkin, IFNULL(DATE_FORMAT(timout,'%H:%i'),'-') chkout "
-            ."FROM timesheet, employee "
-            ."WHERE timempcd=empcd "
-            ."AND empcd=:code "
+        $sql="SELECT usrcd code, usrnnm name, timdate date, IFNULL(DATE_FORMAT(timin,'%H:%i'),'-') chkin, IFNULL(DATE_FORMAT(timout,'%H:%i'),'-') chkout "
+            ."FROM timesheet, user "
+            ."WHERE timempcd=usrcd "
+            ."AND usrcd=:code "
             ."AND timdate BETWEEN :sdate AND :edate "
             ."ORDER BY timdate ";
             // echo $sql."<br>";
@@ -66,13 +66,13 @@ class Timesheet_Model extends Model {
         $edate = (isset($_POST['edate']))?$_POST['edate']:date_format($date,"Y-m-t");
         $userMenu = Session::get('userMenu');
 
-        $sql="SELECT empcd code, empnnm name, timdate, timin, timout, timspec timstat "
-            ."FROM timesheet, employee "
-            ."WHERE timempcd=empcd "
+        $sql="SELECT usrcd code, usrnnm name, timdate, timin, timout, timspec timstat "
+            ."FROM timesheet, user "
+            ."WHERE timempcd=usrcd "
             ."AND timdate BETWEEN :sdate AND :edate ";
 
         if ($userMenu['role']!="ADM") {
-            $sql .= "AND empcd=".$userMenu['code']." ";
+            $sql .= "AND usrcd=".$userMenu['code']." ";
         }
             // echo $sql."<br>";
         $sth=$this->db->prepare($sql);
