@@ -57,7 +57,7 @@
             $('#sumprice').text(parseInt($('#sumprice').text())+((parseInt(currentQty)-parseInt(prevQty))*price));
         });
 
-        $("#orddate").focusout(function() {
+        function searchOrder() {
 
             var nowTime = new Date($("#current_date").val()).toLocaleString("en-US", {timeZone: "Asia/Bangkok"});
             nowTime = new Date(nowTime);
@@ -101,6 +101,16 @@
                 
             }, 'json');
 
+        };
+
+        $("#orddate").focusout(function() {
+            searchOrder();
+            return false;
+        });
+
+        $("#search").click(function(){
+            searchOrder();
+            return false;
         });
 
 //  ------------    Action Search, Add, Update, Delete  ---------------------   //

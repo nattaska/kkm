@@ -56,13 +56,18 @@
                                         <div class="col-md-3 offset-md-3">
                                             <div class="input-group">
                                                 <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
-                                                <input type="date" id="orddate" name="orddate" class="form-control" value="<?php echo date("Y-m-d"); ?>">
+                                                <input type="date" id="orddate" name="orddate" class="form-control" value="<?php echo date("Y-m-d"); ?>">                                                
                                                 <input type="hidden" id="current_date" name="current_date" class="form-control" value="<?php echo date("Y-m-d"); ?>">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-1">
+                                            <div class="input-group">
+                                            <a id="search" href="#"><button class="btn btn-primary" ><i class="ti ti-search"></i>&nbsp;Search</button></a>
                                             </div>
                                         </div>
                                         <div class="col-md-3">
                                             <div class="input-group">
-                                                <button id="save" class="btn btn-primary"><i class="ti ti-save"></i> Save </button>
+                                                <button id="save" class="btn btn-warning"><i class="ti ti-save"></i> Save </button>
                                             </div>
                                         </div>
                                     </div>
