@@ -29,15 +29,17 @@
                 { data: 'othour' }, 
                 { data: 'stime' }, 
                 { data: 'etime' }, 
+                { data: 'calctyp' }, 
+                { data: 'dayoff' }, 
                 { sortable: false,
                   defaultContent: '<a id="edit" href="#" class="edit"><button '+disabled+' type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#modifyDataModel"><i class="fa fa-edit"></i></button></a>&nbsp;' }
             ],
             columnDefs: [
-                { targets: [0, 2, 5, 6, 18], "width": "10%", className: 'dt-center' },
+                { targets: [0, 2, 5, 6, 20], "width": "10%", className: 'dt-center' },
                 { targets: [3], "width": "15%", className: 'dt-center' },
                 { targets: [1], "width": "20%", className: 'dt-left' },
                 { targets: [4], "width": "10%", className: 'dt-left' },
-                { targets: [7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17], "visible": false }
+                { targets: [7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19], "visible": false }
             ]
         });
         
@@ -84,6 +86,8 @@
             $('#othour').val('');
             $('#stime').val('');
             $('#etime').val('');
+            $('#calctyp').val('2');
+            $('#dayoff').val('Sun');
 
             $("#sdate").prop("readonly",false);
             $("#edate").prop("readonly",true);
@@ -114,6 +118,8 @@
             $('#othour').val(data.othour);
             $('#stime').val(data.stime);
             $('#etime').val(data.etime);
+            $('#calctyp').val(data.calctyp);
+            $('#dayoff').val(data.dayoff);
 
             $("#code").prop("readonly",true);
             $("#sdate").prop("readonly",true);
@@ -246,7 +252,8 @@
                                     , "rolename":$('#rolcd option:selected').text(), "sdate":$('#sdate').val(), "edate":$('#edate').val()
                                     , "rolecode":$('#rolcd').val(), "email":$('#email').val(), "deptid":$('#dept').val(), "paytype":$("input[name='paytype']:checked"). val()
                                     , "paymethd":$('#paymethd').val(), "account":$('#account').val(), "paysso":$('#paysso').val()
-                                    , "payhour":$('#payhour').val(), "othour":$('#othour').val(), "stime":$('#stime').val(), "etime":$('#etime').val() };
+                                    , "payhour":$('#payhour').val(), "othour":$('#othour').val(), "stime":$('#stime').val(), "etime":$('#etime').val()
+                                    , "calctyp":$('#calctyp').val(), "dayoff":$('#dayoff').val() };
                         newdata_arr.push(newdata);
 
                         if(url.indexOf('Insert') >= 0) {

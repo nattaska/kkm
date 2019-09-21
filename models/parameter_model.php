@@ -115,11 +115,11 @@ class Parameter_Model extends Model {
                 ':tbno'=>$_POST['tbno'],
                 ':code'=>$_POST['code'],
                 ':descp'=>$_POST['descp'],
-                ':val1'=>$_POST['val1'],
-                ':val2'=>$_POST['val2'],
-                ':val3'=>$_POST['val3'],
-                ':val4'=>$_POST['val4'],
-                ':val5'=>$_POST['val5']
+                ':val1'=>(empty($_POST['val1'])?null:$_POST['val1']),
+                ':val2'=>(empty($_POST['val2'])?null:$_POST['val2']),
+                ':val3'=>(empty($_POST['val3'])?null:$_POST['val3']),
+                ':val4'=>(empty($_POST['val4'])?null:$_POST['val4']),
+                ':val5'=>(empty($_POST['val5'])?null:$_POST['val5'])
                 ));
 
             $this->db->commit();
@@ -156,11 +156,11 @@ class Parameter_Model extends Model {
                 ':tbno'=>$_POST['tbno'],
                 ':code'=>$_POST['code'],
                 ':descp'=>$_POST['descp'],
-                ':val1'=>$_POST['val1'],
-                ':val2'=>$_POST['val2'],
-                ':val3'=>$_POST['val3'],
-                ':val4'=>$_POST['val4'],
-                ':val5'=>$_POST['val5']
+                ':val1'=>(empty($_POST['val1'])?null:$_POST['val1']),
+                ':val2'=>(empty($_POST['val2'])?null:$_POST['val2']),
+                ':val3'=>(empty($_POST['val3'])?null:$_POST['val3']),
+                ':val4'=>(empty($_POST['val4'])?null:$_POST['val4']),
+                ':val5'=>(empty($_POST['val5'])?null:$_POST['val5'])
                 ));
 
             $this->db->commit();

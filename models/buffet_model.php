@@ -26,7 +26,7 @@ class Buffet_Model extends Model {
                 AND bftype = pmdcd
                 AND ('".$bufftype."' = '-1' or bftype = '".$bufftype."')
                 AND bfdate BETWEEN :sdate AND :edate
-                ORDER BY bfdate, bftype, bfgrp ";
+                ORDER BY bfdate, typename, bfgrp ";
             // echo $sql."<br>";
         $sth=$this->db->prepare($sql);
 

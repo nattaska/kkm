@@ -72,7 +72,8 @@ class User_Model extends Model {
                         u.usremail email, u.usrrolcd rolecode, r.rolnm rolename,
                         paysdate sdate, payedate edate, paydeptid deptid, paytype, 
                         paymethd, payaccount account, paysso, payhour, 
-                        payothour othour, paystime stime, payetime etime
+                        payothour othour, paystime stime, payetime etime, 
+                        paycalctyp calctyp, paydayoff dayoff
                 FROM user u, role r, payment p
                 WHERE u.usrrolcd=r.rolcd
                 AND u.usrcd LIKE '".$code."%' 
@@ -121,9 +122,9 @@ class User_Model extends Model {
                 ':rolcd'=>$_POST['rolcd']
                 ));
 
-                // payempcd, paysdate, payedate, paydeptid, paytype, paymethd, payaccount, paysso, payhour, payothour, paystime, payetime
+                // payempcd, paysdate, payedate, paydeptid, paytype, paymethd, payaccount, paysso, payhour, payothour, paystime, payetime, paycalctyp, paydayoff
                 $sql = "INSERT INTO payment VALUE ( :code, :sdate, :edate, :deptid, :paytype, :paymethd, :account,
-                                                    null, :paysso, :payhour, :othour, :stime, :etime) ";
+                                                    null, :paysso, :payhour, :othour, :stime, :etime, :calctyp, :dayoff ) ";
                 $stmt = $this->db->prepare($sql);
                 $stmt->execute(array(
                     ':code'=>$code,
@@ -137,7 +138,9 @@ class User_Model extends Model {
                     ':payhour'=>($_POST['payhour']),
                     ':othour'=>(empty($_POST['othour'])?null:$_POST['othour']),
                     ':stime'=>($_POST['stime']),
-                    ':etime'=>($_POST['etime'])
+                    ':etime'=>($_POST['etime']),
+                    ':calctyp'=>($_POST['calctyp']),
+                    ':dayoff'=>($_POST['dayoff'])
                     ));
 
             $this->db->commit();
@@ -187,7 +190,9 @@ class User_Model extends Model {
                 payhour=:payhour, 
                 payothour=:othour, 
                 paystime=:stime, 
-                payetime=:etime            
+                payetime=:etime, 
+                paycalctyp=:calctyp, 
+                paydayoff=:dayoff            
             WHERE payempcd=:code
             AND paysdate=:sdate";
             $stmt = $this->db->prepare($sql);
@@ -202,6 +207,8 @@ class User_Model extends Model {
                 ':othour'=>(empty($_POST['othour'])?null:$_POST['othour']),
                 ':stime'=>($_POST['stime']),
                 ':etime'=>($_POST['etime']),
+                ':calctyp'=>($_POST['calctyp']),
+                ':dayoff'=>($_POST['dayoff']),
                 ':code'=>$_POST['code'],
                 ':sdate'=>$_POST['sdate']
                 ));

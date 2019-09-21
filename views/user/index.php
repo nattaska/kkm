@@ -47,7 +47,7 @@
                                             <th>Email</th>
                                             <th></th><th></th><th></th><th></th><th></th>
                                             <th></th><th></th><th></th><th></th>
-                                            <th></th>
+                                            <th></th><th></th><th></th>
                                         </tr>
                                     </thead>
                                     <tfoot>
@@ -63,7 +63,7 @@
                                             <th>Email</th>
                                             <th></th><th></th><th></th><th></th><th></th>
                                             <th></th><th></th><th></th><th></th>
-                                            <th></th>
+                                            <th></th><th></th><th></th>
                                         </tr>
                                     </tfoot>
                                 </table>
@@ -177,11 +177,34 @@
                                                                 </div>
                                                                 <div class="row form-group">
                                                                     <div class="col col-md-3"><label for="text-input" class=" form-control-label">Start Time</label></div>
-                                                                    <div class="col-12 col-md-3"><input type="time" id="stime" name="stime" pattern="^([0-1]?[0-9]|2[0-4]):([0-5][0-9])(:[0-5][0-9])?$" value="" class="form-control"></div>
+                                                                    <div class="col-12 col-md-4"><input type="time" id="stime" name="stime" pattern="^([0-1]?[0-9]|2[0-4]):([0-5][0-9])(:[0-5][0-9])?$" value="" class="form-control"></div>
                                                                 </div>
                                                                 <div class="row form-group">
                                                                     <div class="col col-md-3"><label for="text-input" class=" form-control-label">End Time</label></div>
-                                                                    <div class="col-12 col-md-3"><input type="time" id="etime" name="etime" pattern="^([0-1]?[0-9]|2[0-4]):([0-5][0-9])(:[0-5][0-9])?$" value="" class="form-control"></div>
+                                                                    <div class="col-12 col-md-4"><input type="time" id="etime" name="etime" pattern="^([0-1]?[0-9]|2[0-4]):([0-5][0-9])(:[0-5][0-9])?$" value="" class="form-control"></div>
+                                                                </div>
+                                                                <div class="row form-group">
+                                                                    <div class="col col-md-3"><label class=" form-control-label">Working Type</label></div>
+                                                                    <div class="col col-md-5">
+                                                                        <select id="calctyp" name="calctyp">
+                                                                            <option value="1">10 AM. - 10 PM.</option>
+                                                                            <option value="2">Shift work</option>
+                                                                        </select>  
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row form-group">
+                                                                    <div class="col col-md-3"><label class=" form-control-label">Day-Off</label></div>
+                                                                    <div class="col col-md-5">
+                                                                        <select id="dayoff" name="dayoff">
+                                                                            <option value="Sun">Sunday</option>
+                                                                            <option value="Mon">Monday</option>
+                                                                            <option value="Tue">Tuesday</option>
+                                                                            <option value="Wed">Wednesday</option>
+                                                                            <option value="Thu">Thursday</option>
+                                                                            <option value="Fri">Friday</option>
+                                                                            <option value="Sat">Saturday</option>
+                                                                        </select>  
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>

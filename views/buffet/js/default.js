@@ -7,12 +7,6 @@
 
         var table = $('#table-data').DataTable({
             dom: 'Bfrtip',
-            buttons: [
-                { text: '<a id="add" href="#" class="add"><button '+disabled+' type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modifyDataModel"><i class="fa fa-plus"></i>&nbsp;Add</button></a>' },
-                { extend: 'excel',
-                  exportOptions: { columns: [0, 3, 4, 5, 6, 7] }
-                }
-            ],
             columns: [
                 { data: 'bfdate' },
                 { data: 'bftype' },
@@ -27,14 +21,11 @@
                                   '<a id="delete" href="#" class="delete"><button '+disabled+' type="button" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i></button></a>' }
             ],
             columnDefs: [
-                // { targets: [0, "width": "15%", className: 'dt-center' },
                 { targets: [3], "width": "12%", className: 'dt-left' },
                 { targets: [7], "width": "20%", className: 'dt-left' },
                 { targets: [0, 8], "width": "10%", className: 'dt-center' },
-                // { targets: [4], "width": "5%", className: 'dt-center' },
                 { targets: [4], "width": "10%", className: 'dt-right' },
                 { targets: [5,6 ], "width": "20%", className: 'dt-right' },
-                // { targets: [6], "width": "20%", className: 'dt-right' },
                 { targets: [1, 2], "visible": false }
             ],            
             footerCallback: function ( row, data, start, end, display ) {
