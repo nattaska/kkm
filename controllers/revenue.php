@@ -30,6 +30,7 @@ class Revenue extends Controller {
                                 ,"https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css"
                                 ,"https://cdn.datatables.net/1.5.6/css/buttons.dataTables.min.css"
                                 ,URL."assets/css/lib/chosen/chosen.min.css"
+                                ,URL."css/style.css"
                                 );
         
     }

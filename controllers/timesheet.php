@@ -31,6 +31,7 @@ class Timesheet extends Controller {
                                 ,"https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css"
                                 ,URL."assets/css/lib/chosen/chosen.min.css"
                                 ,"https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css"
+                                ,URL."css/style.css"
                                 );
 
         // $this->view->js = array(URL.'views/timesheet/default.js');

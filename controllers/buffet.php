@@ -31,6 +31,7 @@ class Buffet extends Controller {
         $this->view->css = array('https://cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css'
                                 ,URL."assets/css/lib/chosen/chosen.min.css"
                                 ,URL."public/css/default.css"
+                                ,URL."css/style.css"
                             );
         
     }

@@ -28,6 +28,7 @@ class Advance extends Controller {
         $this->view->css = array(URL.'assets/css/lib/datatable/dataTables.bootstrap.min.css'
                                 ,"https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css"
                                 ,URL."assets/css/lib/chosen/chosen.min.css"
+                                ,URL."css/style.css"
                                 );
         
     }

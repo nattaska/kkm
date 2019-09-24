@@ -5,7 +5,7 @@
                     <div class="col-md-12">
                         <div class="card border border-info">
                             <div class="card-header bg-info">
-                                <strong class="card-title text-light">Salary Advance</strong>
+                                <strong class="card-title text-light">Profit Report</strong>
                             </div>
                             <div class="card-body">
                                 <form id="search" action="<?php echo URL; ?>report/searchProfit" method="post" class="form-horizontal">
