@@ -17,7 +17,7 @@
                 { data: "net" }
             ],
             columnDefs: [
-                { targets: [0], className: 'dt-center' },
+                { targets: [0], "width": "10%", className: 'dt-center' },
                 { targets: [1, 2, 3, 4, 5, 6, 7], className: 'dt-right' }
             ],
             "fnRowCallback": function (nRow, aData, iDisplayIndex, iDisplayIndexFull) {
