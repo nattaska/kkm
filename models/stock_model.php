@@ -14,8 +14,8 @@ class Stock_Model extends Model {
         try {
             $this->db->beginTransaction();            
 
-            $sql = "INSERT INTO stock (stkdate, stkitmgrp, stkitmcd, stkunt)
-                    SELECT CURRENT_DATE, pmdval1, pmdcd, pmdval4
+            $sql = "INSERT INTO stock (stkdate, stkitmgrp, stkitmcd, stkunt, stkoutqty)
+                    SELECT CURRENT_DATE, pmdval1, pmdcd, pmdval4, pmdval5
                     FROM prmdtl
                     WHERE pmdtbno=12 
                     AND pmdval3='1' ";
