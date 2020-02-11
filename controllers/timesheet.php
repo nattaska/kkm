@@ -40,8 +40,8 @@ class Timesheet extends Controller {
     function index() {
         
         $date = new DateTime();
-        $this->view->criteria = array( "sdate" => date_format($date,"Y-m-01")
-                                        , "edate" => date_format($date,"Y-m-t"));
+        $this->view->criteria = array( "sdate" => date_format($date,"Y-m-d")
+                                        , "edate" => date_format($date,"Y-m-d"));
 
         $this->view->render('timesheet/index');
     }
