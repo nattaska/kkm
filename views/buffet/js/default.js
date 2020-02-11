@@ -140,9 +140,9 @@
             $("#modify-data-form").attr("action", $('#url').val()+module+'/xhrUpdate');
             $("#modifyDataModel #staticModalLabel").html("Edit Data");
             $('#bfdate').val(data.bfdate);
-            $("#bftype option:contains(" + bftype + ")").attr('selected', 'selected').trigger("chosen:updated");
+            $("#bftype option:contains(" + data.bftype + ")").attr('selected', 'selected').trigger("chosen:updated");
             $('#typename').val(data.typename);
-            $('#qty').val(data.qty);
+            $('#qty').val((data.bftype == '4' || data.bftype == '7')?data.amount:data.qty);
             $('#grp').val(data.grp);
             $('#note').val(data.note);
 
@@ -246,6 +246,7 @@
                     var loadingModal = $("#modifyDataModel");
                     if (o.res > 0) {
                         var newdata_arr = [];
+                        qty = (jtype.code=='4' || jtype.code=='7' ?'-':qty)
                         var newdata = {"bfdate":bfdate, "bftype":jtype.code, "grp":grp, "typename":typename, "qty":qty, "amount":amount, "comm":comm, "note":note};
                         newdata_arr.push(newdata);
 

@@ -41,6 +41,7 @@ class Checkin_Model extends Model {
         // echo $sql;
         try {
             $this->db->beginTransaction();
+            $this->db->query("SET time_zone = '+07:00'");
             $stmt = $this->db->prepare($sql);
             $stmt->execute(array(
                 ':empcd'=>$_POST['code'],

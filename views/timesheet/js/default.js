@@ -129,11 +129,11 @@
             var data = row.data();
             // console.log(data);
 
-            $.post(module+'/xhrDelete', {'empcd': data.empcd, 'timdate': data.timdate}, function(o) {
+            $.post(module+'/xhrDelete', {'empcd': data.code, 'timdate': data.timdate}, function(o) {
                 
                 if (o.res > 0) {
                     row.remove().draw();
-                    $("#msgMain").html('<div class="alert alert-success"><button type="button" class="close">×</button><strong>Success!</strong> '+data.name+'\'s advance has been deleted successfully</div>');
+                    $("#msgMain").html('<div class="alert alert-success"><button type="button" class="close">×</button><strong>Success!</strong> '+data.name+'\'s working time has been deleted successfully</div>');
                 } else {
                     $("#msgMain").html('<div class="alert alert-danger"><button type="button" class="close">×</button><strong>Error!</strong> '+o.error+'</div>');
                 }
