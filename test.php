@@ -1,19 +1,26 @@
 
-<input type="text" class="form-control" id="qty101" name="qty101" disabled >
 
 <?php
 require 'config/paths.php';
+echo "New version 19/03/2563";
 
 $pastDate = strtotime('2019-05-28')."<br>";
 $currentDate = strtotime(date("Y-m-d"))."<br>";
 
-echo ($currentDate - $pastDate)/( 60 * 60 * 24 )."<br>";
+// echo ($currentDate - $pastDate)/( 60 * 60 * 24 )."<br>";
 
 
 $date = new DateTime();
+$date = new DateTime('2020-02-16');
 // echo $date."</br>";
 echo date_format($date,"Y-m-01")."<br>";
 echo date_format($date,"Y-m-t")."<br>";
+
+if (date_format($date,"d") <= 15) {
+    echo date_format($date,"Y-m-15")."<br>";
+} else {
+    echo date_format($date,"Y-m-t")."<br>";
+}
 
 $p = array("first_key" => "first_value", "second_key" => "second_value");
 
