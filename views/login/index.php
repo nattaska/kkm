@@ -10,7 +10,7 @@
     <meta name="description" content="Krua Kroo Meuk ERP">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link rel="stylesheet" href="<?php echo URL.'views/login/default.css' ?>">
+    <link rel="stylesheet" type="text/css" href="<?php echo URL.'views/login/default.css' ?>">
 </head>
 
 

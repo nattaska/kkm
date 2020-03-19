@@ -20,9 +20,9 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pixeden-stroke-7-icon@1.2.3/pe-icon-7-stroke/dist/pe-icon-7-stroke.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.2.0/css/flag-icon.min.css">
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    <link rel="stylesheet" href="<?php echo URL ?>assets/css/cs-skin-elastic.css">
-    <link rel="stylesheet" href="<?php echo URL ?>assets/css/style.css">
-    <link rel="stylesheet" href="<?php echo URL ?>public/css/style.css">
+    <link rel="stylesheet" type="text/css" href="<?php echo URL ?>assets/css/cs-skin-elastic.css">
+    <link rel="stylesheet" type="text/css" href="<?php echo URL ?>assets/css/style.css">
+    <link rel="stylesheet" type="text/css" href="<?php echo URL ?>public/css/style.css">
 
     <?php 
         if (isset($this->css)) {
