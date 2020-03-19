@@ -100,10 +100,11 @@ class User_Model extends Model {
             $result = "1";
             $error = "";
         try {
-            $sql = "SELECT CONCAT(SUBSTR(DATE_FORMAT(CURRENT_DATE,'%Y')+543,3,2), 
-                                    LPAD(MAX(RIGHT(usrcd,3)+1),3,'0')) nextuser
-                    FROM user
-                    WHERE usrcd LIKE CONCAT(SUBSTR(DATE_FORMAT(CURRENT_DATE,'%Y')+543,3,2),'%')";
+            $sql = "SELECT IFNULL((SELECT CONCAT(SUBSTR(DATE_FORMAT(CURRENT_DATE,'%Y')+543,3,2), 
+                                            LPAD(MAX(RIGHT(usrcd,3)+1),3,'0')) 
+                                    FROM user
+                                    WHERE usrcd LIKE CONCAT(SUBSTR(DATE_FORMAT(CURRENT_DATE,'%Y')+543,3,2),'%')), 
+                                    (SELECT CONCAT(SUBSTR(DATE_FORMAT(CURRENT_DATE,'%Y')+543,3,2), '001'))) nextuser";
 
             $row = $this->db->query($sql)->fetch();
             $code = $row["nextuser"];
