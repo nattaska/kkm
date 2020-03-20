@@ -32,6 +32,15 @@ class Order_Model extends Model {
             $ordDate = $_POST['orddate'];
             $items = $_POST['items'];
 
+            $insHist = "INSERT INTO orders_history (horddate, horditm, hordqty, hordprice, hordtime)
+                        SELECT orddate, orditm, ordqty, ordprice, current_timestamp
+                        FROM orders
+                        WHERE orddate = :orddate ";
+            $stmt = $this->db->prepare($insHist);
+            $stmt->execute(array(
+                ':orddate'=>$ordDate
+                ));
+
             $del = "DELETE FROM orders WHERE orddate = :orddate";
             $stmt = $this->db->prepare($del);
             $stmt->execute(array(
