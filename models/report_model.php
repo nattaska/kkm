@@ -30,7 +30,7 @@ class Report_Model extends Model {
                                 WHERE date(salorddttm) BETWEEN :sdate AND :edate
                                 AND pmdtbno=14
                                 AND pmdcd=salordtyp
-                                GROUP BY date(salorddttm), pmddesc
+                                GROUP BY date(salorddttm), salordtyp, pmddesc
                             ) a
                         GROUP BY a.sale_date
                     ) s, (
