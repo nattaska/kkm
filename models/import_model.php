@@ -73,9 +73,11 @@ class Import_Model extends Model {
                                 SELECT isalordno, STR_TO_DATE(isalorddate, '%e/%c/%Y %H:%i') orddate,
                                     STR_TO_DATE(isalpaydate, '%e/%c/%Y %H:%i') paydate,
                                         case when replace(lower(isalordnm),' ','')='foodpanda' then 'Food Panda'
+                                            when replace(lower(isalordnm),' ','')='grabfood' then 'Grab Food'
                                             when lower(isalordnm) LIKE '%staff%' then 'Staff'
                                             ELSE isalordnm END ordnm, 
                                         case when replace(lower(isalordnm),' ','')='foodpanda' then 'FPD'
+                                            when replace(lower(isalordnm),' ','')='grabfood' then 'GBF'
                                             when isalordnm LIKE 'Room%' then 'NPF'
                                             ELSE 'KKM' END ordtyp,
                                         isalamt, isalret
