@@ -7,9 +7,10 @@ class Checkin extends Controller {
 
         $ip=$_SERVER['REMOTE_ADDR'];
         $ipinfo = file_get_contents("http://ipinfo.io/{$ip}");
-        // echo $ipinfo."</br>";
+        echo $ipinfo."</br>";
         
         $ipObj = json_decode($ipinfo,true);
+        echo "org : ".$ipObj["org"]."</br>";
         
         // if (ISSET($ipObj["org"])) {}
         if (ISSET($ipObj["org"]) &&
