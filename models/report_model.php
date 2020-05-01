@@ -16,8 +16,8 @@ class Report_Model extends Model {
         
         $sql = "SELECT s.sale_date, FORMAT(s.panda,2) panda, FORMAT(s.npfood,2) npfood, 
                         FORMAT(s.kkm,2) kkm, FORMAT(b.bfamt,2) bfamt, 
-                        FORMAT((s.panda+s.npfood+s.kkm+b.bfamt),2) income, FORMAT(e.expamt,2) expamt,
-                        FORMAT((s.panda+s.npfood+s.kkm+b.bfamt-e.expamt),2) net
+                        FORMAT((ifnull(s.panda,0)+ifnull(s.npfood,0)+s.kkm+ifnull(b.bfamt,0)),2) income, FORMAT(e.expamt,2) expamt,
+                        FORMAT((ifnull(s.panda,0)+ifnull(s.npfood,0)+s.kkm+ifnull(b.bfamt,0)-e.expamt),2) net
                 FROM 
                     (
                         SELECT a.sale_date,
@@ -33,19 +33,21 @@ class Report_Model extends Model {
                                 GROUP BY date(salorddttm), salordtyp, pmddesc
                             ) a
                         GROUP BY a.sale_date
-                    ) s, (
+                    ) s 
+                     LEFT JOIN (
                         SELECT bfdate, SUM(bfqty) bfamt 
                         FROM buffet
                         WHERE bfdate BETWEEN :sdate AND :edate
                         AND bftype=7
                         GROUP BY bfdate
-                    ) b, (
+                    ) b ON s.sale_date=b.bfdate
+                     LEFT JOIN (
                         SELECT expdate, SUM(expamt) expamt FROM expenses
                         WHERE expdate BETWEEN :sdate AND :edate
                         GROUP BY expdate
-                    ) e
-                WHERE s.sale_date=b.bfdate
-                AND s.sale_date=e.expdate ";
+                    ) e ON s.sale_date=e.expdate ";
+                // WHERE s.sale_date=b.bfdate
+                // AND s.sale_date=e.expdate ";
             // echo $sql."<br>";
         $stmt=$this->db->setAttribute(PDO::ATTR_EMULATE_PREPARES, true);
         $stmt=$this->db->prepare($sql);
