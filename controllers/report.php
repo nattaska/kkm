@@ -37,6 +37,7 @@ class Report extends Controller {
 
         array_push($this->view->js, URL."views/report/js/profitrpt.js");
         $date = new DateTime();
+        $date->modify("last day of previous month");
 
         $this->view->criteria = array("sdate" => date_format($date,"Y-m-01")
                                     , "edate" => date_format($date,"Y-m-t"));

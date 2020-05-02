@@ -9,6 +9,7 @@
             columns: [
                 { data: "sale_date" },
                 { data: "panda" },
+                { data: "grab" },
                 { data: "npfood" },
                 { data: "kkm" },
                 { data: "bfamt" },
@@ -18,7 +19,7 @@
             ],
             columnDefs: [
                 { targets: [0], "width": "10%", className: 'dt-center' },
-                { targets: [1, 2, 3, 4, 5, 6, 7], className: 'dt-right' }
+                { targets: [1, 2, 3, 4, 5, 6, 7, 8], className: 'dt-right' }
             ],
             "fnRowCallback": function (nRow, aData, iDisplayIndex, iDisplayIndexFull) {
                 let intVal = function ( i ) {
@@ -43,21 +44,34 @@
                         typeof i === 'number' ?
                             i : 0;
                 };
+
+                function total( c ) {
     
-                // Total over all pages
-                var amtTotal = api.column(7).data().reduce( function (a, b) {
-                        return intVal(a) + intVal(b);
-                    }, 0 );
-    
-                // Total over this page
-                var amtPageSumm = api.column( 7, { page: 'current'} ).data().reduce( function (a, b) {
-                        return intVal(a) + intVal(b);
-                    }, 0 );
-    
-                // Update footer
-                $( api.column(7).footer() ).html(
-                    $.number( amtPageSumm, 2 ) +' </br>Total : '+ $.number( amtTotal, 2 )
-                );
+                    // Total over all pages
+                    var amtTotal = api.column(c).data().reduce( function (a, b) {
+                            return intVal(a) + intVal(b);
+                        }, 0 );
+        
+                    // Total over this page
+                    var amtPageSumm = api.column(c, { page: 'current'} ).data().reduce( function (a, b) {
+                            return intVal(a) + intVal(b);
+                        }, 0 );
+        
+                    // Update footer
+                    $( api.column(c).footer() ).html(
+                        $.number( amtPageSumm, 2 ) +' </br>Total :</br> '+ $.number( amtTotal, 2 )
+                    );
+                        
+                }
+
+                total(1);
+                total(2);
+                total(3);
+                total(4);
+                total(5);
+                total(6);
+                total(7);
+                total(8);
             }
         });
 

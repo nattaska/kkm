@@ -14,14 +14,17 @@ class Report_Model extends Model {
 
         // echo $bufftype."<br>";
         
-        $sql = "SELECT s.sale_date, FORMAT(s.panda,2) panda, FORMAT(s.npfood,2) npfood, 
-                        FORMAT(s.kkm,2) kkm, FORMAT(b.bfamt,2) bfamt, 
-                        FORMAT((ifnull(s.panda,0)+ifnull(s.npfood,0)+s.kkm+ifnull(b.bfamt,0)),2) income, FORMAT(e.expamt,2) expamt,
-                        FORMAT((ifnull(s.panda,0)+ifnull(s.npfood,0)+s.kkm+ifnull(b.bfamt,0)-e.expamt),2) net
+        $sql = "SELECT s.sale_date, ifnull(FORMAT(s.panda,2),0) panda, ifnull(FORMAT(s.grab,2),0) grab, 
+		                ifnull(FORMAT(s.npfood,2),0) npfood, ifnull(FORMAT(s.kkm,2),0) kkm, 
+					    ifnull(FORMAT(b.bfamt,2),0) bfamt, 
+                        FORMAT((ifnull(s.panda,0)+ifnull(s.npfood,0)+ifnull(s.grab,0)+ifnull(s.kkm,0)+ifnull(b.bfamt,0)),2) income, 
+                        FORMAT(e.expamt,2) expamt,
+                        FORMAT((ifnull(s.panda,0)+ifnull(s.npfood,0)+ifnull(s.grab,0)+ifnull(s.kkm,0)+ifnull(b.bfamt,0)-e.expamt),2) net
                 FROM 
                     (
                         SELECT a.sale_date,
                                 sum(case when a.ordtyp = 'FPD' then a.amt END) as panda,
+                                sum(case when a.ordtyp = 'GBF' then a.amt END) as grab,
                                 sum(case when a.ordtyp = 'NPF' then a.amt END) as npfood,
                                 sum(case when a.ordtyp = 'KKM' then a.amt END) as kkm
                         FROM (

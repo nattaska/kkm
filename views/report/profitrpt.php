@@ -40,10 +40,11 @@
                                     <thead>
                                         <tr>
                                             <th>Date</th>
-                                            <th>Food Panda</th>
-                                            <th>Baan Noppadol</th>
+                                            <th>Panda</th>
+                                            <th>Grab</th>
+                                            <th>Noppadol</th>
                                             <th>Krua Kroo Meuk</th>
-                                            <th>NP Staff Food</th>
+                                            <th>NP Staff</th>
                                             <th>Income</th>
                                             <th>Expense</th>
                                             <th>Net Income</th>
@@ -52,10 +53,11 @@
                                     <tfoot>
                                         <tr>
                                             <th>Date</th>
-                                            <th>Food Panda</th>
-                                            <th>Baan Noppadol</th>
+                                            <th>Panda</th>
+                                            <th>Grab</th>
+                                            <th>Noppadol</th>
                                             <th>Krua Kroo Meuk</th>
-                                            <th>NP Staff Food</th>
+                                            <th>NP Staff</th>
                                             <th>Income</th>
                                             <th>Expense</th>
                                             <th>Net Income</th>
