@@ -69,7 +69,7 @@ class Import_Model extends Model {
                         $stmt = $this->db->prepare($sql);
                         $stmt->execute();
 
-                        $sql = "INSERT INTO sales_daily(saldocno, salorddttm, salpaydttm, salordfrom, salordtyp, salamt, satretamt)
+                        $sql = "INSERT INTO sales_daily(saldocno, salorddttm, salpaydttm, salordfrom, salordtyp, salamt, salretamt)
                                 SELECT isalordno, STR_TO_DATE(isalorddate, '%e/%c/%Y %H:%i') orddate,
                                     STR_TO_DATE(isalpaydate, '%e/%c/%Y %H:%i') paydate,
                                         case when replace(lower(isalordnm),' ','')='foodpanda' then 'Food Panda'

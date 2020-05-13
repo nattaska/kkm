@@ -28,7 +28,7 @@ class Report_Model extends Model {
                                 sum(case when a.ordtyp = 'NPF' then a.amt END) as npfood,
                                 sum(case when a.ordtyp = 'KKM' then a.amt END) as kkm
                         FROM (
-                                SELECT date(salorddttm) sale_date, salordtyp ordtyp, pmddesc ordtypnm, SUM(salamt-satretamt) amt
+                                SELECT date(salorddttm) sale_date, salordtyp ordtyp, pmddesc ordtypnm, SUM(salamt+salretamt) amt
                                 FROM sales_daily, prmdtl
                                 WHERE date(salorddttm) BETWEEN :sdate AND :edate
                                 AND pmdtbno=14

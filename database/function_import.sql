@@ -34,7 +34,7 @@ CREATE TABLE `sales_daily` (
 	`salordfrom` VARCHAR(50) NULL DEFAULT NULL,
 	`salordtyp` VARCHAR(5) NULL DEFAULT NULL,
 	`salamt` INT(11) NULL DEFAULT NULL,
-	`satretamt` INT(11) NULL DEFAULT NULL,
+	`salretamt` INT(11) NULL DEFAULT NULL,
 	PRIMARY KEY (`saldocno`),
 	INDEX `IDX_ORDTYP` (`salordtyp`)
 )
