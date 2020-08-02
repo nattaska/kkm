@@ -7,7 +7,7 @@ class Report extends Controller {
         $logged = Session::get('logged');
         if ($logged == false) {
             Session::destroy();
-            header('location: login');
+            header('location: ../login');
             exit;
         }
         

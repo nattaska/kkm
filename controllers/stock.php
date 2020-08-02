@@ -7,7 +7,7 @@ class Stock extends Controller {
         $logged = Session::get('logged');
         if ($logged == false) {
             Session::destroy();
-            header('location: login');
+            header('location: ../../login');
             exit;
         }
         $this->view->js = array(URL."views/stock/js/default.js");
