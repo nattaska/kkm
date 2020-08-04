@@ -183,5 +183,33 @@ class Timesheet_Model extends Model {
         echo json_encode($data);
     }
 
+    function xhrDayOff() {
+        $result = "1";
+        $error = "";
+
+        try {
+            $this->db->beginTransaction();
+            $stmt = $this->db->prepare("insert into timesheet(timempcd, timdate)
+                                        select usrcd, current_date
+                                        from user, payment
+                                        where usrcd=payempcd
+                                        and current_date between paysdate and payedate
+                                        and paydeptid<>4
+                                        and usrcd not in (select timempcd from timesheet
+                                                                where timdate=current_date )");
+            $stmt->execute();
+
+            $this->db->commit();
+
+        } catch (Exception $e) {
+            $result = "0";
+            $error = $e->getMessage();
+            $this->db->rollBack();
+        }
+        
+        $data = array('res' => $result, 'error' => $error);
+        echo json_encode($data);
+    }
+
 }
 ?>

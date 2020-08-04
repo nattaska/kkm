@@ -8,7 +8,8 @@
         var table = $('#table-data').DataTable({
             dom: 'Bfrtip',
             buttons: [
-                { text: '<a id="add" href="#" class="add"><button '+disabled+' type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modifyDataModel"><i class="fa fa-plus"></i>&nbsp;Add</button></a>' }
+                { text: ($('#auth').val()==='R'?'':'<a id="add" href="#" class="add"><button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modifyDataModel"><i class="fa fa-plus"></i>&nbsp;Add</button></a>')},
+                { text: ($('#auth').val()==='R'?'':'<a id="dayoff" href="#" class="dayoff"><button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#modifyDataModel"><i class="fa fa-plus"></i>&nbsp;Day-Off</button></a>')}
             ],
             columns: [
                 { data: 'code' },
@@ -103,6 +104,20 @@
             $('#timstat').val('');
             $("#empcd").prop("readonly",false);
             $("#timdate").prop("readonly",false);
+        });
+ 
+        $('#dayoff').on( 'click', function () {
+
+            $.post(module+'/xhrDayOff', function(o) {
+                
+                if (o.res > 0) {
+                    $("#msgMain").html('<div class="alert alert-success"><button type="button" class="close">×</button><strong>Success!</strong> Employee\'s day-off has been deleted successfully</div>');
+                } else {
+                    $("#msgMain").html('<div class="alert alert-danger"><button type="button" class="close">×</button><strong>Error!</strong> '+o.error+'</div>');
+                }
+            }, 'json');
+
+
         });
  
         $('#table-data tbody').on( 'click', '.edit', function () {

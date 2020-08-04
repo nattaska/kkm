@@ -74,6 +74,10 @@ class Timesheet extends Controller {
         $this->model->xhrDelete();
     }
 
+    function xhrDayOff() {
+        $this->model->xhrDayOff();
+    }
+
 }
 
 ?>
