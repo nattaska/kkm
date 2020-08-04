@@ -9,7 +9,7 @@
             dom: 'Bfrtip',
             buttons: [
                 { text: ($('#auth').val()==='R'?'':'<a id="add" href="#" class="add"><button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modifyDataModel"><i class="fa fa-plus"></i>&nbsp;Add</button></a>')},
-                { text: ($('#auth').val()==='R'?'':'<a id="dayoff" href="#" class="dayoff"><button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#modifyDataModel"><i class="fa fa-plus"></i>&nbsp;Day-Off</button></a>')}
+                { text: ($('#auth').val()==='R'?'':'<a id="dayoff" href="#" class="dayoff"><button type="button" class="btn btn-warning btn-sm"><i class="fa fa-plus"></i>&nbsp;Day-Off</button></a>')}
             ],
             columns: [
                 { data: 'code' },
