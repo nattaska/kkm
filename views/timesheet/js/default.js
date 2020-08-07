@@ -108,10 +108,11 @@
  
         $('#dayoff').on( 'click', function () {
 
-            $.post(module+'/xhrDayOff', function(o) {
+            $.post(module+'/xhrDayOff', {'sdate': $('#sdate').val(), 'edate': $('#edate').val()}, function(o) {
+            // $.post(module+'/xhrDayOff', function(o) {
                 
                 if (o.res > 0) {
-                    $("#msgMain").html('<div class="alert alert-success"><button type="button" class="close">×</button><strong>Success!</strong> Employee\'s day-off has been deleted successfully</div>');
+                    $("#msgMain").html('<div class="alert alert-success"><button type="button" class="close">×</button><strong>Success!</strong> Employee\'s day-off has been create successfully</div>');
                 } else {
                     $("#msgMain").html('<div class="alert alert-danger"><button type="button" class="close">×</button><strong>Error!</strong> '+o.error+'</div>');
                 }

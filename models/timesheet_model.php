@@ -187,17 +187,24 @@ class Timesheet_Model extends Model {
         $result = "1";
         $error = "";
 
+        $begin = new DateTime($_POST['sdate']);
+        $end = new DateTime($_POST['edate']);        
+
         try {
             $this->db->beginTransaction();
-            $stmt = $this->db->prepare("insert into timesheet(timempcd, timdate)
-                                        select usrcd, current_date
-                                        from user, payment
-                                        where usrcd=payempcd
-                                        and current_date between paysdate and payedate
-                                        and paydeptid<>4
-                                        and usrcd not in (select timempcd from timesheet
-                                                                where timdate=current_date )");
-            $stmt->execute();
+            $sql = "insert into timesheet(timempcd, timdate)
+                    select usrcd, ':ddate'
+                    from user, payment
+                    where usrcd=payempcd
+                    and ':ddate' between paysdate and payedate
+                    and paydeptid<>4
+                    and usrcd not in (select timempcd from timesheet
+                                            where timdate=':ddate' )";
+            
+            for($i = $begin; $i <= $end; $i->modify('+1 day')){
+                $stmt = $this->db->prepare(str_replace(":ddate",$i->format("Y-m-d"),$sql));            
+                $stmt->execute();
+            }
 
             $this->db->commit();
 

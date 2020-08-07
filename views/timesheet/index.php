@@ -14,7 +14,7 @@
                                     <label for="sdate" class="control-label mb-1">Start Date</label>
                                     <div class="input-group">
                                         <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
-                                        <input type="date" name="sdate" class="form-control" value="<?php echo $this->criteria['sdate']; ?>">
+                                        <input type="date" id="sdate" name="sdate" class="form-control" value="<?php echo $this->criteria['sdate']; ?>">
                                     </div>
                                 </div>
                                 <div class="col-md-1"></div>
@@ -22,7 +22,7 @@
                                     <label for="edate" class="control-label mb-1">End Date</label>
                                     <div class="input-group">
                                         <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
-                                        <input type="date" name="edate" class="form-control" value="<?php echo $this->criteria['edate']; ?>">
+                                        <input type="date" id="edate" name="edate" class="form-control" value="<?php echo $this->criteria['edate']; ?>">
                                     </div>
                                 </div>
                                 <div class="col-md-2">
