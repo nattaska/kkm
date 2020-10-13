@@ -45,7 +45,7 @@ class Checkin_Model extends Model {
             $stmt = $this->db->prepare($sql);
             $stmt->execute(array(
                 ':empcd'=>$_POST['code'],
-                ':ip'=>$_SERVER['REMOTE_ADDR']
+                ':ip'=>$_SERVER['HTTP_X_FORWARDED_FOR']
                 ));
 
             $this->db->commit();
