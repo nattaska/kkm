@@ -20,7 +20,6 @@ $upd_param = "UPDATE prmdtl
 
 try {
     $db->beginTransaction();
-    $db->query("SET time_zone = '+07:00'");
 
     $stmt_hist = $db->prepare($ins_hist);
     $stmt_upd = $db->prepare($upd_param);
