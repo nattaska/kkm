@@ -10,7 +10,7 @@ $db->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
 
 $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
 
-$ins_hist = "INSERT INTO ip_history(ip_addr) VALUES(:ip)";
+$ins_hist = "INSERT INTO ip_history(ip_addr, ip_created) VALUES(:ip, current_timestamp)";
 
 $upd_param = "UPDATE prmdtl
         SET pmdval1=:ip
