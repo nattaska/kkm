@@ -3,12 +3,21 @@
 require 'libs/Database.php';
 require 'config/database.php';
 
+
+echo "HTTP_CLIENT_IP : ". $_SERVER['HTTP_CLIENT_IP']."<br>";
+echo "HTTP_X_FORWARDED_FOR : ". $_SERVER['HTTP_X_FORWARDED_FOR']."<br>";
+echo "REMOTE_ADDR : ". $_SERVER['REMOTE_ADDR']."<br>";
+echo getenv('REMOTE_ADDR')."<br>";
+
 $db = new Database();
 $db->query("SET time_zone = '+07:00'");
 $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 $db->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
 
 $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
+
+$ipinfo = file_get_contents("http://ipinfo.io/{$ip}");
+echo $ipinfo."<br>";
 
 $ins_hist = "INSERT INTO ip_history(ip_addr, ip_created) VALUES(:ip, current_timestamp)";
 
