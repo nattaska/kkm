@@ -19,7 +19,7 @@ $upd_param = "UPDATE prmdtl
         AND pmdcd=3";
 
 try {
-    $this->db->beginTransaction();
+    $db->beginTransaction();
 
     $stmt_hist = $db->prepare($ins_hist);
     $stmt_upd = $db->prepare($upd_param);
@@ -28,10 +28,10 @@ try {
     $stmt_upd->execute(array(':ip'=>$ip));
 
     $db->commit();
+    echo "Finished";
 
 } catch (Exception $e) {
-    $result = "0";
-    $error = $e->getMessage();
+    echo "Error : ".$e->getMessage();
     $db->rollBack();
 }
 
