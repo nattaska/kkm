@@ -68,6 +68,13 @@
                     return false;
                 } 
             });
+        }, 'json');    
+
+        $.post(module+"/xhrSearch", function(o) {
+            
+            table.clear().draw();
+            table.rows.add(o).draw();
+
         }, 'json');
 
 //  ------------    Action Search, Add, Update, Delete  ---------------------   //

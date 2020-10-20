@@ -11,9 +11,11 @@ class Expenses_Model extends Model {
     function xhrSearch() {
         // echo "post code = ".$_POST['code'];
         $date = new DateTime();
-        $sdate = (isset($_POST['sdate']))?$_POST['sdate']:date_format($date,"Y-m-01");
-        $edate = (isset($_POST['edate']))?$_POST['edate']:date_format($date,"Y-m-t");
+        $sdate = (isset($_POST['sdate']))?$_POST['sdate']:date("Y-m-d",strtotime("yesterday"));
+        $edate = (isset($_POST['edate']))?$_POST['edate']:date_format($date,"Y-m-d");
         $grp = (isset($_POST['grp']))?$_POST['grp']:"-1";
+        // echo $sdate;
+        // echo $edate;
 
         $sql="SELECT expdate, tb10.pmddesc expgrpnm, tb9.pmddesc exptitle, FORMAT(expamt, 2) expamt, expcmt, expgrp expgrpcd, expcd
                 FROM expenses e, prmdtl tb9, prmdtl tb10

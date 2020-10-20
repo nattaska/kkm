@@ -59,7 +59,14 @@
         
         var tableRow = table.row($(this).parents('tr'));
 
-        $(".chosen-select").chosen();
+        $(".chosen-select").chosen();        
+
+        $.post(module+"/xhrSearch", function(o) {
+            
+            table.clear().draw();
+            table.rows.add(o).draw();
+
+        }, 'json');
 
         $("#code").change(function(){
             var arr = $("#code option:selected").text().split('-');

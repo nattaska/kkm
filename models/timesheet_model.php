@@ -62,8 +62,8 @@ class Timesheet_Model extends Model {
     function xhrSearch() {
         
         $date = new DateTime();
-        $sdate = (isset($_POST['sdate']))?$_POST['sdate']:date_format($date,"Y-m-01");
-        $edate = (isset($_POST['edate']))?$_POST['edate']:date_format($date,"Y-m-t");
+        $sdate = (isset($_POST['sdate']))?$_POST['sdate']:date_format($date,"Y-m-d");
+        $edate = (isset($_POST['edate']))?$_POST['edate']:date_format($date,"Y-m-d");
         $userMenu = Session::get('userMenu');
 
         $sql="SELECT usrcd code, usrnnm name, timdate, timin, timout, timspec timstat "
