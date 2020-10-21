@@ -2,7 +2,9 @@
 
 <?php
 require 'config/paths.php';
-echo "New version 19/03/2563";
+require 'libs/Database.php';
+require 'config/database.php';
+echo "New version 19/03/2563"."<br>";
 
 $pastDate = strtotime('2019-05-28')."<br>";
 $currentDate = strtotime(date("Y-m-d"))."<br>";
@@ -11,10 +13,15 @@ $currentDate = strtotime(date("Y-m-d"))."<br>";
 
 
 $date = new DateTime();
-$date = new DateTime('2020-02-16');
+echo date_format($date,"Y-m-d H:i:s")."<br>";
+echo date("Y-m-d H:i:s")."<br>";
+// $date = new DateTime('2020-02-16');
 // echo $date."</br>";
 echo date_format($date,"Y-m-01")."<br>";
 echo date_format($date,"Y-m-t")."<br>";
+$date->sub(new DateInterval('P1D'));
+echo date_format($date,"Y-m-d")."<br>";
+echo date("Y-m-d",strtotime("yesterday"))."<br>"; 
 
 if (date_format($date,"d") <= 15) {
     echo date_format($date,"Y-m-15")."<br>";
@@ -64,10 +71,25 @@ echo strlen(strstr($ipObj["hostname"],"revip2.asianet.co.th"))."<br>";
 
 if (strlen(strstr($ipObj["org"],"AS17552 True Internet"))>0 &&
     strlen(strstr($ipObj["hostname"],"asianet.co.th"))>0) {
-    echo  "Can checkin";
+    echo  "Can checkin"."<br>";
 } else {
-    echo  "Cannot checkin";
+    echo  "Cannot checkin"."<br>";
 }
 
+// ============================ Database ============================== //
+
+$db = new Database();
+$db->query("SET time_zone = '+07:00'");
+$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+$db->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
+
+$sql = "SELECT pmdval1 ip FROM prmdtl
+        WHERE pmdtbno=1
+        AND pmdcd=3";
+$sth = $db->prepare($sql);
+$sth->setFetchMode(PDO::FETCH_ASSOC);
+$sth->execute();
+$data = $sth->fetch();
+echo "Restaurant IP : ".$data['ip'];
 
 ?>
