@@ -7,7 +7,6 @@ require 'config/database.php';
 echo "HTTP_CLIENT_IP : ". $_SERVER['HTTP_CLIENT_IP']."<br>";
 echo "HTTP_X_FORWARDED_FOR : ". $_SERVER['HTTP_X_FORWARDED_FOR']."<br>";
 echo "REMOTE_ADDR : ". $_SERVER['REMOTE_ADDR']."<br>";
-echo getenv('REMOTE_ADDR')."<br>";
 
 $db = new Database();
 $db->query("SET time_zone = '+07:00'");
@@ -37,10 +36,10 @@ try {
     $stmt_upd->execute(array(':ip'=>$ip));
 
     $db->commit();
-    echo "Finished";
+    echo "Update Finished at ".date("Y-m-d H:i:s")."<br>";
 
 } catch (Exception $e) {
-    echo "Error : ".$e->getMessage();
+    echo "Error at ".date("Y-m-d H:i:s")." : ".$e->getMessage()."<br>";
     $db->rollBack();
 }
 

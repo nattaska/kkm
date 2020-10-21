@@ -59,6 +59,20 @@ class Checkin_Model extends Model {
         $data = array('res' => $result, 'error' => $error);
         echo json_encode($data);
     }
+
+    public function xhrShopIP() {
+        // return "124.122.123.56";
+        
+        $sql = "SELECT pmdval1 ip FROM prmdtl
+                WHERE pmdtbno=1
+                AND pmdcd=3";
+        $sth = $this->db->prepare($sql);
+        $sth->setFetchMode(PDO::FETCH_ASSOC);
+        $sth->execute();
+        $data = $sth->fetch();
+        
+        return $data['ip'];
+    }
 }
 
 ?>
