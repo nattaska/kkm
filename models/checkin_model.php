@@ -26,34 +26,43 @@ class Checkin_Model extends Model {
         $result = "1";
         $error = "";
 
-        $clockType = $_POST['clocktype'];
-        $sql = "";
+        $shopIP = $this->xhrShopIP();
+        
+        if (ISSET($_SERVER['HTTP_X_FORWARDED_FOR']) 
+            && $_SERVER['HTTP_X_FORWARDED_FOR'] == $shopIP) {
 
-        if (strcmp($clockType, 'in') == 0) {
-            $sql = "INSERT INTO timesheet(timempcd, timdate, timin, timipin) VALUE(:empcd, CURRENT_DATE, CURRENT_TIMESTAMP, :ip);";
+            $clockType = $_POST['clocktype'];
+            $sql = "";
+
+            if (strcmp($clockType, 'in') == 0) {
+                $sql = "INSERT INTO timesheet(timempcd, timdate, timin, timipin) VALUE(:empcd, CURRENT_DATE, CURRENT_TIMESTAMP, :ip);";
+            } else {
+                $sql = "UPDATE  timesheet
+                        SET  timout  = CURRENT_TIMESTAMP,
+                            timipout = :ip
+                        WHERE timempcd = :empcd 
+                        AND timdate = CURRENT_DATE";
+            }
+            // echo $sql;
+            try {
+                $this->db->beginTransaction();
+                $this->db->query("SET time_zone = '+07:00'");
+                $stmt = $this->db->prepare($sql);
+                $stmt->execute(array(
+                    ':empcd'=>$_POST['code'],
+                    ':ip'=>$_SERVER['HTTP_X_FORWARDED_FOR']
+                    ));
+
+                $this->db->commit();
+
+            } catch (Exception $e) {
+                $result = "0";
+                $error = $e->getMessage();
+                $this->db->rollBack();
+            }
         } else {
-            $sql = "UPDATE  timesheet
-                    SET  timout  = CURRENT_TIMESTAMP,
-                         timipout = :ip
-                    WHERE timempcd = :empcd 
-                    AND timdate = CURRENT_DATE";
-        }
-        // echo $sql;
-        try {
-            $this->db->beginTransaction();
-            $this->db->query("SET time_zone = '+07:00'");
-            $stmt = $this->db->prepare($sql);
-            $stmt->execute(array(
-                ':empcd'=>$_POST['code'],
-                ':ip'=>$_SERVER['HTTP_X_FORWARDED_FOR']
-                ));
-
-            $this->db->commit();
-
-        } catch (Exception $e) {
-            $result = "0";
-            $error = $e->getMessage();
-            $this->db->rollBack();
+            $result = "-1";
+            $error = "Please connect Wifi of Krua Kroo Meuk";
         }
         
         $data = array('res' => $result, 'error' => $error);

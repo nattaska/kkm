@@ -59,18 +59,7 @@ class Checkin extends Controller {
     }
 
     function xhrClocked() {
-
-        $shopIP = $this->model->xhrShopIP();
-        
-        if (ISSET($_SERVER['HTTP_X_FORWARDED_FOR']) 
-            && $_SERVER['HTTP_X_FORWARDED_FOR'] == $shopIP) {
-
-            $this->model->xhrClocked();
-            
-        } else {
-            header('location: login');
-            exit;
-        }
+        $this->model->xhrClocked();
     }
 
 }
