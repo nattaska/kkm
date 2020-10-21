@@ -51,7 +51,7 @@ class Checkin extends Controller {
         } else {
             header('location: login');
             exit;
-        }        
+        }
     }
 
     function xhrSearch() {
@@ -59,7 +59,18 @@ class Checkin extends Controller {
     }
 
     function xhrClocked() {
-        $this->model->xhrClocked();
+
+        $shopIP = $this->model->xhrShopIP();
+        
+        if (ISSET($_SERVER['HTTP_X_FORWARDED_FOR']) 
+            && $_SERVER['HTTP_X_FORWARDED_FOR'] == $shopIP) {
+
+            $this->model->xhrClocked();
+            
+        } else {
+            header('location: login');
+            exit;
+        }
     }
 
 }
