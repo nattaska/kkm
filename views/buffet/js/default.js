@@ -99,6 +99,13 @@
             $("#typename").val($.trim(arr[1]));            
         });
 
+        $.post(module+"/xhrSearch", function(o) {
+            
+            table.clear().draw();
+            table.rows.add(o).draw();
+
+        }, 'json');
+
         //  ------------    Action Search, Add, Update, Delete  ---------------------   //
                     
         $("#search").submit(function() {

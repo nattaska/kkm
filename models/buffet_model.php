@@ -12,8 +12,8 @@ class Buffet_Model extends Model {
         $date = new DateTime();
 
         $bufftype = (isset($_POST['bufftype']))?$_POST['bufftype']:"-1";
-        $sdate = $_POST['sdate'];
-        $edate = $_POST['edate'];
+        $sdate = (isset($_POST['sdate']))?$_POST['sdate']:date_format($date,"Y-m-d");
+        $edate = (isset($_POST['edate']))?$_POST['edate']:date_format($date,"Y-m-d");
 
         // echo $bufftype."<br>";
 
