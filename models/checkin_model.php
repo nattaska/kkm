@@ -27,42 +27,62 @@ class Checkin_Model extends Model {
         $error = "";
 
         $shopIP = $this->xhrShopIP();
+        $sql = "INSERT INTO timesheet_logs(ltimempcd, ltimdate, ltimtyp, ltimip, litmshopip, ltimtime) 
+                VALUE(:empcd, CURRENT_DATE, :clocktype, :ip, :shopIP, CURRENT_TIMESTAMP);";
+        try {
+            $this->db->beginTransaction();
+            $this->db->query("SET time_zone = '+07:00'");
+            $stmt = $this->db->prepare($sql);
+            $stmt->execute(array(
+                ':empcd'=>$_POST['code'],
+                ':clocktype'=>$_POST['clocktype'],
+                ':ip'=>$_SERVER['HTTP_X_FORWARDED_FOR'],
+                ':shopIP'=>$shopIP
+                ));
+
+            $this->db->commit();
         
-        if (ISSET($_SERVER['HTTP_X_FORWARDED_FOR']) 
-            && $_SERVER['HTTP_X_FORWARDED_FOR'] == $shopIP) {
+            if (ISSET($_SERVER['HTTP_X_FORWARDED_FOR']) 
+                && $_SERVER['HTTP_X_FORWARDED_FOR'] == $shopIP) {
 
-            $clockType = $_POST['clocktype'];
-            $sql = "";
+                $clockType = $_POST['clocktype'];
+                $sql = "";
 
-            if (strcmp($clockType, 'in') == 0) {
-                $sql = "INSERT INTO timesheet(timempcd, timdate, timin, timipin) VALUE(:empcd, CURRENT_DATE, CURRENT_TIMESTAMP, :ip);";
+                if (strcmp($clockType, 'in') == 0) {
+                    $sql = "INSERT INTO timesheet(timempcd, timdate, timin, timipin) VALUE(:empcd, CURRENT_DATE, CURRENT_TIMESTAMP, :ip);";
+                } else {
+                    $sql = "UPDATE  timesheet
+                            SET  timout  = CURRENT_TIMESTAMP,
+                                timipout = :ip
+                            WHERE timempcd = :empcd 
+                            AND timdate = CURRENT_DATE";
+                }
+                // echo $sql;
+                try {
+                    $this->db->beginTransaction();
+                    $this->db->query("SET time_zone = '+07:00'");
+                    $stmt = $this->db->prepare($sql);
+                    $stmt->execute(array(
+                        ':empcd'=>$_POST['code'],
+                        ':ip'=>$_SERVER['HTTP_X_FORWARDED_FOR']
+                        ));
+
+                    $this->db->commit();
+
+                } catch (Exception $e) {
+                    $result = "0";
+                    $error = $e->getMessage();
+                    $this->db->rollBack();
+                }
             } else {
-                $sql = "UPDATE  timesheet
-                        SET  timout  = CURRENT_TIMESTAMP,
-                            timipout = :ip
-                        WHERE timempcd = :empcd 
-                        AND timdate = CURRENT_DATE";
+                $result = "-1";
+                $error = "Please connect Wifi of Krua Kroo Meuk";
             }
-            // echo $sql;
-            try {
-                $this->db->beginTransaction();
-                $this->db->query("SET time_zone = '+07:00'");
-                $stmt = $this->db->prepare($sql);
-                $stmt->execute(array(
-                    ':empcd'=>$_POST['code'],
-                    ':ip'=>$_SERVER['HTTP_X_FORWARDED_FOR']
-                    ));
 
-                $this->db->commit();
-
-            } catch (Exception $e) {
-                $result = "0";
-                $error = $e->getMessage();
-                $this->db->rollBack();
-            }
-        } else {
-            $result = "-1";
-            $error = "Please connect Wifi of Krua Kroo Meuk";
+        } catch (Exception $e) {
+            $result = "0";
+            $error = $e->getMessage();
+            $this->db->rollBack();
         }
         
         $data = array('res' => $result, 'error' => $error);
