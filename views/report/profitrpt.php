@@ -38,10 +38,12 @@
                                     
                                 <table id="table-data" class="table table-striped table-bordered dataTale" role="grid">
                                     <thead>
-                                        <tr>
+                                        <tr title="">
                                             <th>Date</th>
                                             <th>Panda</th>
                                             <th>Grab</th>
+                                            <th>Weserve</th>
+                                            <th>Partner</th>
                                             <th>Noppadol</th>
                                             <th>Krua Kroo Meuk</th>
                                             <th>NP Staff</th>
@@ -51,10 +53,12 @@
                                         </tr>
                                     </thead>
                                     <tfoot>
-                                        <tr>
+                                        <tr title="">
                                             <th>Date</th>
                                             <th>Panda</th>
                                             <th>Grab</th>
+                                            <th>Weserve</th>
+                                            <th>Partner</th>
                                             <th>Noppadol</th>
                                             <th>Krua Kroo Meuk</th>
                                             <th>NP Staff</th>

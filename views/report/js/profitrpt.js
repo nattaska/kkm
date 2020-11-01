@@ -10,6 +10,8 @@
                 { data: "sale_date" },
                 { data: "panda" },
                 { data: "grab" },
+                { data: "weserve" },
+                { data: "partner" },
                 { data: "npfood" },
                 { data: "kkm" },
                 { data: "bfamt" },
@@ -19,7 +21,8 @@
             ],
             columnDefs: [
                 { targets: [0], "width": "10%", className: 'dt-center' },
-                { targets: [1, 2, 3, 4, 5, 6, 7, 8], className: 'dt-right' }
+                { targets: [4, 5, 6, 7, 8, 9, 10], className: 'dt-right' },
+                { targets: [1, 2, 3], "visible": false }
             ],
             "fnRowCallback": function (nRow, aData, iDisplayIndex, iDisplayIndexFull) {
                 let intVal = function ( i ) {
@@ -32,6 +35,9 @@
                 if (intVal(aData["net"]) < 0) {
                     $('td', nRow).css('background-color', 'rgb(251, 142, 142)');
                 }
+                var sPartner = 'Panda[ '+aData["panda"]+' ], Grab[ '+aData["grab"]+' ], Weserve[ '+aData["weserve"]+' ]';
+                nRow.setAttribute( 'title', sPartner );
+
                 return nRow;
             },
             "fnFooterCallback": function ( row, data, start, end, display ) {
@@ -64,14 +70,15 @@
                         
                 }
 
-                total(1);
-                total(2);
-                total(3);
+                total(10);
+                // total(2);
+                // total(3);
                 total(4);
                 total(5);
                 total(6);
                 total(7);
                 total(8);
+                total(9);
             }
         });
 
@@ -92,6 +99,13 @@
     
             return false;
         });
+
+        /* Apply the tooltips */
+        table.$('tr').tooltip( {
+            "delay": 0,
+            "track": true,
+            "fade": 250
+        } );
 
 
     });

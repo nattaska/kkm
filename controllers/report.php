@@ -27,7 +27,7 @@ class Report extends Controller {
 
         $this->view->css = array(URL.'assets/css/lib/datatable/dataTables.bootstrap.min.css'
                                 ,"https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css"
-                                ,"https://cdn.datatables.net/1.5.6/css/buttons.dataTables.min.css"
+                                ,"https://cdn.datatables.net/buttons/1.5.6/css/buttons.dataTables.min.css"
                                 ,URL."css/style.css"
                                 );
         
