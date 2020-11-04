@@ -242,11 +242,14 @@
                 var note   = $('#note').val();
                 var qty = $('#qty').val();
                 var msg = "";
-                // console.log(data);
                 
                 var jtype = JSON.parse(bftype);
                 var amount = (qty * jtype.val1);
                 var comm = (amount * jtype.val2)/100;
+
+                if (jtype.val2 === null) {
+                    comm = qty * jtype.val3
+                }
 
                 $.post(url, data, function(o) {
                     // alert(o);
