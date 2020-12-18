@@ -7,7 +7,7 @@ require 'environment.php';
 
 $datas = file_get_contents('php://input');
 $deCode = json_decode($datas,true);
-file_put_contents('log.txt', datas . PHP_EOL, FILE_APPEND);
+file_put_contents('log.txt', $datas . PHP_EOL, FILE_APPEND);
 
 $replyToken = $deCode['events'][0]['replyToken'];
 $userId = $deCode['events'][0]['source']['userId'];
@@ -15,7 +15,7 @@ $text = $deCode['events'][0]['message']['text'];
 
 $replyMessages = [];
 $replyMessages['replyToken'] = $replyToken;
-$messages['messages'][0] = getFormatTextMessage("เอ้ย ถามอะไรก็ตอบได้");
+$replyMessages['messages'][0] = getFormatTextMessage("เอ้ย ถามอะไรก็ตอบได้");
 
 $encodeJson = json_encode($replyMessages);
 
@@ -23,7 +23,7 @@ $LINEDatas['url'] = "https://api.line.me/v2/bot/message/reply";
 $LINEDatas['token'] = CHANNEL_ACCESS_TOKEN;
 
 $results = sentMessage($encodeJson,$LINEDatas);
-file_put_contents('log.txt', results . PHP_EOL, FILE_APPEND);
+file_put_contents('log.txt', $results . PHP_EOL, FILE_APPEND);
 
 function getFormatTextMessage($text) {
     
