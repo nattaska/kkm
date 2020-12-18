@@ -23,7 +23,7 @@ $LINEDatas['url'] = "https://api.line.me/v2/bot/message/reply";
 $LINEDatas['token'] = CHANNEL_ACCESS_TOKEN;
 
 $results = sentMessage($encodeJson,$LINEDatas);
-file_put_contents('log.txt', $results . PHP_EOL, FILE_APPEND);
+file_put_contents('log.txt', json_encode($results) . PHP_EOL, FILE_APPEND);
 
 function getFormatTextMessage($text) {
     
