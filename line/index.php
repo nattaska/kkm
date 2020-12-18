@@ -16,8 +16,8 @@ $text = $deCode['events'][0]['message']['text'];
 $LINEDatas['url'] = "https://api.line.me/v2/bot/profile/".$userId;
 $LINEDatas['token'] = CHANNEL_ACCESS_TOKEN;
 $results = getLINEProfile($LINEDatas);
-$userProfile = $results['message'];
-file_put_contents('log-profile.txt', $userProfile . PHP_EOL, FILE_APPEND);
+$userProfile = json_decode($results['message'], true);
+file_put_contents('log-profile.txt', $results['message'] . PHP_EOL, FILE_APPEND);
 
 $replyMessages = [];
 $replyMessages['replyToken'] = $replyToken;
@@ -30,7 +30,6 @@ $LINEDatas['url'] = "https://api.line.me/v2/bot/message/reply";
 $LINEDatas['token'] = CHANNEL_ACCESS_TOKEN;
 
 $results = sentMessage($encodeJson,$LINEDatas);
-file_put_contents('log.txt', json_encode($results) . PHP_EOL, FILE_APPEND);
 
 function getFormatTextMessage($text) {
     
