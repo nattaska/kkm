@@ -2,6 +2,9 @@
 
 require 'environment.php';
 
+// require '../config/database.php';
+//  $db = new Database();
+
  /*Return HTTP Request 200*/
 //  http_response_code(200);
 
@@ -22,7 +25,7 @@ file_put_contents('log-profile.txt', $results['message'] . PHP_EOL, FILE_APPEND)
 $replyMessages = [];
 $replyMessages['replyToken'] = $replyToken;
 $replyMessages['messages'][0] = getFormatTextMessage("สวัสดี ".$userProfile['displayName']);
-$replyMessages['messages'][1] = getFormatTextMessage("สอบถามอะไรก็ตอบได้");
+$replyMessages['messages'][1] = getFormatTextMessage("Your IP is ".$_SERVER['HTTP_X_FORWARDED_FOR']);
 
 $encodeJson = json_encode($replyMessages);
 
@@ -116,7 +119,8 @@ function getLINEProfile($datas)
    return $datasReturn;
 }
 
-// require '../config/database.php';
-//  $db = new Database();
+// function get_mobile_ip() {
+
+// }
  
 ?>
