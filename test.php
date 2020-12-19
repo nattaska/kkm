@@ -90,11 +90,11 @@ $sth = $db->prepare($sql);
 $sth->setFetchMode(PDO::FETCH_ASSOC);
 $sth->execute();
 $data = $sth->fetch();
-echo "Restaurant IP : ".$data['ip'];
+echo "Restaurant IP : ".$data['ip']."<br>";
 
 require 'models/checkin_model.php';
 $chkin = new Checkin_Model();
 $ip = $chkin->xhrShopIP();
-echo "Check IP : ".$ip;
+echo "Check IP : ".$ip."<br>";
 
 ?>
