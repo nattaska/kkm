@@ -92,4 +92,9 @@ $sth->execute();
 $data = $sth->fetch();
 echo "Restaurant IP : ".$data['ip'];
 
+require 'models/checkin_model.php';
+$chkin = new Checkin_Model();
+$ip = $chkin->xhrShopIP();
+echo "Check IP : ".$ip;
+
 ?>
