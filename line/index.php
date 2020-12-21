@@ -28,8 +28,9 @@ $company_name = geoip_isp_by_name($_SERVER['REMOTE_ADDR']);
 $message = "สวัสดี ".$userProfile['displayName']."
 IP : ".$_SERVER['HTTP_X_FORWARDED_FOR']."
 Company : ".$company_name;
-$replyMessages['messages'][0] = getFormatTextMessage("สวัสดี ".$userProfile['displayName']);
-$replyMessages['messages'][1] = getFormatTextMessage("Your IP is ".$_SERVER['HTTP_X_FORWARDED_FOR']);
+$replyMessages['messages'][0] = getFormatTextMessage($message);
+// $replyMessages['messages'][0] = getFormatTextMessage("สวัสดี ".$userProfile['displayName']);
+// $replyMessages['messages'][1] = getFormatTextMessage("Your IP is ".$_SERVER['HTTP_X_FORWARDED_FOR']);
 
 $encodeJson = json_encode($replyMessages);
 
