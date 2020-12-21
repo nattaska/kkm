@@ -63,8 +63,7 @@ function getFormatLocationMessage($text) {
               }
         ]
       }';
-    // $datas['quickReply'] = json_decode($quickReply);
-    $datas['quickReply'] = $quickReply;
+    $datas['quickReply'] = json_decode($quickReply);
 
     return $datas;
 }
