@@ -27,6 +27,7 @@ $replyMessages['replyToken'] = $replyToken;
 $message = "สวัสดี ".$userProfile['displayName']."
 IP : ".$_SERVER['HTTP_X_FORWARDED_FOR'];
 $replyMessages['messages'][0] = getFormatTextMessage($message);
+$replyMessages['messages'][1] = getFormatLocationMessage("Check-In");
 // $replyMessages['messages'][0] = getFormatTextMessage("สวัสดี ".$userProfile['displayName']);
 // $replyMessages['messages'][1] = getFormatTextMessage("Your IP is ".$_SERVER['HTTP_X_FORWARDED_FOR']);
 
@@ -42,6 +43,28 @@ function getFormatTextMessage($text) {
     $datas = [];
     $datas['type'] = 'text';
     $datas['text'] = $text;
+
+    return $datas;
+}
+
+function getFormatLocationMessage($text) {
+    
+    $datas = [];
+    $datas['type'] = 'text';
+    $datas['text'] = $text;
+    $quickReply = '{ 
+        "items": [
+            {
+                "type": "action",
+                "action": {
+                  "type": "location",
+                  "label": "Send location"
+                }
+              }
+        ]
+      }';
+    // $datas['quickReply'] = json_decode($quickReply);
+    $datas['quickReply'] = $quickReply;
 
     return $datas;
 }
