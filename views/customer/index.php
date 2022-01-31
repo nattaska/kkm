@@ -27,6 +27,7 @@
                                             <th>ID</th>
                                             <th>Name</th>
                                             <th>Phone</th>
+                                            <th>Tax No</th>
                                             <th>Address</th>
                                             <th></th>
                                         </tr>
@@ -35,7 +36,8 @@
                                         <tr>
                                             <th>ID</th>
                                             <th>Name</th>
-                                            <th>Date</th>
+                                            <th>Phone</th>
+                                            <th>Tax No</th>
                                             <th>Address</th>
                                             <th></th>
                                         </tr>
@@ -60,6 +62,10 @@
                                                         <div class="row form-group">
                                                             <div class="col col-md-3"><label for="text-input" class="form-control-label">เบอร์ติดต่อ</label></div>
                                                             <div class="col-12 col-md-6"><input type="text" id="phone" name="phone" class="form-control"></div>
+                                                        </div>
+                                                        <div class="row form-group">
+                                                            <div class="col col-md-3"><label for="text-input" class="form-control-label">เลขประจําตัวผู้เสียภาษี</label></div>
+                                                            <div class="col-12 col-md-6"><input type="text" id="taxno" name="taxno" class="form-control"></div>
                                                         </div>
                                                         <div class="row form-group">
                                                             <div class="col col-md-3"><label for="textarea-input" class=" form-control-label">ที่อยู่</label></div>

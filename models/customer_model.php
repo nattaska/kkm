@@ -8,7 +8,7 @@ class Customer_Model extends Model {
 
     function xhrSearch() {
 
-        $sql="SELECT cusid id, cusname name, custel phone, cusaddr address
+        $sql="SELECT cusid id, cusname name, custel phone, custax taxno, cusaddr address
               FROM customer
               WHERE cusname  like '%".$_POST['qname']."%'";
             // echo $sql."<br>";
@@ -30,11 +30,12 @@ class Customer_Model extends Model {
         try {
             $this->db->beginTransaction();
 
-            $sql = "INSERT INTO customer(cusname, custel, cusaddr) VALUE(:name, :phone, :address);";
+            $sql = "INSERT INTO customer(cusname, custel, custax, cusaddr) VALUE(:name, :phone, :taxno, :address);";
             $stmt = $this->db->prepare($sql);
             $stmt->execute(array(
                 ':name'=>$_POST['name'],
                 ':phone'=>$_POST['phone'],
+                ':taxno'=>$_POST['taxno'],
                 ':address'=>$_POST['address']
                 ));
                 $last_id = $this->db->lastInsertId();
@@ -61,6 +62,7 @@ class Customer_Model extends Model {
             $sql = "UPDATE  customer
                     SET cusname = :name,
                         custel  = :phone,
+                        custax   = :taxno,
                         cusaddr = :address
                     WHERE cusid = :id";
 
@@ -68,6 +70,7 @@ class Customer_Model extends Model {
             $stmt->execute(array(
                 ':name'=>$_POST['name'],
                 ':phone'=>$_POST['phone'],
+                ':taxno'=>$_POST['taxno'],
                 ':address'=>$_POST['address'],
                 ':id'=>$_POST['id'],
                 ));

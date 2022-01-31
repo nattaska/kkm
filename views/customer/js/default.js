@@ -14,15 +14,17 @@
                 { data: 'id' },
                 { data: 'name' },
                 { data: 'phone' },
+                { data: 'taxno' },
                 { data: 'address' }, 
                 { sortable: false,
                   defaultContent: '<a id="edit" href="#" class="edit"><button '+disabled+' type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#modifyDataModel"><i class="fa fa-edit"></i></button></a>&nbsp;'+
                                   '<a id="delete" href="#" class="delete"><button '+disabled+' type="button" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i></button></a>' }
             ],
             columnDefs: [
-                { targets: [0, 4], "width": "15%", className: 'dt-center' },
-                { targets: [1, 2], "width": "15%", className: 'dt-left' },
-                { targets: [3], "visible": false }
+                { targets: [0, 5], "width": "10%", className: 'dt-center' },
+                { targets: [1], "width": "20%", className: 'dt-left' },
+                { targets: [2, 3], "width": "10%", className: 'dt-left' } //,
+                // { targets: [4], "visible": false }
             ]
         });
         
@@ -54,6 +56,7 @@
             $('#id').val('');
             $('#name').val('');
             $('#phone').val('');
+            $('#taxno').val('');
             $('#address').val('');
         });
  
@@ -67,6 +70,7 @@
             $('#id').val(data.id);
             $('#name').val(data.name);
             $('#phone').val(data.phone);
+            $('#taxno').val(data.taxno);
             $('#address').val(data.address);    
         });
  
@@ -125,13 +129,11 @@
             e.preventDefault();
         }).validate({
             rules: {
-                name: "required",
-                phone: "required"
+                name: "required"
             },
             // Specify validation error messages
             messages: {
-                name : "โปรดกรอกชื่อลูกค้า",
-                phone: "โปรดกรอกเบอร์ติดต่อลูกค้า"
+                name : "โปรดกรอกชื่อลูกค้า"
             },
             submitHandler: function(form) { 
                 var url = $(form).attr('action');
@@ -140,6 +142,7 @@
                 var id  = $('#id').val();
                 var name   = $('#name').val();
                 var phone = $('#phone').val();
+                var taxno = $('#taxno').val();
                 var address = $('#address').val();
                 var msg = "";
                 // alert(data);
@@ -152,7 +155,7 @@
                         if(url.indexOf('Insert') >= 0) {
                             id = o.id;
                         }
-                        var newdata = {"id":id, "name":name, "phone":phone, "address":address};
+                        var newdata = {"id":id, "name":name, "phone":phone, "taxno":taxno, "address":address};
                         newdata_arr.push(newdata);
 
                         if(url.indexOf('Insert') >= 0) {
