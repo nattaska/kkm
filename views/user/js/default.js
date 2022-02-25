@@ -236,8 +236,7 @@
                 var url = $(form).attr('action');
                 var data = $(form).serialize();
 
-                var sdate = $('#sdate').val();
-                var edate = $('#edate').val();
+                var code = $('#code').val();
                 var msg = "";
                 
                 $.post(url, data, function(o) {
@@ -248,7 +247,7 @@
                             code = o.code;
                         }
                         var newdata_arr = [];
-                        var newdata = { "code":$('#code').val(), "name":$('#name').val(), "nickname":$('#nickname').val(), "phone":$('#phone').val()
+                        var newdata = { "code":code, "name":$('#name').val(), "nickname":$('#nickname').val(), "phone":$('#phone').val()
                                     , "rolename":$('#rolcd option:selected').text(), "sdate":$('#sdate').val(), "edate":$('#edate').val()
                                     , "rolecode":$('#rolcd').val(), "email":$('#email').val(), "deptid":$('#dept').val(), "paytype":$("input[name='paytype']:checked"). val()
                                     , "paymethd":$('#paymethd').val(), "account":$('#account').val(), "paysso":$('#paysso').val()
