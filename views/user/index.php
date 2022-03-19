@@ -161,7 +161,17 @@
                                                                 </div>
                                                                 <div class="row form-group">
                                                                     <div class="col col-md-3"><label for="text-input" class=" form-control-label">Bank Account</label></div>
-                                                                    <div class="col-12 col-md-5"><input type="text" id="account" name="account" value="" class="form-control"></div>
+                                                                    <!-- <div class="col-12 col-md-5"><input type="text" id="account" name="account" value="" class="form-control"></div> -->
+                                                                    <div class="col col-md-5">
+                                                                        <select id="account" name="account">
+                                                                            <option value="">-- Please choose account --</option>
+                                                                            <?php 
+                                                                            foreach ($this->accounts as $account) {
+                                                                            ?>
+                                                                            <option value="<?php echo $account['code']; ?>"><?php echo $account['code']."[".$account['val2']."] : ".$account['descp']; ?></option>
+                                                                            <?php } ?>
+                                                                        </select>  
+                                                                    </div>
                                                                 </div>
                                                                 <div class="row form-group">
                                                                     <div class="col col-md-3"><label for="number-input" class=" form-control-label">ประกันสังคม</label></div>
