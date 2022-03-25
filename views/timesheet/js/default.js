@@ -20,7 +20,8 @@
                 { data: 'timstat' }, 
                 { sortable: false,
                   defaultContent: '<a id="edit" href="#" class="edit"><button '+disabled+' type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#modifyDataModel"><i class="fa fa-edit"></i></button></a>&nbsp;'+
-                                  '<a id="delete" href="#" class="delete"><button '+disabled+' type="button" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i></button></a>' }
+                                  '<a id="delete" href="#" class="delete"><button '+disabled+' type="button" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i></button></a>&nbsp;'+
+                                  '<a id="log" href="#" class="log"><button '+disabled+' type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#้logDataModel"><i class="fa fa-list-ul"></i></button></a>' }
             ],
             columnDefs: [
                 { targets: [2, 3, 4], "width": "15%", className: 'dt-center' },
@@ -128,10 +129,33 @@
 
         });
  
+        $('#table-data tbody').on( 'click', '.log', function () {
+            tableRow = table.row($(this).parents('tr'));
+            var data = tableRow.data();
+            // console.log(data.code);
+            // console.log(data.timdate);
+
+            $.post(module+'/xhrSearchTimesheetLogs', {'empcd': data.code, 'timdate': data.timdate}, function(o) {
+                // console.log(o);
+                $("#listTimeChecked").html("");
+                for (var i=0; i<o.length; i++) {
+                    $('#listTimeChecked').append('<tr>	'
+                                +'  <th scope="row">'+o[i].lcode+'</th> ' 
+                                +'  <th>'+o[i].name+'</th> ' 
+                                +'  <th>'+o[i].ltype+'</th> '
+                                +'  <th>'+o[i].ltime+'</th> '
+                                +'</tr>');
+                }
+                $('#loader').hide();
+            }, 'json');
+    
+        });
+ 
         $('#table-data tbody').on( 'click', '.edit', function () {
             tableRow = table.row($(this).parents('tr'));
             var data = tableRow.data();
-            // console.log(data.ordid);
+            // console.log(data.code);
+            // console.log(data.timdate);
 
             $("#modify-data-form").attr("action", $('#url').val()+module+'/xhrUpdate');
             $("#modifyDataModel #staticModalLabel").html("Edit Data");

@@ -103,6 +103,28 @@
                                 </div>
                             </div>
                         </div>
+
+                        <div class="modal fade" id="้logDataModel" tabindex="-1" role="dialog" aria-labelledby="staticModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-md" role="document">
+                                <div class="modal-content border border-info">
+                                    <div class="modal-header bg-info">
+                                        <h5 class="modal-title text-light" id="staticModalLabel">Timesheet Logs</h5>
+                                    </div>
+                                    <table class="table table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">#</th>
+                                                <th scope="col">Code</th>
+                                                <th scope="col">Type</th>
+                                                <th scope="col">Time</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="listTimeChecked">
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>                     
             </div>

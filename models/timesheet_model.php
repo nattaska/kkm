@@ -218,5 +218,30 @@ class Timesheet_Model extends Model {
         echo json_encode($data);
     }
 
+    function xhrSearchTimesheetLogs() {
+        
+        $date = new DateTime();
+        $empcd = $_POST['empcd'];
+        $pdate = (isset($_POST['timdate']))?$_POST['timdate']:date_format($date,"Y-m-d");
+        $userMenu = Session::get('userMenu');
+
+        $sql="SELECT ltimempcd lcode, usrnnm name, ltimtyp ltype, ltimtime ltime "
+            ."FROM timesheet_logs, user "
+            ."WHERE ltimempcd=usrcd "
+            ."AND ltimempcd=:empcd "
+            ."AND ltimdate=:pdate ";
+
+            // echo $sql."<br>";
+        $sth=$this->db->prepare($sql);
+
+        $sth->bindParam(':empcd', $empcd, PDO::PARAM_STR);
+        $sth->bindParam(':pdate', $pdate, PDO::PARAM_STR);
+        $sth->setFetchMode(PDO::FETCH_ASSOC);
+        $sth->execute();
+        $data = $sth->fetchAll();
+
+        echo json_encode($data);
+    }
+
 }
 ?>

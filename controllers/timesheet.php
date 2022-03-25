@@ -78,6 +78,10 @@ class Timesheet extends Controller {
         $this->model->xhrDayOff();
     }
 
+    function xhrSearchTimesheetLogs() {
+        $this->model->xhrSearchTimesheetLogs();
+    }
+
 }
 
 ?>
