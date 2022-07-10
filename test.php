@@ -11,7 +11,6 @@ $currentDate = strtotime(date("Y-m-d"))."<br>";
 
 // echo ($currentDate - $pastDate)/( 60 * 60 * 24 )."<br>";
 
-
 $date = new DateTime();
 echo date_format($date,"Y-m-d H:i:s")."<br>";
 echo date("Y-m-d H:i:s")."<br>";
