@@ -1,8 +1,0 @@
-{
-    "name": "kruakroomeuk/kkm",
-    "description": "Krua Kroo Meuk ERP",
-    "require": {
-        "php": ">=8.1.2",
-        "another-vendor/package": "1.*"
-    }
-}
