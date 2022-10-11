@@ -273,8 +273,8 @@ if (isset($_GET['saldate'])) {
                     <td style='text-align:left'>".$row["name"]."</td>
                     <td style='text-align:right'>".number_format($row["sal"])."</td>
                     <td style='text-align:right'>".number_format($row["sso"])."</td>
-                    <td style='text-align:right'>".number_format($row["otpay"])."</td>
-                    <td style='text-align:right'>".number_format($row["latepay"])."</td>
+                    <td style='text-align:right'>".number_format(($row["otpay"]>=$row["latepay"])?$row["otpay"]-$row["latepay"]:0)."</td>
+                    <td style='text-align:right'>".number_format(($row["otpay"]<$row["latepay"])?$row["latepay"]-$row["otpay"]:0)."</td>
                     <td style='text-align:right'>".number_format($row["advance"])."</td>
                     <td style='text-align:right'>".number_format($row["absence"])."</td>
                     <td style='text-align:right'>".number_format($total)."</td>
