@@ -256,7 +256,7 @@ if (isset($_GET['saldate'])) {
                     <th style='text-align:center'>OT</th>
                     <th style='text-align:center'>สาย</th>
                     <th style='text-align:center'>เบิก</th>
-                    <th style='text-align:center'>ลา</th>
+                    <th style='text-align:center'>ขาดงาน</th>
                     <th style='text-align:center'>รวม</th>                
                 </tr>
     <?php 
