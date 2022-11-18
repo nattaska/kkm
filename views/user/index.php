@@ -199,6 +199,7 @@
                                                                         <select id="calctyp" name="calctyp">
                                                                             <option value="1">10 AM. - 10 PM.</option>
                                                                             <option value="2">Shift work</option>
+                                                                            <option value="3">Part-Time</option>
                                                                         </select>  
                                                                     </div>
                                                                 </div>
