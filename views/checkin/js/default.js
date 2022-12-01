@@ -67,12 +67,12 @@
                     } else {
                         $("#msgMain").html('<div class="alert alert-danger"><button type="button" class="close">×</button><strong>Error!</strong> '+oc.error+'</div>');
                         $.closeAlert();
-                        console.log("Hide 70");
+                        // console.log("Hide 70");
                         $('#loader').hide();
                     }
                 }, 'json');
             }
-            console.log("Hide 76");
+            // console.log("Hide 76");
             // $('#loader').hide();
 
             return false;
