@@ -12,15 +12,15 @@ define('DB_TYPE', 'mysql');
 // define('DB_USER', 'IaMuYzAimD');
 // define('DB_PASS', 'RFJPNT0kiu');
 
-define('DB_HOST', 'db4free.net');
-define('DB_NAME', 'kkm_120360');
-define('DB_USER', 'kruakroomeuk');
-define('DB_PASS', 'kroomeuk120360');
+// define('DB_HOST', 'db4free.net');
+// define('DB_NAME', 'kkm_120360');
+// define('DB_USER', 'kruakroomeuk');
+// define('DB_PASS', 'kroomeuk120360');
 
-// define('DB_HOST', 'sql6.freemysqlhosting.net');
-// define('DB_NAME', 'sql6505169');
-// define('DB_USER', 'sql6505169');
-// define('DB_PASS', 'Gk1bIzfa9H');
+define('DB_HOST', 'sql6.freemysqlhosting.net');
+define('DB_NAME', 'sql6589252');
+define('DB_USER', 'sql6589252');
+define('DB_PASS', 'HRJRIEvfHI');
 
 // define('DB_HOST', 'fdb32.awardspace.net');
 // define('DB_NAME', '3933924_kkm');
